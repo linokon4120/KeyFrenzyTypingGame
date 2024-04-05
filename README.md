@@ -7,7 +7,7 @@ Semester: Spring 2024
 ## Team Information
 >1. Ellyn Ngo - Sophomore - Business Analytics and Computer Science
 >2. Rahul 
->3. Holiness - Sophomore - Computer Science and Engineering
+>3. Holiness
 >4. Hannah
 
 
