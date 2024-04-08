@@ -6,8 +6,8 @@ Instructor: Lily Romano, Joshua Stough
 Semester: Spring 2024
 ## Team Information
 >1. Ellyn Ngo - Sophomore - Business Analytics and Computer Science
->2. Rahul 
->3. Holiness
+>2. Rahul - Sophomore - Computer Science Major with Economics Minor
+>3. Holiness - Sophomore - Computer Science and Engineering 
 >4. Hannah
 
 
