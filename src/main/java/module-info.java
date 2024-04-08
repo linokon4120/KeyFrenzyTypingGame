@@ -5,4 +5,6 @@ module csci205_final_project {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    exports org.team11.GameView;
+    exports org.team11.GameModel;
 }

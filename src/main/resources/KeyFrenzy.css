@@ -1,0 +1,28 @@
+.root {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-pref-height: 600;
+    -fx-pref-width: 800;
+    -fx-background-color: linear-gradient(to bottom right,#f6fff8, #344e41);
+}
+
+/* Style for the gamePane */
+.game-pane {
+    -fx-background-color: #333333; /* Set background color */
+    -fx-pref-width: 600;
+    -fx-pref-height: 500;
+    -fx-padding: 20px; /* Add padding around the pane */
+}
+
+/* Style for the ghost circles */
+.ghost-circle {
+    -fx-fill: white; /* Set fill color for the circle */
+}
+
+/* Style for the ghost labels */
+.ghost-label {
+    -fx-font-family: "Arial"; /* Set font family */
+    -fx-font-size: 12px; /* Set font size */
+    -fx-text-fill: black; /* Set text color */
+}
