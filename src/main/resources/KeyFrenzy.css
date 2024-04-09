@@ -13,6 +13,7 @@
     -fx-pref-width: 600;
     -fx-pref-height: 500;
     -fx-padding: 20px; /* Add padding around the pane */
+    -fx-background-image: url("temporaryBackground.jpg");
 }
 
 /* Style for the ghost circles */
