@@ -9,11 +9,10 @@
 
 /* Style for the gamePane */
 .game-pane {
-    -fx-background-color: #333333; /* Set background color */
+    -fx-background-image: url("temporaryBackground.jpg");
     -fx-pref-width: 600;
     -fx-pref-height: 500;
     -fx-padding: 20px; /* Add padding around the pane */
-    -fx-background-image: url("temporaryBackground.jpg");
 }
 
 /* Style for the ghost circles */

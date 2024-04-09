@@ -28,16 +28,8 @@ import javafx.scene.text.Font;
 import org.team11.GameModel.Ghost;
 import org.team11.GameModel.KeyFrenzyModel;
 
-import javafx.animation.AnimationTimer;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import org.team11.GameModel.KeyFrenzyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +79,7 @@ public class KeyFrenzyView {
         mainCharacter = new Circle(20); // Radius of the circle
         mainCharacter.setFill(Color.RED); // Set fill color
         mainCharacter.getStyleClass().add("main-character");
-        // Position the main character in the middle of the gamePane
-//        double centerX = gamePane.getPrefWidth() / 2;
-//        double centerY = gamePane.getPrefHeight() / 2;
+
         mainCharacter.setLayoutX(300 - 20); // Adjust for circle radius
         mainCharacter.setLayoutY(500 - 20); // Adjust for circle radius
 
@@ -100,7 +90,7 @@ public class KeyFrenzyView {
 
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(gamePane);
-        // Start game animation loop
+
     }
 
 
