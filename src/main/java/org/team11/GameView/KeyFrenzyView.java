@@ -37,8 +37,6 @@ import java.util.Random;
 
 public class KeyFrenzyView {
     private final KeyFrenzyModel theModel;
-//    private Stage primaryStage;
-
     private VBox root;
     private FlowPane topPane;
     private Label labelMessageBanner;
@@ -48,12 +46,20 @@ public class KeyFrenzyView {
     private Circle mainCharacter;
 
 
+    /**
+     /**
+     * This is the "view" in the MVC design for the game Key Frenzy. A view class
+     * does nothing more than initializes all nodes for the scene graph for this view.
+     * @param theModel the model of the game logic.
+     */
     public KeyFrenzyView(KeyFrenzyModel theModel) {
         this.theModel = theModel;
-
         initSceneGraph();
     }
 
+    /**
+     * Initialize the entire scene graph
+     */
     public void initSceneGraph() {
         // Initialize the root pane
         this.root = new VBox();
@@ -64,12 +70,11 @@ public class KeyFrenzyView {
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
 
+
         // Create and configure the message banner
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
-
-
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
@@ -81,20 +86,18 @@ public class KeyFrenzyView {
         mainCharacter.getStyleClass().add("main-character");
 
         // Add the main character to the center cell
-        gamePane.add(mainCharacter, 10, 10);
+        gamePane.add(mainCharacter, 50, 50);
 
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
 
         this.root.getChildren().add(gamePane);
-
-
     }
 
 
 
     private void initializeGhosts() {
-
+        // This is just a random dictionary. I'm waiting for the dictionary class
         String[] words = {"Ghost", "Spooky", "Boo", "Haunt"};
 
         // Create and position four ghosts with words in the grid
@@ -105,18 +108,19 @@ public class KeyFrenzyView {
             ghost.getNode().getStyleClass().add("ghost-label");
 
             // Add each ghost to a specific cell in the grid
+            // TODO: Need to fix the location of the ghosts (currently not in middle)
             switch (i) {
                 case 0: // Top center
-                    gamePane.add(ghost.getNode(), 1, 0);
+                    gamePane.add(ghost.getNode(), 50, 0);
                     break;
                 case 1: // Bottom center
-                    gamePane.add(ghost.getNode(), 1, 2);
+                    gamePane.add(ghost.getNode(), 50, 70);
                     break;
                 case 2: // Left center
-                    gamePane.add(ghost.getNode(), 0, 1);
+                    gamePane.add(ghost.getNode(), 0, 40);
                     break;
                 case 3: // Right center
-                    gamePane.add(ghost.getNode(), 2, 1);
+                    gamePane.add(ghost.getNode(), 100, 40);
                     break;
             }
 

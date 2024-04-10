@@ -10,8 +10,10 @@
 /* Style for the gamePane */
 .game-pane {
     -fx-background-image: url("temporaryBackground.jpg");
-    -fx-pref-width: 700;
-    -fx-pref-height: 600;
+
+    -fx-background-size: cover;
+    -fx-background-position: center;
+
     -fx-padding: 20px; /* Add padding around the pane */
     -fx-hgap: 5;
     -fx-vgap: 5;
@@ -31,5 +33,9 @@
 
 /* Style for the ghost labels */
 .ghost-label {
+
+}
+
+.main-character {
 
 }
