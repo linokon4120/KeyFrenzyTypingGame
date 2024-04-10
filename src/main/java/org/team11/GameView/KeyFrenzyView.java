@@ -102,17 +102,24 @@ public class KeyFrenzyView {
 
     private void initializeGhosts() {
         // This is just a random dictionary. I'm waiting for the dictionary class
+        // TODO for Rahul: Please replace the String array below with the array list of 2-letter words
+        //  from your dict class and make them display on the ghosts
         String[] words = {"Ghost", "Spooky", "Boo", "Haunt"};
 
-        // Create and position four ghosts with words in the grid
+        // TODO another for Rahul: If done the above task, please figure out how each time the user
+        //  types something in the text field userTypeBox, if matches with what the ghost has, then destroy the ghosts
+
+
+        // Create and place four ghosts with words in the gamePane
         for (int i = 0; i < 4; i++) {
             Ghost ghost = new Ghost(words[i]);
-            // Apply CSS class to the ghost
             ghost.getNode().getStyleClass().add("ghost-circle");
             ghost.getNode().getStyleClass().add("ghost-label");
 
             // Add each ghost to a specific cell in the grid
-            // TODO: Need to fix the location of the ghosts (currently not in middle)
+            // TODO for Holiness: Need to fix the location of the ghosts below
+            //  (currently not in middle) and make them move into the middle of the gamePane
+
             switch (i) {
                 case 0: // Top center
                     gamePane.add(ghost.getNode(), 40, 0);
