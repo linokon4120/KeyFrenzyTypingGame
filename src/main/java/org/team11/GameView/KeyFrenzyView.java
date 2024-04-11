@@ -21,7 +21,6 @@ package org.team11.GameView;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
@@ -45,7 +44,6 @@ public class KeyFrenzyView {
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private Circle mainCharacter;
-    private TextField userTypeBox;
 
 
     /**
@@ -77,7 +75,6 @@ public class KeyFrenzyView {
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
-        this.userTypeBox = new TextField();
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
@@ -89,8 +86,7 @@ public class KeyFrenzyView {
         mainCharacter.getStyleClass().add("main-character");
 
         // Add the main character to the center cell
-        gamePane.add(mainCharacter, 40, 40);
-        gamePane.add(userTypeBox, 10, 10);
+        gamePane.add(mainCharacter, 50, 50);
 
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
@@ -117,10 +113,10 @@ public class KeyFrenzyView {
             // TODO: Need to fix the location of the ghosts (currently not in middle)
             switch (i) {
                 case 0: // Top center
-                    gamePane.add(ghost.getNode(), 40, 0);
+                    gamePane.add(ghost.getNode(), 50, 0);
                     break;
                 case 1: // Bottom center
-                    gamePane.add(ghost.getNode(), 40, 70);
+                    gamePane.add(ghost.getNode(), 50, 70);
                     break;
                 case 2: // Left center
                     gamePane.add(ghost.getNode(), 0, 40);

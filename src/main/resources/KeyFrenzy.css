@@ -11,7 +11,7 @@
 .game-pane {
     -fx-background-image: url("temporaryBackground.jpg");
 
-    -fx-background-size: cover;
+    -fx-background-size: 100% 100%; /*changes as we resize the grid */
     -fx-background-position: center;
 
     -fx-padding: 20px; /* Add padding around the pane */
@@ -37,5 +37,9 @@
 }
 
 .main-character {
+    -fx-main-character: url("tempoMainChar.png");
+    -fx-background-size: cover; /* Adjust the size of the background image */
+    -fx-background-position: center; /* Center the background image */
+    -fx-background-repeat: no-repeat;
 
 }
