@@ -25,7 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
 import org.team11.GameModel.Ghost;
 import org.team11.GameModel.KeyFrenzyModel;
 
@@ -86,11 +85,6 @@ public class KeyFrenzyView {
         mainCharacter.setFill(Color.RED); // Set fill color
         mainCharacter.getStyleClass().add("main-character");
 
-
-//        //The position of the main Character
-//        Screen.getPrimary();
-//        s
-
         // Add the main character to the center cell
         gamePane.add(mainCharacter, 50, 50);
 
@@ -108,19 +102,13 @@ public class KeyFrenzyView {
 
         // Create and position four ghosts with words in the grid
         for (int i = 0; i < 4; i++) {
-            Ghost ghost = new Ghost(words[i], 400);
-
+            Ghost ghost = new Ghost(words[i]);
             // Apply CSS class to the ghost
             ghost.getNode().getStyleClass().add("ghost-circle");
             ghost.getNode().getStyleClass().add("ghost-label");
 
             // Add each ghost to a specific cell in the grid
             // TODO: Need to fix the location of the ghosts (currently not in middle)
-
-
-            //Meant to move into the screen slowly and then increases the pace as we go from any of these 4 directions
-
-            //Starting ghost to be randomised
             switch (i) {
                 case 0: // Top center
                     gamePane.add(ghost.getNode(), 50, 0);
@@ -139,10 +127,6 @@ public class KeyFrenzyView {
             ghosts.add(ghost);
         }
     }
-
-
-
-
 
 
     public KeyFrenzyModel getTheModel() {
