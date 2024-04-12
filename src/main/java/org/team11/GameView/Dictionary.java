@@ -79,10 +79,10 @@ public class Dictionary {
 
         words = wordsbylength.get(this.key);
         // if the number of words needed at that level is more than what the dictionary has stored
+        //TODO Why do we hardcode to 16 and not other numbers?
         int numwords = 16; //hard coded to 16 words
         if (numwords >  words.size()){
             numwords = words.size();
-
         }
         //randomize the list
         Collections.shuffle(words);

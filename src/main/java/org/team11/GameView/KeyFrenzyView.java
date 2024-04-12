@@ -99,7 +99,7 @@ public class KeyFrenzyView {
     private void initializeGhosts() {
         Dictionary dictionary = new Dictionary();
 
-        // This is just a random dictionary. I'm waiting for the dictionary class
+        // Pulling words from the dictionary class
         String[] words = dictionary.getWords(3, 4).toArray(new String[0]);
 
         // Create and position four ghosts with words in the grid
