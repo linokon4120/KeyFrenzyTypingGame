@@ -5,19 +5,20 @@
     -fx-pref-height: 600;
     -fx-pref-width: 800;
     -fx-background-color: linear-gradient(to bottom right,#f6fff8, #344e41);
+
 }
 
 /* Style for the gamePane */
 .game-pane {
     -fx-background-image: url("temporaryBackground.jpg");
 
-    -fx-background-size: 100% 100%; /*changes as we resize the grid */
+    -fx-background-size: contain; /*changes as we resize the grid */
     -fx-background-position: center;
 
     -fx-padding: 20px; /* Add padding around the pane */
     -fx-hgap: 5;
     -fx-vgap: 5;
-    /*-fx-alignment: center;*/
+    -fx-alignment: center;
 }
 .current-score {
     -fx-font-size: 20;

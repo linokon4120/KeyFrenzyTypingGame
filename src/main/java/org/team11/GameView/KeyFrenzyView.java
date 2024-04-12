@@ -100,11 +100,11 @@ public class KeyFrenzyView {
         Dictionary dictionary = new Dictionary();
 
         // This is just a random dictionary. I'm waiting for the dictionary class
-        String[] words = dictionary.getwords(3, 4).toArray(new String[0]);
+        String[] words = dictionary.getWords(3, 4).toArray(new String[0]);
 
         // Create and position four ghosts with words in the grid
         for (int i = 0; i < 4; i++) {
-            Ghost ghost = new Ghost(words[i]);
+            Ghost ghost = new Ghost(words[i], 400);
             // Apply CSS class to the ghost
             ghost.getNode().getStyleClass().add("ghost-circle");
             ghost.getNode().getStyleClass().add("ghost-label");
