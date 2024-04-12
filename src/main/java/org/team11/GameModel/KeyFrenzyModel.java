@@ -30,7 +30,7 @@ public class KeyFrenzyModel {
     private Pane node;
 
     public KeyFrenzyModel() {
-        this.currentWord = generateRandomWord();
+
         this.score = 0;
         this.ghosts = new ArrayList<>();
 
@@ -59,19 +59,11 @@ public class KeyFrenzyModel {
         currentWord += typedCharacter;
     }
 
-    public void generateNewWord() {
-        // Generate a new random word for the next ghost
-        currentWord = generateRandomWord();
-    }
+
 
     public void incrementScore() {
         // Increment player's score when a ghost is destroyed
         score++;
     }
 
-    private String generateRandomWord() {
-        // Generate a random word for the ghost
-        String[] words = {"ghost", "spooky", "boo", "haunt", "scary"};
-        return words[new Random().nextInt(words.length)];
-    }
 }

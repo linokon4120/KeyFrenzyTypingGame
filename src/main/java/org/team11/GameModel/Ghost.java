@@ -67,12 +67,6 @@ public class Ghost {
         // This could involve changing the label's position over time
     }
 
-    private String generateRandomWord() {
-        // Example: Generate a random word for the ghost
-        String[] words = {"ghost", "spooky", "boo", "haunt", "scary"};
-        return words[new Random().nextInt(words.length)];
-    }
-
 
     // All getter methods:
 
