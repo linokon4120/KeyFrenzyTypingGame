@@ -18,27 +18,5 @@
  */
 package org.team11.GameController;
 
-import javafx.fxml.FXML;
-
-import java.awt.event.KeyEvent;
-
 public class KeyFrenzyController {
-
-    @FXML
-    protected void initialize() {
-
-
-
-    }
-
-
-    @FXML
-    protected void onPressingKey(KeyEvent e) {
-
-    }
-
-    private void gameOver() {
-
-    }
-
 }
