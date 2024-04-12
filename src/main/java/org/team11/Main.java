@@ -11,7 +11,7 @@ public class Main {
             System.out.println(dictionary.getwords());
             System.out.println(dictionary.getwords());
             System.out.println(dictionary.getwords());
-
+            System.out.println(dictionary.getwords(3,4));
 
     }
 }

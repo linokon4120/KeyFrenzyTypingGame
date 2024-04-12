@@ -35,7 +35,7 @@ public class KeyFrenzyModel {
         this.ghosts = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            this.ghosts.add(new Ghost("fake ghost"));
+            this.ghosts.add(new Ghost("fake ghost", 400));
         }
     }
 

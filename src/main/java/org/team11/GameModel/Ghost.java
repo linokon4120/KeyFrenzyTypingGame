@@ -33,8 +33,18 @@ public class Ghost {
     private Label label;
     private Pane node;
 
+    /** The x position of the ghosts */
+    private  int x;
 
-    public Ghost(String word) {
+    /** The y position of the ghosts */
+    private int y;
+
+    /** The initial speed of the ghost */
+    private final int initialSpeed = 3;
+
+
+
+    public Ghost(String word, int gridSize) {
         this.word = word;
         this.active = true;
 
@@ -51,24 +61,67 @@ public class Ghost {
         label.layoutXProperty().bind(circle.centerXProperty().subtract(label.widthProperty().divide(2)));
         label.layoutYProperty().bind(circle.centerYProperty().subtract(label.heightProperty().divide(2)));
 
+        //Initiating the starting position of the ghosts
+        Random random = new Random();
+        x = random.nextInt(gridSize);
+        y = random.nextInt(gridSize);
+
 
         // Create a new pane to contain the circle and label
         this.node = new Pane(circle, label);
     }
 
-    public void destroy() {
+
+
+    /* Ghost Mobility */
+
+    /**
+     * The ghosts move towards the position of the main character,
+     * collides when it is one box to the main character and the gif does its thing.
+     *
+     * @param mainCharacterX, the x position of the main character
+     * @param mainCharacterY, the y position of the main character
+     */
+    public void move(int mainCharacterX, int mainCharacterY ) {
+
+
+        int dx = Integer.compare(mainCharacterX, x);
+        int dy = Integer.compare(mainCharacterY, y);
+
+        //update the position of the ghost
+        if(Math.abs(dx) <= 1 && Math.abs(dy) <= 1 ){
+            x += dx;
+            y += dy;
+
+        }else{
+            //disintegrates when the ghost is one move to the main character
+            destroyGhost();
+        }
+
+
+
+    }
+
+    /**
+     * Makes the ghost disappear when the main character is hit
+     * or when the user types the words correctly
+     * */
+
+    public void destroyGhost() {
         active = false;
         label.setVisible(false); // Hide the ghost
     }
 
 
-    public void move() {
-        // Example: Implement movement logic towards the character
-        // This could involve changing the label's position over time
-    }
+    // TODO for sprint 3
+    public void increaseSpeed(){}
 
 
-    // All getter methods:
+
+
+    /*
+     All getter methods:
+    */
 
     public String getWord() {
         return word;
