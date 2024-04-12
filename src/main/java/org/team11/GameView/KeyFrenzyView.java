@@ -94,7 +94,7 @@ public class KeyFrenzyView {
         this.root.getChildren().add(gamePane);
     }
 
-
+// TODO Figure out the JavaFX game loop + Find the logic for keyRelease
 
     private void initializeGhosts() {
         Dictionary dictionary = new Dictionary();
