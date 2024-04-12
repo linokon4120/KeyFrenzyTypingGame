@@ -34,7 +34,6 @@ public class KeyFrenzyController {
     }
 
     public void initBindings() {
-
     }
 
     public void initEventHandlers() {

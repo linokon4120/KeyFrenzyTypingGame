@@ -108,7 +108,7 @@ public class KeyFrenzyView {
 
         // Create and position four ghosts with words in the grid
         for (int i = 0; i < 4; i++) {
-            Ghost ghost = new Ghost(words[i]);
+            Ghost ghost = new Ghost(words[i],80);
             // Apply CSS class to the ghost
             ghost.getNode().getStyleClass().add("ghost-circle");
             ghost.getNode().getStyleClass().add("ghost-label");
