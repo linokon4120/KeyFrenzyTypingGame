@@ -57,6 +57,7 @@ public class GameMain extends Application{
         primaryStage.sizeToScene();
         primaryStage.show();
 
+
     }
 }
 

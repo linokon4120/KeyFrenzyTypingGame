@@ -21,6 +21,7 @@ package org.team11.GameView;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
@@ -44,6 +45,7 @@ public class KeyFrenzyView {
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private Circle mainCharacter;
+    private TextField userTypeBox;
 
 
     /**
@@ -75,6 +77,7 @@ public class KeyFrenzyView {
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
+        this.userTypeBox = new TextField();
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
@@ -86,7 +89,8 @@ public class KeyFrenzyView {
         mainCharacter.getStyleClass().add("main-character");
 
         // Add the main character to the center cell
-        gamePane.add(mainCharacter, 50, 50);
+        gamePane.add(mainCharacter, 40, 40);
+        gamePane.add(userTypeBox, 10, 10);
 
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
@@ -94,17 +98,17 @@ public class KeyFrenzyView {
         this.root.getChildren().add(gamePane);
     }
 
-// TODO Figure out the JavaFX game loop + Find the logic for keyRelease
+
 
     private void initializeGhosts() {
         Dictionary dictionary = new Dictionary();
 
-        // Pulling words from the dictionary class
-        String[] words = dictionary.getWords(3, 4).toArray(new String[0]);
+        // This is just a random dictionary. I'm waiting for the dictionary class
+        String[] words = dictionary.getwords(3, 4).toArray(new String[0]);
 
         // Create and position four ghosts with words in the grid
         for (int i = 0; i < 4; i++) {
-            Ghost ghost = new Ghost(words[i], 400);
+            Ghost ghost = new Ghost(words[i],80);
             // Apply CSS class to the ghost
             ghost.getNode().getStyleClass().add("ghost-circle");
             ghost.getNode().getStyleClass().add("ghost-label");
@@ -113,10 +117,10 @@ public class KeyFrenzyView {
             // TODO: Need to fix the location of the ghosts (currently not in middle)
             switch (i) {
                 case 0: // Top center
-                    gamePane.add(ghost.getNode(), 50, 0);
+                    gamePane.add(ghost.getNode(), 40, 0);
                     break;
                 case 1: // Bottom center
-                    gamePane.add(ghost.getNode(), 50, 70);
+                    gamePane.add(ghost.getNode(), 40, 70);
                     break;
                 case 2: // Left center
                     gamePane.add(ghost.getNode(), 0, 40);

@@ -25,16 +25,19 @@
 package org.team11.GameView;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.Collections;
 
 public class Dictionary {
 
     private Map<Integer, List<String>> wordsbylength = new HashMap<>();
-    private static int key  = 2; //start off with 2-letter words
+    private static int key  = 2; //start off with 2 letter words
 
     public Dictionary() {
-      loadFileintoMap("src/main/resources/Dictionary");
+        loadFileintoMap("src/main/resources/Dictionary");
     }
 
 
@@ -51,7 +54,7 @@ public class Dictionary {
             e.printStackTrace();
         }
         //check if this loaded correctly and call print map
-       // printMap();
+        // printMap();
 
     }
 
@@ -60,7 +63,7 @@ public class Dictionary {
     }
 
     //get words based on the level and the number of words needed
-    public List<String> getWords(int level, int numwords){
+    public List<String> getwords(int level, int numwords){
         List<String> words;
         Integer key = level + 1; //because the first level starts with two letters
         words = wordsbylength.get(key);
@@ -74,15 +77,15 @@ public class Dictionary {
         return new ArrayList<>(words.subList(0, numwords));
 
     }
-    public List<String> getWords(){ //assume level keeps increasing everytime getWords() is called and only 16 words are returned
+    public List<String> getwords(){ //assume level keeps increasing everytime getwords is called and only 16 words are returned
         List<String> words;
 
         words = wordsbylength.get(this.key);
         // if the number of words needed at that level is more than what the dictionary has stored
-        //TODO Why do we hardcode to 16 and not other numbers?
         int numwords = 16; //hard coded to 16 words
         if (numwords >  words.size()){
             numwords = words.size();
+
         }
         //randomize the list
         Collections.shuffle(words);
