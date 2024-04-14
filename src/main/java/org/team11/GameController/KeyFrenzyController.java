@@ -73,37 +73,37 @@ public class KeyFrenzyController {
         }, 10, WordsSetting.WORD_DELAY);
     }
 
-    /**
-     * This method should evaluate the user input once they hit the
-     * enter key or space key
-     * @param e
-     */
-    @FXML
-    public void onKeyPressed(KeyEvent e) {
-        // If lost, ignore keystrokes
-        if (lose || dict == null) return;
 
-        // If the user presses the enter or space key
-        // TODO Currently only the enter key works, the space key is not working
-        if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE) {
-            // Submit word
-            String text = textInput.getText().trim().toLowerCase(Locale.ROOT);
-            GuessStatus guessStatus = dict.guess(text);
-
-            // Clear the box
-            textInput.setText("");
-
-            // Do stuff based on the guess
-            switch (guessStatus) {
-                case CORRECT:
-                    wordTimers.get(text).stop();
-                    wordTimers.remove(text);
-                    break;
-                case INVALID_WORD, WRONG:
-                    break;
-            }
-        }
-    }
+//    /**
+//     * This method should evaluate the user input once they hit the
+//     * enter key or space key
+//     * @param e
+//     */
+//    @FXML
+//    public void onKeyPressed(KeyEvent e) {
+//        // If lost, ignore keystrokes
+//        if (lose || dict == null) return;
+//
+//        // If the user presses the enter or space key
+//        if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE) {
+//            // Submit word
+//            String text = textInput.getText().trim().toLowerCase(Locale.ROOT);
+//            GuessStatus guessStatus = dict.guess(text);
+//
+//            // Clear the box
+//            textInput.setText("");
+//
+//            // Do stuff based on the guess
+//            switch (guessStatus) {
+//                case CORRECT:
+//                    wordTimers.get(text).stop();
+//                    wordTimers.remove(text);
+//                    break;
+//                case INVALID_WORD, WRONG:
+//                    break;
+//            }
+//        }
+//    }
 
     public void generateNewLabelOnGhost() {
         // Generate the new word

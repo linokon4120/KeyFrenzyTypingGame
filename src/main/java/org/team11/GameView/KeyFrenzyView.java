@@ -12,7 +12,9 @@
  * Package: org.team11.GameView
  * Class: KeyFrenzyView
  *
- * Description:
+ * Description: This is the main view class
+ * of the game, including every detail that will
+ * show up on the screen once hit Run in the GameMain
  *
  * **************************************
  */
@@ -78,15 +80,13 @@ public class KeyFrenzyView {
         gamePane = new GridPane();
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
-
-
         // Create and configure the message banner
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
         this.userTypeBox = new TextField();
         userTypeBox.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.SPACE) {
                 handleUserInput(userTypeBox.getText().trim());
                 userTypeBox.clear();
             }
@@ -146,14 +146,18 @@ public class KeyFrenzyView {
         }
     }
 
+    /**
+     * Handle the user input when prompted
+     * @param userInput the String input from user
+     */
     private void handleUserInput(String userInput) {
         for (Ghost ghost : ghosts) {
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
                 // Word matched, remove the ghost from the game pane
                 gamePane.getChildren().remove(ghost.getNode());
-                // Inform the controller about the correct word typed
+
 //                theController.onKeyPressed(user);
-                break; // Exit loop after finding the matching ghost
+                break;
             }
         }
     }
