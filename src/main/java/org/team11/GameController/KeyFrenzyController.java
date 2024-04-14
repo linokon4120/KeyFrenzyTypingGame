@@ -53,15 +53,15 @@ public class KeyFrenzyController {
     private Random rand;
 
     private boolean lose;
-    private Dictionary dict;
+    private Dictionary dict = new Dictionary();
 
     /**
      * Method that runs when the game starts
      */
     @FXML
-    protected void initialize() {
+    public void initialize() {
         // Create a new game and random instance
-//        game = new TyperGame();
+
         rand = new Random(System.currentTimeMillis());
 
         // Start a new game with the "lost" state being in false
@@ -72,15 +72,15 @@ public class KeyFrenzyController {
         globalAnimationTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-//                generateNewWord();
+                generateNewLabelOnGhost();
             }
         }, 10, WordsSetting.WORD_DELAY);
     }
 
     @FXML
-    protected void onKeyPressed(KeyEvent e) {
+    public void onKeyPressed(KeyEvent e) {
         // If lost, ignore keystrokes
-        if (lose) return;
+        if (lose || dict == null) return;
 
         // If the user presses the enter or space key
         if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE) {
@@ -108,7 +108,7 @@ public class KeyFrenzyController {
         }
     }
 
-    private void generateNewLabelOnGhost() {
+    public void generateNewLabelOnGhost() {
         // Generate the new word
         String word = dict.getwords().get(0);
 
@@ -130,7 +130,7 @@ public class KeyFrenzyController {
         wordTimers.put(word, new WordsTimer(wordTimer, text));
     }
 
-    private Text createAnimation(String word) {
+    public Text createAnimation(String word) {
         // Create the text object
         Text text = new Text(word);
         text.setFont(Font.font("Comic Sans MS" ,24));
@@ -138,6 +138,7 @@ public class KeyFrenzyController {
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
             // Get x and y coords of the word
+            wordPane = new Pane();
             double x = wordPane.getWidth();
             double y = rand.nextDouble() * wordPane.getHeight();
 
@@ -161,7 +162,7 @@ public class KeyFrenzyController {
         return text;
     }
 
-    private void gameOver() {
+    public void gameOver() {
         // Perform actions on the main thread
         Platform.runLater(() -> {
             // Stop all timers

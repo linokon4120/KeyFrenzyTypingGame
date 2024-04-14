@@ -22,10 +22,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import org.team11.GameController.KeyFrenzyController;
 import org.team11.GameModel.Ghost;
 import org.team11.GameModel.KeyFrenzyModel;
 
@@ -38,6 +41,7 @@ import java.util.Random;
 
 public class KeyFrenzyView {
     private final KeyFrenzyModel theModel;
+    private KeyFrenzyController theController;
     private VBox root;
     private FlowPane topPane;
     private Label labelMessageBanner;
@@ -56,6 +60,8 @@ public class KeyFrenzyView {
      */
     public KeyFrenzyView(KeyFrenzyModel theModel) {
         this.theModel = theModel;
+        this.theController = new KeyFrenzyController();
+        theController.initialize();
         initSceneGraph();
     }
 
@@ -78,6 +84,12 @@ public class KeyFrenzyView {
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
         this.userTypeBox = new TextField();
+        userTypeBox.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleUserInput(userTypeBox.getText().trim());
+                userTypeBox.clear();
+            }
+        });
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
@@ -131,6 +143,18 @@ public class KeyFrenzyView {
             }
 
             ghosts.add(ghost);
+        }
+    }
+
+    private void handleUserInput(String userInput) {
+        for (Ghost ghost : ghosts) {
+            if (ghost.getWord().equalsIgnoreCase(userInput)) {
+                // Word matched, remove the ghost from the game pane
+                gamePane.getChildren().remove(ghost.getNode());
+                // Inform the controller about the correct word typed
+//                theController.onKeyPressed(user);
+                break; // Exit loop after finding the matching ghost
+            }
         }
     }
 
