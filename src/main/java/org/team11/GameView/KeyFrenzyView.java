@@ -20,17 +20,11 @@
  */
 package org.team11.GameView;
 
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import org.team11.GameController.KeyFrenzyController;
 import org.team11.GameModel.Ghost;
 import org.team11.GameModel.KeyFrenzyModel;
@@ -40,11 +34,10 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class KeyFrenzyView {
     private final KeyFrenzyModel theModel;
-    private KeyFrenzyController theController;
+    private final KeyFrenzyController theController;
     private VBox root;
     private FlowPane topPane;
     private Label labelMessageBanner;
