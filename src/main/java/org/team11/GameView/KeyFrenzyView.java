@@ -28,6 +28,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import org.team11.GameController.KeyFrenzyController;
 import org.team11.GameModel.Ghost;
 import org.team11.GameModel.KeyFrenzyModel;
@@ -106,7 +107,6 @@ public class KeyFrenzyView {
 
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
-
         this.root.getChildren().add(gamePane);
     }
 

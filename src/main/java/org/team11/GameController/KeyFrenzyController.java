@@ -35,8 +35,6 @@ import org.team11.TypingMechanism.*;
 import org.team11.GameView.Dictionary;
 
 public class KeyFrenzyController {
-    @FXML
-    public Text infoText;
 
     @FXML
     public TextField textInput;
@@ -47,8 +45,6 @@ public class KeyFrenzyController {
     private final Map<String, WordsTimer> wordTimers = new HashMap<>();
 
     private Timer globalAnimationTimer;
-
-//    private TyperGame game;
 
     private Random rand;
 
@@ -77,12 +73,18 @@ public class KeyFrenzyController {
         }, 10, WordsSetting.WORD_DELAY);
     }
 
+    /**
+     * This method should evaluate the user input once they hit the
+     * enter key or space key
+     * @param e
+     */
     @FXML
     public void onKeyPressed(KeyEvent e) {
         // If lost, ignore keystrokes
         if (lose || dict == null) return;
 
         // If the user presses the enter or space key
+        // TODO Currently only the enter key works, the space key is not working
         if (e.getCode() == KeyCode.ENTER || e.getCode() == KeyCode.SPACE) {
             // Submit word
             String text = textInput.getText().trim().toLowerCase(Locale.ROOT);
@@ -94,15 +96,10 @@ public class KeyFrenzyController {
             // Do stuff based on the guess
             switch (guessStatus) {
                 case CORRECT:
-                    infoText.setText("Typed " + text + " | Score: " + dict.getScore());
                     wordTimers.get(text).stop();
                     wordTimers.remove(text);
                     break;
-                case INVALID_WORD:
-                    infoText.setText(text + " is not a valid word!");
-                    break;
-                case WRONG:
-                    infoText.setText(text + " is not on the screen!");
+                case INVALID_WORD, WRONG:
                     break;
             }
         }
