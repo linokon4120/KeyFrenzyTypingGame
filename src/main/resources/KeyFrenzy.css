@@ -24,7 +24,8 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
-    -fx-font-family: ;
+    /*// TODO: Fix this*/
+    -fx-font-family: Serif;
 }
 /* Style for the ghost circles */
 .ghost-circle {
