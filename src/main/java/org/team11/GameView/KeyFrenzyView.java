@@ -40,7 +40,7 @@ public class KeyFrenzyView {
     private final KeyFrenzyModel theModel;
 
     // TODO fix the controller problem :(
-    private final KeyFrenzyController theController;
+    private final org.team11.GameView.KeyFrenzyController theController;
     private VBox root;
     private FlowPane topPane;
     private Label labelMessageBanner;
@@ -62,7 +62,7 @@ public class KeyFrenzyView {
      */
     public KeyFrenzyView(KeyFrenzyModel theModel) {
         this.theModel = theModel;
-        this.theController = new KeyFrenzyController();
+        this.theController = new org.team11.GameView.KeyFrenzyController();
         theController.initialize();
         initSceneGraph();
         initializeAnimationTimer();
