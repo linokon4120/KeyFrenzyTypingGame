@@ -82,11 +82,11 @@ public class Ghost {
      * @param mainCharacterX, the x position of the main character
      * @param mainCharacterY, the y position of the main character
      */
-    public void move(int mainCharacterX, int mainCharacterY ) {
+    public void move(double mainCharacterX, double mainCharacterY ) {
 
 
-        int dx = Integer.compare(mainCharacterX, x);
-        int dy = Integer.compare(mainCharacterY, y);
+        double dx = Double.compare(mainCharacterX, x);
+        double dy = Double.compare(mainCharacterY, y);
 
         //update the position of the ghost
         if(Math.abs(dx) <= 1 && Math.abs(dy) <= 1 ){
@@ -135,4 +135,11 @@ public class Ghost {
         return node;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

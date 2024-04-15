@@ -24,15 +24,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.shape.Circle;
-import org.team11.GameController.KeyFrenzyController;
+//import org.team11.GameController.KeyFrenzyController;
 import org.team11.GameModel.Ghost;
 import org.team11.GameModel.KeyFrenzyModel;
 
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import org.team11.GameModel.MainCharacter;
+import javafx.animation.AnimationTimer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class KeyFrenzyView {
@@ -44,8 +45,11 @@ public class KeyFrenzyView {
     private Label currentScore;
     private GridPane gamePane;
     private List<Ghost> ghosts;
-    private Circle mainCharacter;
+    private MainCharacter mainCharacter;
     private TextField userTypeBox;
+
+    private AnimationTimer animationTimer;
+    private GhostTimerMovement ghostTimer;
 
 
     /**
@@ -59,7 +63,10 @@ public class KeyFrenzyView {
         this.theController = new KeyFrenzyController();
         theController.initialize();
         initSceneGraph();
+        initializeAnimationTimer();
     }
+
+
 
     /**
      * Initialize the entire scene graph
@@ -74,6 +81,47 @@ public class KeyFrenzyView {
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
         // Create and configure the message banner
+        configuringMessageBanner();
+
+        ghostTimer = new GhostTimerMovement();
+
+
+        // Initialize ghosts
+        this.ghosts = new ArrayList<>();
+        initializeGhosts();
+
+        //Initialise the main Character
+        initializeMainCharacter();
+
+
+        //Adding the text box to the game
+        gamePane.add(userTypeBox, 10, 10);
+
+
+
+        this.root.getChildren().add(labelMessageBanner);
+        this.root.getChildren().add(currentScore);
+        this.root.getChildren().add(gamePane);
+    }
+
+    /**
+     * Initialises the main character and adds it to the center of the grid pane
+     */
+    private void initializeMainCharacter() {
+        // Create and position the main character (circle) in the center cell
+        mainCharacter = new MainCharacter();
+
+        //Adding the main character to the center of the game
+        gamePane.add(mainCharacter.getNode(), 39, 33);
+        mainCharacter.getNode().getStyleClass().add("main-character");
+
+    }
+
+
+    /**
+     * Adds the message banner into the home screen of the came
+     */
+    private void configuringMessageBanner() {
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
@@ -84,23 +132,21 @@ public class KeyFrenzyView {
                 userTypeBox.clear();
             }
         });
+    }
 
-        // Initialize ghosts
-        this.ghosts = new ArrayList<>();
-        initializeGhosts();
+    /**
+     * Enables ghost mobility
+     */
+    private void initializeAnimationTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                ghostTimer.handle(now);
 
-        // Create and position the main character (circle) in the center cell
-        mainCharacter = new Circle(20); // Radius of the circle
-        mainCharacter.setFill(Color.RED); // Set fill color
-        mainCharacter.getStyleClass().add("main-character");
+            }
+        };
 
-        // Add the main character to the center cell
-        gamePane.add(mainCharacter, 40, 40);
-        gamePane.add(userTypeBox, 10, 10);
-
-        this.root.getChildren().add(labelMessageBanner);
-        this.root.getChildren().add(currentScore);
-        this.root.getChildren().add(gamePane);
+        animationTimer.start();
     }
 
 
@@ -109,7 +155,7 @@ public class KeyFrenzyView {
         Dictionary dictionary = new Dictionary();
 
         // This is just a random dictionary. I'm waiting for the dictionary class
-        String[] words = dictionary.getwords(3, 4).toArray(new String[0]);
+        String[] words = dictionary.getWords(3, 4).toArray(new String[0]);
 
         // Create and position four ghosts with words in the grid
         for (int i = 0; i < 4; i++) {
@@ -139,6 +185,55 @@ public class KeyFrenzyView {
         }
     }
 
+    /*
+    Animation timer and Ghost mobility
+     */
+
+    private class GhostTimerMovement extends AnimationTimer{
+
+        private static final double COLLISION_DISTANCE = 10;
+
+        @Override
+        public void handle(long now) {
+
+            double mainCharacterX = mainCharacter.getNode().getLayoutX();
+            double mainCharacterY = mainCharacter.getNode().getLayoutY();
+            moveAllGhosts(mainCharacterX, mainCharacterY);
+
+            //Check for collisions with the main character
+            checkCollisions(mainCharacterX, mainCharacterY);
+        }
+
+
+
+        private double calculateDistance(double gX, double gY, double mcX, double mcY){
+            return Math.sqrt(Math.pow(gX - mcX, 2)+ Math.pow(gY-mcY ,2));
+        }
+
+        private void moveAllGhosts(double mainCharacterX, double mainCharacterY) {
+            for (Ghost ghost : ghosts){
+                ghost.move(mainCharacterX, mainCharacterY);
+            }
+        }
+
+        private void checkCollisions(double mainCharacterX, double mainCharacterY) {
+            Iterator <Ghost> iterate = ghosts.iterator();
+
+            while (iterate.hasNext()){
+                Ghost ghost = iterate.next();
+                double distance = calculateDistance(ghost.getX(), ghost.getY(), mainCharacterX, mainCharacterY);
+
+                if(distance <= COLLISION_DISTANCE) {
+                    //Destroy Ghost
+                    iterate.remove();
+                    destroy(ghost);
+
+                }
+
+            }
+        }
+    }
+
     /**
      * Handle the user input when prompted
      * @param userInput the String input from user
@@ -147,12 +242,18 @@ public class KeyFrenzyView {
         for (Ghost ghost : ghosts) {
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
                 // Word matched, remove the ghost from the game pane
-                gamePane.getChildren().remove(ghost.getNode());
+                destroy(ghost);
+
+                //TODO Update the score
 
 //                theController.onKeyPressed(user);
                 break;
             }
         }
+    }
+
+    private void destroy(Ghost ghost) {
+        gamePane.getChildren().remove(ghost.getNode());
     }
 
 

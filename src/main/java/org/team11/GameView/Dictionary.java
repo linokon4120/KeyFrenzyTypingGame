@@ -27,10 +27,7 @@ package org.team11.GameView;
 import org.team11.TypingMechanism.GuessStatus;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.Collections;
 
 public class Dictionary {
@@ -42,13 +39,13 @@ public class Dictionary {
     private Random rand;
 
     public Dictionary() {
-        loadFileintoMap("src/main/resources/Dictionary");
+        loadFileIntoMap("src/main/resources/Dictionary");
     }
 
 
     // Loads the first 100 lines from the dictionary file
 
-    private void loadFileintoMap(String filename){
+    private void loadFileIntoMap(String filename){
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -56,6 +53,7 @@ public class Dictionary {
                 wordsbylength.computeIfAbsent(length, k -> new ArrayList<>()).add(line);
             }
         } catch (IOException e) {
+            System.err.println("Error in loading the file");
             e.printStackTrace();
         }
         //check if this loaded correctly and call print map
@@ -68,7 +66,7 @@ public class Dictionary {
     }
 
     //get words based on the level and the number of words needed
-    public List<String> getwords(int level, int numwords){
+    public List<String> getWords(int level, int numwords){
         List<String> words;
         Integer key = level + 1; //because the first level starts with two letters
         words = wordsbylength.get(key);
@@ -82,7 +80,7 @@ public class Dictionary {
         return new ArrayList<>(words.subList(0, numwords));
 
     }
-    public List<String> getwords(){ //assume level keeps increasing everytime getwords is called and only 16 words are returned
+    public List<String> getWords(){ //assume level keeps increasing everytime getwords is called and only 16 words are returned
         List<String> words;
 
         words = wordsbylength.get(this.key);

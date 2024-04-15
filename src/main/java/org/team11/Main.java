@@ -7,11 +7,11 @@ public class Main {
             Dictionary dictionary = new Dictionary();
             // Update the file path below with the correct path to your dictionary file
 
-            System.out.println(dictionary.getwords());
-            System.out.println(dictionary.getwords());
-            System.out.println(dictionary.getwords());
-            System.out.println(dictionary.getwords());
-            System.out.println(dictionary.getwords(3,4));
+            System.out.println(dictionary.getWords());
+            System.out.println(dictionary.getWords());
+            System.out.println(dictionary.getWords());
+            System.out.println(dictionary.getWords());
+            System.out.println(dictionary.getWords(3,4));
 
     }
 }

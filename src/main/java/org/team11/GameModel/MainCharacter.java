@@ -21,6 +21,8 @@ package org.team11.GameModel;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.List;
+
 public class MainCharacter {
     private Circle node;
 
@@ -44,12 +46,13 @@ public class MainCharacter {
      */
 
     public void setPosition(double centerX, double centerY){
-        //Calculate the position relative to the centre of game pane
+        // Calculate the position relative to the top-left corner of the game pane
         double x = centerX - node.getRadius();
         double y = centerY - node.getRadius();
 
-        //Set the position of the main character
+        // Set the position of the main character
         node.setLayoutX(x);
         node.setLayoutY(y);
     }
+
 }
