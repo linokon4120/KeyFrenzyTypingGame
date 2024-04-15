@@ -28,7 +28,7 @@ import org.team11.GameView.KeyFrenzyView;
 public class GameMain extends Application{
     private KeyFrenzyModel theModel;
     private KeyFrenzyView theView;
-    private KeyFrenzyController theController;
+  //  private KeyFrenzyController theController;
 
 
     public static void main(String[] args) {launch(args);}
@@ -42,17 +42,22 @@ public class GameMain extends Application{
     }
     @Override
     public void start(Stage primaryStage) {
+
         Scene scene = new Scene(theView.getRoot());
+
+
+
 //         Attach a CSS file for styling our app
         scene.getStylesheets().add(
                 getClass().getResource("/KeyFrenzy.css")
                         .toExternalForm());
-        this.theController = new KeyFrenzyController(this.theModel, this.theView);
+        //this.theController = new KeyFrenzyController(this.theModel, this.theView);
 
         primaryStage.setTitle("Key Frenzy Typing Game");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.show();
+
 
     }
 }

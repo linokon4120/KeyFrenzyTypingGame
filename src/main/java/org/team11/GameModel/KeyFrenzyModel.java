@@ -29,16 +29,41 @@ public class KeyFrenzyModel {
     private final ArrayList<Ghost> ghosts;
     private Pane node;
 
+    /**
+     * A constructor for the KeyFrenzyModel class.
+     */
     public KeyFrenzyModel() {
-        this.currentWord = generateRandomWord();
+
         this.score = 0;
         this.ghosts = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            this.ghosts.add(new Ghost("fake ghost"));
+            this.ghosts.add(new Ghost("fake ghost", 400));
         }
     }
 
+
+
+    /**
+     * Updates the current word based on typed characters
+     */
+    public void updateCurrentWord(String typedCharacter) {
+        currentWord += typedCharacter;
+    }
+
+
+    /**
+     * Increases the score when a ghost is destroyed
+     */
+    public void incrementScore() {
+        score++;
+    }
+
+
+
+    /*
+   Getters for the model class
+    */
     public String getCurrentWord() {
         return currentWord;
     }
@@ -54,24 +79,4 @@ public class KeyFrenzyModel {
         return node;
     }
 
-    public void updateCurrentWord(String typedCharacter) {
-        // Update the current word based on typed characters
-        currentWord += typedCharacter;
-    }
-
-    public void generateNewWord() {
-        // Generate a new random word for the next ghost
-        currentWord = generateRandomWord();
-    }
-
-    public void incrementScore() {
-        // Increment player's score when a ghost is destroyed
-        score++;
-    }
-
-    private String generateRandomWord() {
-        // Generate a random word for the ghost
-        String[] words = {"ghost", "spooky", "boo", "haunt", "scary"};
-        return words[new Random().nextInt(words.length)];
-    }
 }
