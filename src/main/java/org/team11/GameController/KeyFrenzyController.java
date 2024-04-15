@@ -3,7 +3,7 @@
  * Spring 2024
  * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Holiness Kerandi
+ * Name: Ellyn Ngo
  * Section: 02
  * Date: 4/15/24
  * Time: 12:51 AM
