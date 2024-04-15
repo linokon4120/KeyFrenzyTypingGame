@@ -112,12 +112,6 @@ public class Ghost {
         label.setVisible(false); // Hide the ghost
     }
 
-    private String generateRandomWord() {
-        // Example: Generate a random word for the ghost
-        String[] words = {"ghost", "spooky", "boo", "haunt", "scary"};
-        return words[new Random().nextInt(words.length)];
-    }
-
 
     // TODO for sprint 3
     public void increaseSpeed(){}
