@@ -205,6 +205,7 @@ public class KeyFrenzyView {
     private List<Ghost> ghosts;
     private MainCharacter mainCharacter;
     private TextField userTypeBox;
+    private Dictionary dictionary;
 
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
@@ -220,8 +221,18 @@ public class KeyFrenzyView {
         this.theModel = theModel;
         this.theController = new org.team11.GameView.KeyFrenzyController();
         theController.initialize();
+        dictionary = new Dictionary();
         initSceneGraph();
-        initializeAnimationTimer();
+//        initializeAnimationTimer();
+
+
+        // Get the dimensions of the GridPane
+        double gridPaneWidth = gamePane.getWidth();
+        double gridPaneHeight = gamePane.getHeight();
+
+        // Calculate the center coordinates of the GridPane
+        double centerX = gridPaneWidth / 2.0;
+        double centerY = gridPaneHeight / 2.0;
     }
 
 
@@ -284,6 +295,8 @@ public class KeyFrenzyView {
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
         this.userTypeBox = new TextField();
+
+        // TODO Modify how we handle the user input to regenerate a new ghost
         userTypeBox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.SPACE) {
                 handleUserInput(userTypeBox.getText().trim());
@@ -312,7 +325,7 @@ public class KeyFrenzyView {
      * Initialises the ghosts and maps them into the game pane
      */
     private void initializeGhosts() {
-        Dictionary dictionary = new Dictionary();
+
 
         // This is just a random dictionary. I'm waiting for the dictionary class
         String[] words = dictionary.getWords(3, 4).toArray(new String[0]);
@@ -407,7 +420,7 @@ public class KeyFrenzyView {
                 Ghost ghost = iterate.next();
                 double distance = calculateDistance(ghost.getX(), ghost.getY(), mainCharacterX, mainCharacterY);
 
-                if(distance <= COLLISION_DISTANCE) {
+                if (distance <= COLLISION_DISTANCE) {
                     //Destroy Ghost
                     iterate.remove();
                     destroy(ghost);
@@ -427,28 +440,32 @@ public class KeyFrenzyView {
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
-
                 //TODO Update the score
-
-//                theController.onKeyPressed(user);
                 break;
+            }
+            if (!ghost.isActive()) {
+
+                // This is just a random dictionary. I'm waiting for the dictionary class
+                String[] words = dictionary.getWords(3, 4).toArray(new String[0]);
+
+                Ghost ghostNew = new Ghost(words[0],80);
+                // Apply CSS class to the ghost
+                ghost.getNode().getStyleClass().add("ghost-circle");
+                ghost.getNode().getStyleClass().add("ghost-label");
+                gamePane.getChildren().add(ghost.getNode());
             }
         }
     }
-
 
     /**
      * Makes the Ghosts disappear from the game pane,
      * @param ghost ,the ghost to be destroyed
      */
-    private void destroy(Ghost ghost) {
+    public void destroy(Ghost ghost) {
         gamePane.getChildren().remove(ghost.getNode());
     }
 
 
-    /*
-    Getter methods
-     */
     public KeyFrenzyModel getTheModel() {
         return theModel;
     }

@@ -44,9 +44,6 @@ public class GameMain extends Application{
     public void start(Stage primaryStage) {
 
         Scene scene = new Scene(theView.getRoot());
-
-
-
 //         Attach a CSS file for styling our app
         scene.getStylesheets().add(
                 getClass().getResource("/KeyFrenzy.css")
