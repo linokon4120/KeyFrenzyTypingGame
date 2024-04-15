@@ -5,11 +5,12 @@
     -fx-pref-height: 600;
     -fx-pref-width: 800;
     -fx-background-color: #0d0b33;
+    -fx-text-fill: #ffffff;
 }
 
 /* Style for the gamePane */
 .game-pane {
-    -fx-background-image: url("animation/background.png");
+    -fx-background-image: url("animation/background1.png");
 
     -fx-background-size: 800 600;
     -fx-background-position: center center;
@@ -24,11 +25,11 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
-    /*// TODO: Fix this*/
-    -fx-font-family: Serif;
+
 }
 /* Style for the ghost circles */
 .ghost-circle {
+    -fx-background-image: url("animation/ghost.gif");
     -fx-fill: white; /* Set fill color for the circle */
     -fx-font-family: "Arial"; /* Set font family */
     -fx-font-size: 12px; /* Set font size */
