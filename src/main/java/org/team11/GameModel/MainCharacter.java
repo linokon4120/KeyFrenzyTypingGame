@@ -26,12 +26,13 @@ import java.util.List;
 public class MainCharacter {
     private Circle node;
 
+    /**
+     * Creates the main character
+     */
     public MainCharacter() {
 
-        // Create Main Character
         node = new Circle(20);
         node.setFill(Color.RED);
-
 
     }
 
@@ -39,6 +40,7 @@ public class MainCharacter {
         return node;
     }
 
+    //TODO :Fix the position even after the ghosts appear and disappear
     /**
      * Sets the position of the main Character
      * @param centerX x co-ordinate of the main character

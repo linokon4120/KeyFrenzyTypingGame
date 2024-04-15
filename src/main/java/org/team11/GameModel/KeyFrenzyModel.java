@@ -29,6 +29,9 @@ public class KeyFrenzyModel {
     private final ArrayList<Ghost> ghosts;
     private Pane node;
 
+    /**
+     * A constructor for the KeyFrenzyModel class.
+     */
     public KeyFrenzyModel() {
 
         this.score = 0;
@@ -39,6 +42,28 @@ public class KeyFrenzyModel {
         }
     }
 
+
+
+    /**
+     * Updates the current word based on typed characters
+     */
+    public void updateCurrentWord(String typedCharacter) {
+        currentWord += typedCharacter;
+    }
+
+
+    /**
+     * Increases the score when a ghost is destroyed
+     */
+    public void incrementScore() {
+        score++;
+    }
+
+
+
+    /*
+   Getters for the model class
+    */
     public String getCurrentWord() {
         return currentWord;
     }
@@ -52,18 +77,6 @@ public class KeyFrenzyModel {
     }
     public Node getNode() {
         return node;
-    }
-
-    public void updateCurrentWord(String typedCharacter) {
-        // Update the current word based on typed characters
-        currentWord += typedCharacter;
-    }
-
-
-
-    public void incrementScore() {
-        // Increment player's score when a ghost is destroyed
-        score++;
     }
 
 }

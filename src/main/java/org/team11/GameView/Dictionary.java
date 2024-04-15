@@ -43,7 +43,9 @@ public class Dictionary {
     }
 
 
-    // Loads the first 100 lines from the dictionary file
+    /**
+     * Loads the first 100 lines from the dictionary file
+     */
 
     private void loadFileIntoMap(String filename){
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -65,7 +67,10 @@ public class Dictionary {
         System.out.println(wordsbylength.toString());
     }
 
-    //get words based on the level and the number of words needed
+    /**
+     * Get words based on the level and the number of words needed
+     */
+
     public List<String> getWords(int level, int numwords){
         List<String> words;
         Integer key = level + 1; //because the first level starts with two letters
@@ -80,7 +85,7 @@ public class Dictionary {
         return new ArrayList<>(words.subList(0, numwords));
 
     }
-    public List<String> getWords(){ //assume level keeps increasing everytime getwords is called and only 16 words are returned
+    public List<String> getWords(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
         List<String> words;
 
         words = wordsbylength.get(this.key);
@@ -136,11 +141,6 @@ public class Dictionary {
         // If not in the dictionary, return an "invalid word" response
         return GuessStatus.INVALID_WORD;
     }
-
-
-
-
-
 
 }
 

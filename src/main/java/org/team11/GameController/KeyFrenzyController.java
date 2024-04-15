@@ -1,68 +1,69 @@
-/* ***************************************
+/* *****************************************
  * CSCI 205 - Software Engineering and Design
  * Spring 2024
  * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Ellyn Ngo
+ * Name: Holiness Kerandi
  * Section: 02
- * Date: 4/12/2024
- * Time: 2:37 PM
+ * Date: 4/15/24
+ * Time: 12:51 AM
  *
  * Project: csci205_final_project
- * Package: org.team11.GameController
+ * Package: org.team11.GameView
  * Class: KeyFrenzyController
  *
  * Description:
  *
- * **************************************
+ * ****************************************
  */
+package org.team11.GameView;
 
-package org.team11.GameController;
+
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.*;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.team11.TypingMechanism.WordsSetting;
+import org.team11.TypingMechanism.WordsTimer;
 
 import java.util.*;
-import org.team11.TypingMechanism.*;
-import org.team11.GameView.Dictionary;
 
 public class KeyFrenzyController {
-
     @FXML
     public TextField textInput;
-
     @FXML
     public Pane wordPane;
-
     private final Map<String, WordsTimer> wordTimers = new HashMap<>();
-
     private Timer globalAnimationTimer;
-
     private Random rand;
-
     private boolean lose;
     private Dictionary dict = new Dictionary();
+
 
     /**
      * Method that runs when the game starts
      */
     @FXML
     public void initialize() {
-        // Create a new game and random instance
 
+        // Create a new game and random instance
         rand = new Random(System.currentTimeMillis());
 
         // Start a new game with the "lost" state being in false
         lose = false;
+        addStartGameButton();
 
         // Create a timer that will create a new word every 5 seconds
         globalAnimationTimer = new Timer();
+
         globalAnimationTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -71,6 +72,17 @@ public class KeyFrenzyController {
         }, 10, WordsSetting.WORD_DELAY);
     }
 
+    /**
+     * A button that prompts the user to start the game
+     */
+    private void addStartGameButton(){
+        Button start = new Button("Press Start Game ");
+        start.setOnAction( event -> startGame());
+    }
+
+    public void startGame() {
+        System.out.println("Game Started");
+    }
 
 //    /**
 //     * This method should evaluate the user input once they hit the

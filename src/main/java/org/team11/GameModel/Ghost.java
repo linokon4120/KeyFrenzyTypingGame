@@ -42,12 +42,25 @@ public class Ghost {
     /** The initial speed of the ghost */
     private final int initialSpeed = 3;
 
-
+    /**
+     * A Constructor for the ghost class
+     */
 
     public Ghost(String word, int gridSize) {
         this.word = word;
         this.active = true;
 
+        initializeGhost(word, gridSize);
+    }
+
+    /**
+     * Creates and positions the words on the ghost and the ghost on the game pane
+     * @param word, the word to be typed by the player
+     * @param gridSize, the size of the game pane
+     *
+     */
+
+    private void initializeGhost(String word, int gridSize) {
         // Create a circle for the ghost
         Circle circle = new Circle(20); // Radius of the circle
         circle.setFill(Color.YELLOW); // Set fill color
@@ -62,6 +75,7 @@ public class Ghost {
         label.layoutYProperty().bind(circle.centerYProperty().subtract(label.heightProperty().divide(2)));
 
         //Initiating the starting position of the ghosts
+        //TODO :To be fixed(sourtous the grid size)
         Random random = new Random();
         x = random.nextInt(gridSize);
         y = random.nextInt(gridSize);
