@@ -41,6 +41,8 @@ public class KeyFrenzyView {
     private FlowPane topPane;
     private Label labelMessageBanner;
     private Label currentScore;
+    private Label timeSpent;
+    private Label userName;
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private Circle mainCharacter;
@@ -69,12 +71,16 @@ public class KeyFrenzyView {
         gamePane = new GridPane();
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
-
-
         // Create and configure the message banner
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
-        currentScore = new Label("Current Score: ");
+        currentScore = new Label("Current Score: "); // current score already added
         this.currentScore.getStyleClass().add("current-score");
+
+        // Add labels to update metric: scores, time remaining, and user name
+        timeSpent = new Label("Time Spent:");
+        this.currentScore.getStyleClass().add("time-spent");
+        userName = new Label();
+        this.userName.getStyleClass().add("user-name"); //skele, not finished
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
