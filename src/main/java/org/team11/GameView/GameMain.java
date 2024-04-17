@@ -19,11 +19,15 @@
 package org.team11.GameView;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.team11.GameModel.KeyFrenzyModel;
 import org.team11.GameView.KeyFrenzyView;
+
+import java.io.IOException;
 
 public class GameMain extends Application{
     private KeyFrenzyModel theModel;
@@ -41,7 +45,17 @@ public class GameMain extends Application{
         this.theView = new KeyFrenzyView(this.theModel);
     }
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
+
+//        // Load the FXML file. Obtain the root of the scene graph
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("/fxml/startGameMenu.fxml")); // TODO this is only the start menu
+//        Parent root = loader.load();
+//
+//        // Set up the stage and show it
+//        primaryStage.setTitle("Hello FXML!");
+//        primaryStage.setScene(new Scene(root));
+//        primaryStage.show();
 
         Scene scene = new Scene(theView.getRoot());
 //         Attach a CSS file for styling our app
