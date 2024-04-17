@@ -12,7 +12,7 @@
 .game-pane {
     -fx-background-image: url("temporaryBackground.jpg");
 
-    -fx-background-size: contain; /*changes as we resize the grid */
+    -fx-background-size: 360 360 ; /*changes as we resize the grid */
     -fx-background-position: center;
 
     -fx-padding: 20px; /* Add padding around the pane */
