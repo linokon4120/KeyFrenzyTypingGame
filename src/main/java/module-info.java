@@ -7,4 +7,8 @@ module csci205_final_project {
     requires javafx.fxml;
     exports org.team11.GameView;
     exports org.team11.GameModel;
+
+
+    opens org.team11 to javafx.fxml;
+
 }
