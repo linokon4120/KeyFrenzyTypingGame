@@ -37,6 +37,6 @@
          </font>
       </Label>
       <TextField fx:id="textFieldUserName" alignment="CENTER" minWidth="-Infinity" prefWidth="20.0" />
-      <Button fx:id="buttonStartGame" mnemonicParsing="false" text="Start Game" />
+      <Button fx:id="buttonStartGame" onAction="#onStartButtonClick" mnemonicParsing="false" text="Start Game" />
    </children>
 </VBox>

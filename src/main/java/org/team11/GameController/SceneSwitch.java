@@ -22,12 +22,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.team11.GameModel.KeyFrenzyModel;
 import org.team11.GameView.GameMain;
+import org.team11.GameView.KeyFrenzyView;
 
 import java.io.IOException;
 
 public class SceneSwitch {
-    private SceneSwitch() {}
+
+    private static KeyFrenzyModel theModel;
+    private static KeyFrenzyView theView;
+
+    private SceneSwitch() {
+        this.theModel = new KeyFrenzyModel();
+        this.theView = new KeyFrenzyView(this.theModel);
+    }
 
     public static <T> T change(Node node, String page) throws IOException {
         return change(node, page, 320, 240, "Typer");
@@ -45,6 +54,24 @@ public class SceneSwitch {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+        return fxmlLoader.getController();
+    }
+
+    public <T> T changeToGame(Node node, String page, int width, int height, String title) throws IOException {
+        Stage primaryStage = (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(GameMain.class.getResource(page));
+                Scene scene = new Scene(theView.getRoot());
+
+        // Attach CSS to style the game view
+        scene.getStylesheets().add(
+                getClass().getResource("/KeyFrenzy.css")
+                        .toExternalForm());
+        //this.theController = new KeyFrenzyController(this.theModel, this.theView);
+
+        primaryStage.setTitle("Key Frenzy Typing Game");
+        primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
+        primaryStage.show();
         return fxmlLoader.getController();
     }
 

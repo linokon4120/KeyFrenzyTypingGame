@@ -10,6 +10,7 @@ module csci205_final_project {
     exports org.team11.GameController;
 
 
-    opens org.team11 to javafx.fxml;
+    opens org.team11.GameController to javafx.fxml;
+    opens org.team11.GameView to javafx.fxml;
 
 }
