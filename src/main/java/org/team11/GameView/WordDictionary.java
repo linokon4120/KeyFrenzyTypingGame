@@ -10,7 +10,7 @@
  *
  * Project: csci205_final_project
  * Package: org.team11.GameView
- * Class: Dictionary
+ * Class: WordDictionary
  *
  * Description: this class reads the dictionary and puts it in a map with the
  * key = length of the words and the value are all the words of that length
@@ -27,19 +27,27 @@ package org.team11.GameView;
 import org.team11.TypingMechanism.GuessStatus;
 
 import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Collections;
 
-public class Dictionary {
+public class WordDictionary {
 
     private Map<Integer, List<String>> wordsbylength = new HashMap<>();
     private static int key  = 2; //start off with 2-letter words
     private Set<String> currentWords;
+    private List<String> dictionary;
     private int score;
     private Random rand;
 
-    public Dictionary() {
+    public WordDictionary() {
+
+
         loadFileIntoMap("src/main/resources/Dictionary");
+        score = 0;
+        rand = new Random(System.currentTimeMillis());
+        currentWords = new HashSet<>();
     }
 
 
@@ -50,7 +58,9 @@ public class Dictionary {
     private void loadFileIntoMap(String filename){
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
+            dictionary = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
+                dictionary.add(line);
                 int length = line.length();
                 wordsbylength.computeIfAbsent(length, k -> new ArrayList<>()).add(line);
             }
@@ -85,41 +95,30 @@ public class Dictionary {
         return new ArrayList<>(words.subList(0, numwords));
 
     }
-    public List<String> getWords(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
-        List<String> words;
-
-        words = wordsbylength.get(this.key);
-        // if the number of words needed at that level is more than what the dictionary has stored
-        int numwords = 16; //hard coded to 16 words
-        if (numwords >  words.size()){
-            numwords = words.size();
-
-        }
-        //randomize the list
-        Collections.shuffle(words);
-        this.key ++; //because the level gets incremented each time the get words method is called
-
-        return new ArrayList<>(words.subList(0, numwords));
+    public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
+//        List<String> words;
+//
+//        words = wordsbylength.get(this.key);
+//        // if the number of words needed at that level is more than what the dictionary has stored
+//        int numwords = 16; //hard coded to 16 words
+//        if (numwords >  words.size()){
+//            numwords = words.size();
+//
+//        }
+//        //randomize the list
+//        Collections.shuffle(words);
+//        this.key ++; //because the level gets incremented each time the get words method is called
+//
+//        return new ArrayList<>(words.subList(0, numwords));
+        String word;
+        do {
+            int num = rand.nextInt(dictionary.size());
+            word = dictionary.get(num);
+        } while (currentWords.contains(word));
+        currentWords.add(word);
+        return word;
 
     }
-
-    public int getScore() {
-        return score;
-    }
-
-//    /**
-//     * Generate a new word from the dictionary
-//     * @return Valid word
-//     */
-//    public String newWord() {
-//        String word;
-//        do {
-//            int num = rand.nextInt(dictionary.size());
-//            word = dictionary.get(num);
-//        } while (currentWords.contains(word));
-//        currentWords.add(word);
-//        return word;
-//    }
 
     /**
      * Makes an attempt to the type a word on the screen
@@ -128,19 +127,19 @@ public class Dictionary {
      */
     public GuessStatus guess(String text) {
         if (currentWords.contains(text)) {
-            // If the guess is correct, increment the score and remove that word
+            // If the guess is correct, increase the score and remove that word
             score++;
             currentWords.remove(text);
             return GuessStatus.CORRECT;
-
-//        } else if (dictionary.contains(text)) {
-//            // Otherwise, check if the word is in the dictionary
-//            return GuessStatus.WRONG;
-
         }
-        // If not in the dictionary, return an "invalid word" response
+        // If not in the dictionary
         return GuessStatus.INVALID_WORD;
     }
+
+    public int getScore() {
+        return score;
+    }
+
 
 }
 

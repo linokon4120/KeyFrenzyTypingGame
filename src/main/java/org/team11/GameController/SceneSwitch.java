@@ -19,23 +19,18 @@
 package org.team11.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.team11.GameModel.KeyFrenzyModel;
 import org.team11.GameView.GameMain;
-import org.team11.GameView.KeyFrenzyView;
 
 import java.io.IOException;
 
 public class SceneSwitch {
 
-    private static KeyFrenzyModel theModel;
     private static KeyFrenzyView theView;
 
     private SceneSwitch() {
-        this.theModel = new KeyFrenzyModel();
-        this.theView = new KeyFrenzyView(this.theModel);
+//        this.theView = new KeyFrenzyView();
     }
 
     public static <T> T change(Node node, String page) throws IOException {

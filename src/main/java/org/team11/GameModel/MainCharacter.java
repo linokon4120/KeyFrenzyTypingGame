@@ -18,6 +18,11 @@
  */
 package org.team11.GameModel;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -25,14 +30,24 @@ import java.util.List;
 
 public class MainCharacter {
     private Circle node;
+    private String name;
+    private GridPane gridPane;
+    private Label timeSpentLabel;
+    private Label userNicknameLabel;
+    private TextField userTypeBox;
 
     /**
      * Creates the main character
      */
-    public MainCharacter() {
+    public MainCharacter(String name, GridPane gridPane, Label timeSpentLabel, Label userNicknameLabel) {
 
-        node = new Circle(20);
-        node.setFill(Color.RED);
+//        node = new Circle(20);
+//        node.setFill(Color.RED);
+        this.name = name;
+        this.gridPane = gridPane;
+        this.timeSpentLabel = timeSpentLabel;
+        this.userNicknameLabel = userNicknameLabel;
+//        setListeners();
 
     }
 
@@ -55,6 +70,25 @@ public class MainCharacter {
         // Set the position of the main character
         node.setLayoutX(x);
         node.setLayoutY(y);
+    }
+
+//    private void setListeners() {
+//        setOnMouseClicked(event -> {
+//            Label nicknameLabel = new Label(name);
+//            nicknameLabel.getStyleClass().add("nickname-label");
+//            nicknameLabel.setLayoutX(getLayoutX() - nicknameLabel.getPrefWidth() / 2 + getWidth() / 2);
+//            nicknameLabel.setLayoutY(getLayoutY() - nicknameLabel.getPrefHeight());
+//            gridPane.getChildren().add(nicknameLabel);
+//        });
+//    }
+
+    public void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.SPACE) {
+            // Handle user input
+            // For example:
+            String userInput = userTypeBox.getText().trim();
+            userTypeBox.clear();
+        }
     }
 
 }
