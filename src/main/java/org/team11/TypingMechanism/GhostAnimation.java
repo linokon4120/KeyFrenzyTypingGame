@@ -5,12 +5,12 @@
  *
  * Name: Ellyn Ngo
  * Section: 02
- * Date: 4/13/2024
- * Time: 8:28 PM
+ * Date: 4/17/2024
+ * Time: 2:50 PM
  *
  * Project: csci205_final_project
- * Package: org.team11.GameController
- * Class: WordsTimer
+ * Package: org.team11.TypingMechanism
+ * Class: GhostAnimation
  *
  * Description:
  *
@@ -20,14 +20,15 @@ package org.team11.TypingMechanism;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import org.team11.GameView.Ghost;
 
 import java.util.Timer;
 
-public class WordsTimer {
+public class GhostAnimation {
     public Timer timer;
     public Text text;
 
-    public WordsTimer(Timer timer, Text text) {
+    public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
         this.text = text;
     }
@@ -38,4 +39,5 @@ public class WordsTimer {
         if (text != null)
             ((Pane) text.getParent()).getChildren().remove(text);
     }
+
 }

@@ -11,8 +11,4 @@ public enum GuessStatus {
      */
     INVALID_WORD,
 
-    /**
-     * If the word is not in the current words list
-     */
-    WRONG,
 }

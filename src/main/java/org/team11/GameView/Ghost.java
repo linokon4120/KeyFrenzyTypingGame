@@ -16,7 +16,7 @@
  *
  * **************************************
  */
-package org.team11.GameModel;
+package org.team11.GameView;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
