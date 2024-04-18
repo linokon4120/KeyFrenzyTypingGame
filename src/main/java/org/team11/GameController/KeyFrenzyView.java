@@ -187,15 +187,7 @@ public class KeyFrenzyView {
         }
 
         if (!matchFound) {
-            // Generate a new ghost
-            String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
-            Ghost ghostNew = new Ghost(words[0], 80);
-            // Apply CSS class to the ghost
-            ghostNew.getNode().getStyleClass().add("ghost-circle");
-            ghostNew.getNode().getStyleClass().add("ghost-label");
-            // Add the new ghost to the list of ghosts and the game pane
-            ghosts.add(ghostNew);
-            gamePane.getChildren().add(ghostNew.getNode());
+
         }
     }
 
@@ -255,7 +247,7 @@ public class KeyFrenzyView {
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
+        String[] words = wordDictionary.getWords(3, 2).toArray(new String[0]);
 
         Ghost ghost1 = new Ghost(words[0],80);
         Ghost ghost2 = new Ghost(words[1],80);

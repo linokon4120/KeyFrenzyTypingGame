@@ -53,21 +53,11 @@ public class GameMain extends Application{
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-//        Scene scene = new Scene(theView.getRoot());
-////         Attach a CSS file for styling our app
-//        scene.getStylesheets().add(
-//                getClass().getResource("/KeyFrenzy.css")
-//                        .toExternalForm());
-//        //this.theController = new KeyFrenzyController(this.theModel, this.theView);
-//
-//        primaryStage.setTitle("Key Frenzy Typing Game");
-//        primaryStage.setScene(scene);
-//        primaryStage.sizeToScene();
-//        primaryStage.show();
+
 
 
     }
 }
- //TODO: Clock is 15 minutes
+
 
 

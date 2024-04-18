@@ -31,13 +31,13 @@ import java.util.List;
 
 public class GhostTimerMovement extends AnimationTimer {
 
-    /** Distance by which the ghost will disintegrate if it is close to the main character*/
+    /**
+     * Distance by which the ghost will disintegrate if it is close to the main character
+     */
     private static final double COLLISION_DISTANCE = 1;
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private KeyFrenzyView theView;
-
-
 
 
     @Override
@@ -50,15 +50,15 @@ public class GhostTimerMovement extends AnimationTimer {
         // Calculate the center coordinates of the GridPane
         double centerX = gridPaneWidth / 2.0;
         double centerY = gridPaneHeight / 2.0;
-        System.out.println("Centre X: "+ centerX);
+        System.out.println("Centre X: " + centerX);
         System.out.println("Centre Y:" + centerY);
 
-        moveAllGhosts(centerX, centerY);
 
         //Check for collisions with the main character
-        checkCollisions(centerX, centerY);
+
     }
 
+}
 
     /**
      * Calculates the ghost distance form the main character's distance
@@ -69,11 +69,7 @@ public class GhostTimerMovement extends AnimationTimer {
      * @return the vector distance between the ghost and main character
      */
 
-    private double calculateDistance(double gX, double gY, double mcX, double mcY){
-        double distance = Math.sqrt(Math.pow(gX - mcX, 2)+ Math.pow(gY-mcY ,2));
-        System.out.println("Distances:" + distance);
-        return distance;
-    }
+
 
 
     /**
@@ -82,32 +78,3 @@ public class GhostTimerMovement extends AnimationTimer {
      * @param mainCharacterY , y position of the main character
      */
 
-    private void moveAllGhosts(double mainCharacterX, double mainCharacterY) {
-        for (Ghost ghost : ghosts){
-            ghost.move(mainCharacterX, mainCharacterY);
-        }
-    }
-
-    /**
-     * Checks how far the ghosts are from the main character and destroys the ghost if
-     * the ghost is within the collision distance
-     * @param centerX,  x position of the main character
-     * @param centerY,  y position of the main character
-     */
-    private void checkCollisions(double centerX, double centerY) {
-
-        Iterator<Ghost> iterator = ghosts.iterator();
-
-        while (iterator.hasNext()) {
-
-            Ghost ghost = iterator.next();
-            double distance = calculateDistance(ghost.getX(), ghost.getY(), centerX, centerY);
-
-            if (distance <= COLLISION_DISTANCE) {
-                // Remove the ghost from the game pane
-                iterator.remove();
-                theView.destroy(ghost);
-            }
-        }
-    }
-}

@@ -99,40 +99,14 @@ public class Ghost {
      * @param mainCharacterX, the x position of the main character
      * @param mainCharacterY, the y position of the main character
      */
-    public void move(double mainCharacterX, double mainCharacterY) {
-        // Calculate the direction vector towards the main character
-        double dx = mainCharacterX - x;
-        double dy = mainCharacterY - y;
-        double distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Update the position of the ghost if it's not too close to the main character
-        if (distance > MOVEMENT_AMOUNT) {
-            // Normalize the direction vector
-            dx /= distance;
-            dy /= distance;
-
-            // Calculate the movement amount for this update
-            double moveX = dx * MOVEMENT_AMOUNT;
-            double moveY = dy * MOVEMENT_AMOUNT;
-
-            // Update the position of the ghost
-            x += moveX;
-            y += moveY;
-        } else {
-            // Ghost disintegrates when it's close to the main character
-            destroyGhost();
-        }
-    }
 
 
     /**
      * Makes the ghost disappear
      * */
 
-    public void destroyGhost() {
-        active = false;
-        label.setVisible(false); // Hide the ghost
-    }
+
 
 
 
