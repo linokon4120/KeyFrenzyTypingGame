@@ -63,26 +63,31 @@ public class Ghost {
     private void initializeGhost(String word, int gridSize) {
         // Create a circle for the ghost
         Circle circle = new Circle(20); // Radius of the circle
-        circle.setFill(Color.YELLOW); // Set fill color
+        circle.setFill(Color.rgb(163, 255, 214)); // Set fill color to transparent
+
+        // Set background image using CSS
+        //circle.setStyle("-fx-background-image: url('" + getClass().getResource("resources/animation/ghost.gif").toExternalForm() + "'); " + "-fx-background-size: cover;");
 
         // Create a label for the word
         Label label = new Label(word);
-        label.setFont(Font.font("Arial", 12));
-        label.setTextFill(Color.BLACK);
+        label.setFont(Font.font("Futura", 12));
+        label.setTextFill(Color.rgb(163, 255, 214));
 
-        // Position the label at the center of the circle
+        // Position the label at the top of the circle
         label.layoutXProperty().bind(circle.centerXProperty().subtract(label.widthProperty().divide(2)));
-        label.layoutYProperty().bind(circle.centerYProperty().subtract(label.heightProperty().divide(2)));
+        label.layoutYProperty().bind(circle.centerYProperty().subtract(circle.radiusProperty()).subtract(label.heightProperty()));
 
-        //Initiating the starting position of the ghosts
-        //TODO :To be fixed(sourtous the grid size)
+        // Initiating the starting position of the ghosts
+        // TODO: To be fixed (ensure within grid size)
         Random random = new Random();
-        x = random.nextInt(gridSize);
-        y = random.nextInt(gridSize);
-
+        int x = random.nextInt(gridSize);
+        int y = random.nextInt(gridSize);
 
         // Create a new pane to contain the circle and label
-        this.node = new Pane(circle, label);
+        Pane pane = new Pane(circle, label);
+
+        // Set the node
+        this.node = pane;
     }
 
 
