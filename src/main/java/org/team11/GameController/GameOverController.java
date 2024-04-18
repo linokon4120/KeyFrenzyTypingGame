@@ -20,10 +20,16 @@ package org.team11.GameController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Dictionary;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import org.team11.GameView.WordDictionary;
 
 public class GameOverController {
 
@@ -35,16 +41,23 @@ public class GameOverController {
     @FXML
     private Text textGameOver;
 
+    @FXML
+    public Text scoreText;
+
 
     @FXML
     private Button buttonPlayAgain;
 
     @FXML
     private Button buttonQuitGame;
+
+    @FXML
+    private WordDictionary dict;
+
     @FXML
     protected void onRestartButtonClick() throws IOException {
         // When the start button is clicked, go to the game view
-        SceneSwitch.change(textGameOver, "startGameMenu.fxml", 1000, 800, "Typer [In Game]");
+        SceneSwitch.change(textGameOver, "welcomeMenu.fxml", 1000, 800, "Typer [In Game]");
     }
 
     @FXML
@@ -52,6 +65,22 @@ public class GameOverController {
         assert buttonPlayAgain != null : "fx:id=\"buttonPlayAgain\" was not injected: check your FXML file 'gameOverView.fxml'.";
         assert buttonQuitGame != null : "fx:id=\"buttonQuitGame\" was not injected: check your FXML file 'gameOverView.fxml'.";
 
+    }
+
+    protected void transferData(WordDictionary dict) {
+        // Set the game to an instance variable
+        this.dict = dict;
+
+        // Get the score from the game
+        scoreText.setText("Score: " + dict.getScore());
+
+        // Enable the "restart" button after 1 second
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> buttonPlayAgain.setDisable(false));
+            }
+        }, 1000);
     }
 
 }

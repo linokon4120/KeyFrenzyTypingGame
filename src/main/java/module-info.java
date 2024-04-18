@@ -6,7 +6,6 @@ module csci205_final_project {
     requires javafx.controls;
     requires javafx.fxml;
     exports org.team11.GameView;
-    exports org.team11.GameModel;
     exports org.team11.GameController;
 
 

@@ -24,7 +24,7 @@ package org.team11.GameView;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.GridPane;
-import org.team11.GameModel.Ghost;
+import org.team11.GameController.KeyFrenzyView;
 
 import java.util.Iterator;
 import java.util.List;
