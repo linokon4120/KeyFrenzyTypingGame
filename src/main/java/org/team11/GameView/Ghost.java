@@ -28,19 +28,17 @@ import javafx.scene.shape.Circle;
 import java.util.Random;
 
 public class Ghost {
+    private static final double MOVEMENT_AMOUNT = 1;
     private String word;
     private boolean active;
     private Label label;
     private Pane node;
 
     /** The x position of the ghosts */
-    private  int x;
+    private  double x;
 
     /** The y position of the ghosts */
-    private int y;
-
-    /** The initial speed of the ghost */
-    private final int initialSpeed = 3;
+    private double y;
 
     /**
      * A Constructor for the ghost class
@@ -101,39 +99,40 @@ public class Ghost {
      * @param mainCharacterX, the x position of the main character
      * @param mainCharacterY, the y position of the main character
      */
-    public void move(double mainCharacterX, double mainCharacterY ) {
+    public void move(double mainCharacterX, double mainCharacterY) {
+        // Calculate the direction vector towards the main character
+        double dx = mainCharacterX - x;
+        double dy = mainCharacterY - y;
+        double distance = Math.sqrt(dx * dx + dy * dy);
 
+        // Update the position of the ghost if it's not too close to the main character
+        if (distance > MOVEMENT_AMOUNT) {
+            // Normalize the direction vector
+            dx /= distance;
+            dy /= distance;
 
-        double dx = Double.compare(mainCharacterX, x);
-        double dy = Double.compare(mainCharacterY, y);
+            // Calculate the movement amount for this update
+            double moveX = dx * MOVEMENT_AMOUNT;
+            double moveY = dy * MOVEMENT_AMOUNT;
 
-        //update the position of the ghost
-        if(Math.abs(dx) <= 1 && Math.abs(dy) <= 1 ){
-            x += dx;
-            y += dy;
-
-        }else{
-            //disintegrates when the ghost is one move to the main character
+            // Update the position of the ghost
+            x += moveX;
+            y += moveY;
+        } else {
+            // Ghost disintegrates when it's close to the main character
             destroyGhost();
         }
-
-
-
     }
 
+
     /**
-     * Makes the ghost disappear when the main character is hit
-     * or when the user types the words correctly
+     * Makes the ghost disappear
      * */
 
     public void destroyGhost() {
         active = false;
         label.setVisible(false); // Hide the ghost
     }
-
-
-    // TODO for sprint 3
-    public void increaseSpeed(){}
 
 
 
@@ -154,11 +153,11 @@ public class Ghost {
         return node;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 }

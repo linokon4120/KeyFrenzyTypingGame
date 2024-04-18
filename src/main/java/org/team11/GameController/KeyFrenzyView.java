@@ -66,18 +66,21 @@ public class KeyFrenzyView {
     private double paneWidth = 800;
     private double paneHeight = 600;
 
+    /**Variable to check the score*/
+    private int score;
+
 
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
 
 
     /**
-     /**
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
     public KeyFrenzyView(String username) {
         this.userName = username;
+        score = 0;
 
         wordDictionary = new WordDictionary();
 
@@ -165,26 +168,39 @@ public class KeyFrenzyView {
      * @param userInput the String input from user
      */
     private void handleUserInput(String userInput) {
-        for (Ghost ghost : ghosts) {
+        boolean matchFound = false;
+        Iterator<Ghost> iterator = ghosts.iterator();
+        while (iterator.hasNext()) {
+            Ghost ghost = iterator.next();
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
-//                wordTimers.get(userInput).stop();
-//                wordTimers.remove(userInput);
-                //TODO Update the score
+                iterator.remove();
+                matchFound = true;
+
+
+                // Update the score
+                score += 10;
+                updateScoreLabel();
                 break;
             }
-            if (!ghost.isActive()) {
-
-                String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
-
-                Ghost ghostNew = new Ghost(words[0],80);
-                // Apply CSS class to the ghost
-                ghost.getNode().getStyleClass().add("ghost-circle");
-                ghost.getNode().getStyleClass().add("ghost-label");
-                gamePane.getChildren().add(ghost.getNode());
-            }
         }
+
+        if (!matchFound) {
+            // Generate a new ghost
+            String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
+            Ghost ghostNew = new Ghost(words[0], 80);
+            // Apply CSS class to the ghost
+            ghostNew.getNode().getStyleClass().add("ghost-circle");
+            ghostNew.getNode().getStyleClass().add("ghost-label");
+            // Add the new ghost to the list of ghosts and the game pane
+            ghosts.add(ghostNew);
+            gamePane.getChildren().add(ghostNew.getNode());
+        }
+    }
+
+    private void updateScoreLabel() {
+        currentScore.setText("Current Score: " + String.valueOf(score));
     }
 
 
