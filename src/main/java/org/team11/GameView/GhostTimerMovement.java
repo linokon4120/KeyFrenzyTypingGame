@@ -26,7 +26,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.layout.GridPane;
 import org.team11.GameController.KeyFrenzyView;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class GhostTimerMovement extends AnimationTimer {
@@ -60,21 +59,4 @@ public class GhostTimerMovement extends AnimationTimer {
 
 }
 
-    /**
-     * Calculates the ghost distance form the main character's distance
-     * @param gX, ghost X Position
-     * @param gY, ghost Y position
-     * @param mcX,  x position of the main character
-     * @param mcY  y position of the main character
-     * @return the vector distance between the ghost and main character
-     */
-
-
-
-
-    /**
-     * Moves the ghosts to wards the main character
-     * @param mainCharacterX , x position of the main character
-     * @param mainCharacterY , y position of the main character
-     */
 

@@ -26,11 +26,10 @@ package org.team11.GameView;
 
 import org.team11.TypingMechanism.GuessStatus;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
-import java.util.Collections;
 
 public class WordDictionary {
 
@@ -68,14 +67,13 @@ public class WordDictionary {
             System.err.println("Error in loading the file");
             e.printStackTrace();
         }
-        //check if this loaded correctly and call print map
-        // printMap();
 
     }
 
-    private void printMap(){
-        System.out.println(wordsbylength.toString());
-    }
+//
+//    private void printMap(){
+//        System.out.println(wordsbylength.toString());
+//    }
 
     /**
      * Get words based on the level and the number of words needed
@@ -98,7 +96,6 @@ public class WordDictionary {
         words.subList(0, actualNumWords).clear();
 
         return selectedWords;
-
 
 
 

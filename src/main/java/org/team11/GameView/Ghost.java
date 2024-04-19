@@ -18,21 +18,31 @@
  */
 package org.team11.GameView;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.shape.Circle;
-
-import java.util.Random;
+import javafx.scene.text.Font;
 
 public class Ghost {
-    private static final double MOVEMENT_AMOUNT = 1;
     private String word;
     private boolean active;
     private Label label;
     private Pane node;
+
+
+    /**2000 milliseconds, */
+    public static final long STATIONARY_THRESHOLD = 2000;
+
+    private AnimationTimer animationTimer;
+    private Runnable onAnimationStopListener;
+
+    boolean moving;
+    private long stationaryTime;
+
+    private boolean animationRunning;
 
     /** The x position of the ghosts */
     private  double x;
@@ -48,7 +58,30 @@ public class Ghost {
         this.word = word;
         this.active = true;
 
+
         initializeGhost(word, gridSize);
+    }
+
+    public Ghost(){
+        boolean animationRunning = false;
+    }
+
+    public boolean isAnimationRunning(){
+        return animationRunning;
+    }
+
+    public void setAnimationTimer(AnimationTimer animationTimer){
+        this.animationTimer = animationTimer;
+        this.animationTimer.stop();
+    }
+
+    public void startAnimation(){
+        animationRunning =true;
+        animationTimer.start();
+    }
+
+    public void setOnAnimationStopListener(Runnable listener){
+        this.onAnimationStopListener = listener;
     }
 
     /**
@@ -75,11 +108,6 @@ public class Ghost {
         label.layoutXProperty().bind(circle.centerXProperty().subtract(label.widthProperty().divide(2)));
         label.layoutYProperty().bind(circle.centerYProperty().subtract(circle.radiusProperty()).subtract(label.heightProperty()));
 
-        // Initiating the starting position of the ghosts
-        // TODO: To be fixed (ensure within grid size)
-        Random random = new Random();
-        int x = random.nextInt(gridSize);
-        int y = random.nextInt(gridSize);
 
         // Create a new pane to contain the circle and label
         Pane pane = new Pane(circle, label);
@@ -90,29 +118,8 @@ public class Ghost {
 
 
 
-    /* Ghost Mobility */
-
-    /**
-     * The ghosts move towards the position of the main character,
-     * collides when it is one box to the main character and the gif does its thing.
-     *
-     * @param mainCharacterX, the x position of the main character
-     * @param mainCharacterY, the y position of the main character
-     */
-
-
-
-    /**
-     * Makes the ghost disappear
-     * */
-
-
-
-
-
-
     /*
-     All getter methods:
+     All getter and setter methods:
     */
 
     public String getWord() {
@@ -127,6 +134,11 @@ public class Ghost {
         return node;
     }
 
+    public void setPosition(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
     public double getX() {
         return x;
     }
@@ -134,4 +146,6 @@ public class Ghost {
     public double getY() {
         return y;
     }
+
+
 }
