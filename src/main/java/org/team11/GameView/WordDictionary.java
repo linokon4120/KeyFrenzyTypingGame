@@ -40,9 +40,10 @@ public class WordDictionary {
     private int score;
     private Random rand;
 
+    /**
+     * The constructor for the WordDictionary class
+     */
     public WordDictionary() {
-
-
         loadFileIntoMap("src/main/resources/Dictionary");
         score = 0;
         rand = new Random(System.currentTimeMillis());
@@ -70,10 +71,6 @@ public class WordDictionary {
 
     }
 
-//
-//    private void printMap(){
-//        System.out.println(wordsbylength.toString());
-//    }
 
     /**
      * Get words based on the level and the number of words needed
@@ -96,9 +93,6 @@ public class WordDictionary {
         words.subList(0, actualNumWords).clear();
 
         return selectedWords;
-
-
-
     }
     public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
 //        List<String> words;
@@ -144,7 +138,5 @@ public class WordDictionary {
     public int getScore() {
         return score;
     }
-
-
 }
 
