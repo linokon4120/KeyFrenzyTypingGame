@@ -7,11 +7,7 @@ public class Main {
             WordDictionary wordDictionary = new WordDictionary();
             // Update the file path below with the correct path to your wordDictionary file
 
-            System.out.println(wordDictionary.getWord());
-            System.out.println(wordDictionary.getWord());
-            System.out.println(wordDictionary.getWord());
-            System.out.println(wordDictionary.getWord());
-            System.out.println(wordDictionary.getWords(3,4));
+
 
     }
 }

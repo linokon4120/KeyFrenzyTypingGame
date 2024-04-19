@@ -23,6 +23,7 @@ package org.team11.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -66,18 +67,23 @@ public class KeyFrenzyView {
     private double paneWidth = 800;
     private double paneHeight = 600;
 
+    /**Variable to check the score*/
+    private int score;
+
 
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
+    private Ghost ghost1;
+    private Ghost ghost2;
 
 
     /**
-     /**
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
     public KeyFrenzyView(String username) {
         this.userName = username;
+        score = 0;
 
         wordDictionary = new WordDictionary();
 
@@ -119,6 +125,7 @@ public class KeyFrenzyView {
 
         ghostTimer = new GhostTimerMovement();
 
+
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
 
@@ -134,6 +141,7 @@ public class KeyFrenzyView {
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
         this.root.getChildren().add(gamePane);
+
     }
 
 
@@ -142,10 +150,32 @@ public class KeyFrenzyView {
      */
     private void configuringMessageBanner() {
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
+        this.labelMessageBanner.getStyleClass().add("instruct-banner");
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
         this.userTypeBox = new TextField();
+        userTypeBox.getStyleClass().add("user-type-box");
 
+        // VBox to contain username and time labels
+        VBox userInfoBox = new VBox();
+        userInfoBox.getStyleClass().add("user-info-box");
+
+        // Display the username and time used in the corner of the view
+        Label usernameLabel = new Label("Username: " + userName);
+        usernameLabel.getStyleClass().add("user-nickname");
+
+        Label timeUsedLabel = new Label("Time Used: 00:00");
+        timeUsedLabel.getStyleClass().add("time-spent");
+
+        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel);
+
+        // Add VBox to message banner
+        VBox.setMargin(userInfoBox, new Insets(10)); // Adjust margin as needed
+        labelMessageBanner.setGraphic(userInfoBox);
+
+        // Add the labels to the game pane
+        currentScore.getStyleClass().add("current-score");
+        this.labelMessageBanner.getStyleClass().add("instruct-banner");
 
         // TODO Modify how we handle the user input to regenerate a new ghost
         userTypeBox.setOnKeyPressed(event -> {
@@ -157,7 +187,8 @@ public class KeyFrenzyView {
 
                 GuessStatus guessStatus = wordDictionary.guess(textInput);
 
-            }});
+            }
+        });
     }
 
     /**
@@ -165,26 +196,31 @@ public class KeyFrenzyView {
      * @param userInput the String input from user
      */
     private void handleUserInput(String userInput) {
-        for (Ghost ghost : ghosts) {
+        boolean matchFound = false;
+        Iterator<Ghost> iterator = ghosts.iterator();
+        while (iterator.hasNext()) {
+            Ghost ghost = iterator.next();
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
-//                wordTimers.get(userInput).stop();
-//                wordTimers.remove(userInput);
-                //TODO Update the score
+                iterator.remove();
+                matchFound = true;
+
+
+                // Update the score
+                score += 10;
+                updateScoreLabel();
                 break;
             }
-            if (!ghost.isActive()) {
-
-                String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
-
-                Ghost ghostNew = new Ghost(words[0],80);
-                // Apply CSS class to the ghost
-                ghost.getNode().getStyleClass().add("ghost-circle");
-                ghost.getNode().getStyleClass().add("ghost-label");
-                gamePane.getChildren().add(ghost.getNode());
-            }
         }
+
+        if (!matchFound) {
+
+        }
+    }
+
+    private void updateScoreLabel() {
+        currentScore.setText("Current Score: " + String.valueOf(score));
     }
 
 
@@ -239,10 +275,12 @@ public class KeyFrenzyView {
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
+        String[] words = wordDictionary.getWords(3, 2).toArray(new String[0]);
 
         Ghost ghost1 = new Ghost(words[0],80);
         Ghost ghost2 = new Ghost(words[1],80);
+
+
         ghostsOnScreen.add(ghost1);
         ghostsOnScreen.add(ghost2);
 

@@ -91,8 +91,16 @@ public class WordDictionary {
 
         }
         Collections.shuffle(words);
+        int actualNumWords = Math.min(numwords, wordsbylength.size());
+        List<String> selectedWords = new ArrayList<>(words.subList(0, actualNumWords));
 
-        return new ArrayList<>(words.subList(0, numwords));
+        // Remove the selected words from the map to ensure they are not used again
+        words.subList(0, actualNumWords).clear();
+
+        return selectedWords;
+
+
+
 
     }
     public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned

@@ -18,29 +18,31 @@
  */
 package org.team11.GameView;
 
+import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.shape.Circle;
 
 import java.util.Random;
 
 public class Ghost {
+    private static final double MOVEMENT_AMOUNT = 1;
     private String word;
     private boolean active;
     private Label label;
     private Pane node;
 
     /** The x position of the ghosts */
-    private  int x;
+    private  double x;
 
     /** The y position of the ghosts */
-    private int y;
-
-    /** The initial speed of the ghost */
-    private final int initialSpeed = 3;
+    private double y;
 
     /**
      * A Constructor for the ghost class
@@ -62,11 +64,20 @@ public class Ghost {
 
     private void initializeGhost(String word, int gridSize) {
         // Create a circle for the ghost
-        Circle circle = new Circle(20); // Radius of the circle
-        circle.setFill(Color.rgb(163, 255, 214)); // Set fill color to transparent
+        Circle circle = new Circle(39); // Radius of the circle
+        //circle.setStyle("-fx-graphic: url('./animation/ghost.gif')"); //I DONT KNOW WHY THIS IS NOT WORKING!!!
+        circle.setFill(Color.TRANSPARENT);
+        //circle.setFill(Color.r gb(163, 255, 214)); // Set fill color to transparent
 
         // Set background image using CSS
-        //circle.setStyle("-fx-background-image: url('" + getClass().getResource("resources/animation/ghost.gif").toExternalForm() + "'); " + "-fx-background-size: cover;");
+        Image img = new Image("./animation/ghost1.gif");
+        circle.setFill(new ImagePattern(img));
+//        ImageView view = new ImageView(img);
+//        view.setFitHeight(20);
+//        view.setPreserveRatio(true);
+//        circle.setGraphic(view);
+        circle.setStyle("-fx-graphic: url('./animation/ghost.gif')");
+        //circle.getStyleClass().add("ghost-circle"); // Apply CSS class
 
         // Create a label for the word
         Label label = new Label(word);
@@ -101,39 +112,14 @@ public class Ghost {
      * @param mainCharacterX, the x position of the main character
      * @param mainCharacterY, the y position of the main character
      */
-    public void move(double mainCharacterX, double mainCharacterY ) {
 
 
-        double dx = Double.compare(mainCharacterX, x);
-        double dy = Double.compare(mainCharacterY, y);
-
-        //update the position of the ghost
-        if(Math.abs(dx) <= 1 && Math.abs(dy) <= 1 ){
-            x += dx;
-            y += dy;
-
-        }else{
-            //disintegrates when the ghost is one move to the main character
-            destroyGhost();
-        }
-
-
-
-    }
 
     /**
-     * Makes the ghost disappear when the main character is hit
-     * or when the user types the words correctly
+     * Makes the ghost disappear
      * */
 
-    public void destroyGhost() {
-        active = false;
-        label.setVisible(false); // Hide the ghost
-    }
 
-
-    // TODO for sprint 3
-    public void increaseSpeed(){}
 
 
 
@@ -154,11 +140,11 @@ public class Ghost {
         return node;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 }
