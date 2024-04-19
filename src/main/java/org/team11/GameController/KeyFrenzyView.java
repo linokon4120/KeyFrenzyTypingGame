@@ -48,7 +48,7 @@ import java.util.*;
 
 public class KeyFrenzyView {
 
-    // TODO fix the controller problem :(
+    public static final double COLLISION_DISTANCE = 1;
     private VBox root;
     private FlowPane topPane;
     private Label labelMessageBanner;
@@ -58,26 +58,30 @@ public class KeyFrenzyView {
     private Ghost ghost;
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
     private TextField userTypeBox;
-    private WordDictionary wordDictionary;
-    private Random rand;
+    private final WordDictionary wordDictionary;
+    private final Random rand;
     private boolean lost;
-    private Timer globalTimer;
+    private final Timer globalTimer;
     private String userName;
 
-    private double paneWidth = 800;
-    private double paneHeight = 600;
 
+    //The width of the game pane
+    private final double paneWidth = 800;
+
+    //The height of the game pane
+    private final double paneHeight = 600;
     /**Variable to check the score*/
+
+    //Variable to check the score
     private int score;
 
-
-    private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
     private Ghost ghost1;
     private Ghost ghost2;
 
 
     /**
+     /**
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
@@ -100,7 +104,7 @@ public class KeyFrenzyView {
             public void run() {
                 generateNewWord();
             }
-        }, 5, WordsSetting.WORD_DELAY); // 5 is the time delayed before the first ghost appaers
+        }, 5, WordsSetting.WORD_DELAY); // 5 is the time delayed before the first ghost appears
     }
 
 
@@ -109,11 +113,12 @@ public class KeyFrenzyView {
      */
     public void initSceneGraph() {
 
-
         // Initialize the root pane
         this.root = new VBox();
+
         // Create and configure the game pane
         gamePane = new GridPane();
+
         // Set minimum size for the gamePane
         gamePane.setMinWidth(800); // Set minimum width
         gamePane.setMinHeight(600); // Set minimum height
@@ -141,7 +146,6 @@ public class KeyFrenzyView {
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
         this.root.getChildren().add(gamePane);
-
     }
 
 
@@ -191,21 +195,25 @@ public class KeyFrenzyView {
         });
     }
 
+
+
     /**
      * Handle the user input when prompted
      * @param userInput the String input from user
      */
     private void handleUserInput(String userInput) {
+
         boolean matchFound = false;
+
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
             Ghost ghost = iterator.next();
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
+
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
                 iterator.remove();
                 matchFound = true;
-
 
                 // Update the score
                 score += 10;
@@ -214,13 +222,11 @@ public class KeyFrenzyView {
             }
         }
 
-        if (!matchFound) {
-
-        }
     }
 
+    /** Updates the score on the game pane */
     private void updateScoreLabel() {
-        currentScore.setText("Current Score: " + String.valueOf(score));
+        currentScore.setText("Current Score: " + score);
     }
 
 
@@ -228,7 +234,7 @@ public class KeyFrenzyView {
      * Starts the initialises and starts the animation timer
      */
     private void initializeAnimationTimer() {
-        animationTimer = new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 ghostTimer.handle(now);
@@ -239,13 +245,16 @@ public class KeyFrenzyView {
     }
 
 
+    /**
+     * Starts the timer and generates a new word to be typed by the player
+     */
     private void generateNewWord() {
         // Generate the new word
         String word = wordDictionary.getWord();
 
-        // Create a timer that ends the game if the player
-        // does not type the word in time
+        // Create a timer that ends the game if the player does not type the word in time.
         Timer wordTimer = new Timer();
+
         wordTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -255,40 +264,75 @@ public class KeyFrenzyView {
             }
         }, WordsSetting.GAME_LENGTH);
 
-        // Add the words to the global map and
-        // draw it on the screen
+        // Add the words to the global map and draws it on the screen
         List<Ghost> ghostsOnScreen = createAnimation(word);
         ghosts.add(ghostsOnScreen.get(0));
         ghosts.add(ghostsOnScreen.get(1));
-        wordTimers.put(word, new GhostAnimation(wordTimer, ghostsOnScreen.get(0)));
-        wordTimers.put(word, new GhostAnimation(wordTimer, ghostsOnScreen.get(1)));
+
+        //Start Ghost Animations
+        startGhostAnimation(ghostsOnScreen.get(0));
+        startGhostAnimation(ghostsOnScreen.get(1));
+
+        //Store ghost animation in the map
+        storeGhostAnimation(word, wordTimer, ghostsOnScreen, 0);
+        storeGhostAnimation(word, wordTimer, ghostsOnScreen, 1);
     }
 
+    /**Stores the ghost animation into the map */
+    private void storeGhostAnimation(String word, Timer wordTimer, List<Ghost> ghostsOnScreen, int index) {
+        wordTimers.put(word, new GhostAnimation(wordTimer, ghostsOnScreen.get(index)));
+    }
+
+    /**
+     * Starts the ghost animations
+     * @param ghost to be animated
+     */
+    private void startGhostAnimation(Ghost ghost) {
+        GhostAnimation animation = wordTimers.get(ghost.getWord());
+
+        if (animation != null){
+            animation.start();
+        }
+    }
+
+    /**
+     * Ties the text on top of the ghost,
+     * Runs the Animation on the FX app thread,
+     * Moves the ghosts towards the middle of the screen
+     * Generates a path and an animation, and adds it to the game pane
+     * @param word the string of words to be typed
+     * @return text on top of the ghost that was destroyed
+     */
     private List<Ghost> createAnimation(String word) {
-        // Tie to the text on top of the ghosts
-        // Run the animation on the FX App thread
-        // The movement of the ghosts should be towards the middle of the screen
-        // Generate a path
-        // Generate animation
-        // Add to the gamePane
-        // Return text on top of the ghost that was destroyed
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(3, 2).toArray(new String[0]);
+        String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
 
         Ghost ghost1 = new Ghost(words[0],80);
         Ghost ghost2 = new Ghost(words[1],80);
-
-
         ghostsOnScreen.add(ghost1);
         ghostsOnScreen.add(ghost2);
 
 
+        //Animation timer for each ghost
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                ghostTimer.handle(now);
+            }
+        };
+
+        ghost1.setAnimationTimer(animationTimer);
+        ghost2.setAnimationTimer(animationTimer);
+
+//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
+//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
+
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
-            // Get dimensions of the wordPane
 
+            // Moves the animation towards the center of the game pane
 
             // Get x and y coords of the word
             double x1 = paneWidth/2;
@@ -298,16 +342,18 @@ public class KeyFrenzyView {
             double x2 = paneWidth;
             double y2 = rand.nextDouble() * paneHeight;
 
-
-            // Generate a path
+            // Generate a path for ghosts coming from left side
             Path path1 = new Path();
             path1.getElements().add(new MoveTo(-50, y1));
-            path1.getElements().add(new LineTo(paneWidth/2, paneHeight/2));
 
-            // Generate a path
+            // Moves the path to the middle of the pane
+            moveToCenter(ghost1, path1);
+
+            // Generate a path for ghosts coming from right side
             Path path2 = new Path();
             path2.getElements().add(new MoveTo(x2 + 50, y2));
-            path2.getElements().add(new LineTo(paneWidth/2, paneHeight/2));
+            // Moves the path to the middle of the pane
+            moveToCenter(ghost2, path2);
 
 
             // Generate animation
@@ -325,6 +371,60 @@ public class KeyFrenzyView {
 
     }
 
+    /**
+     * Moves the ghosts to the center of the game pane
+     * @param path to be moved
+     */
+    private void moveToCenter(Ghost ghost, Path path) {
+
+        double centerX = paneWidth/2;
+        double centerY = paneHeight/2;
+
+        ghost.setPosition(centerX, centerY);
+        path.getElements().add(new LineTo(centerX, centerY));
+
+        double distanceToDestruction = calculateDistance(ghost.getX(), ghost.getY(), centerX, centerY);
+
+        // If the ghost stays at the center for a certain duration, it disappears
+        if (distanceToDestruction <= COLLISION_DISTANCE){
+//            Timer timer = new Timer();
+//            timer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    Platform.runLater(() -> destroy(ghost));
+//                }
+//            }, 1000);
+
+        }
+
+    }
+
+
+    private void handleAnimationStop(Ghost ghost1){
+        if (!ghost.isAnimationRunning()) {
+            destroy(ghost);
+        }
+    }
+
+    /**
+     * Calculates the ghost distance form the main character's distance
+     * @param x, ghost X Position
+     * @param y, ghost Y position
+     * @param centerX,  x position of the main character
+     * @param centerY  y position of the main character
+     * @return the vector distance between the ghost and main character
+     */
+
+    private double calculateDistance(double x, double y, double centerX, double centerY) {
+            return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY ,2));
+    }
+
+
+    /**
+     * Creates a path to be followed by the ghost
+     * @param path
+     * @param ghost
+     */
     private static void createPath(Path path, Ghost ghost) {
         PathTransition pt = new PathTransition();
         pt.setDuration(Duration.millis(WordsSetting.WORD_DURATION));
@@ -364,6 +464,7 @@ public class KeyFrenzyView {
      */
     public void destroy(Ghost ghost) {
         gamePane.getChildren().remove(ghost.getNode());
+
     }
 
 

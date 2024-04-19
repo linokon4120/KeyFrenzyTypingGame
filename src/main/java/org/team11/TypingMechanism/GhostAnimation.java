@@ -27,10 +27,17 @@ import java.util.Timer;
 public class GhostAnimation {
     public Timer timer;
     public Text text;
+    public long lastMovementTime;
+
 
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
         this.text = text;
+        this.lastMovementTime = System.currentTimeMillis();
+    }
+
+    public void start(){
+        lastMovementTime = System.currentTimeMillis();
     }
 
     public void stop() {
@@ -40,4 +47,8 @@ public class GhostAnimation {
             ((Pane) text.getParent()).getChildren().remove(text);
     }
 
+
+    public boolean isMoving() {
+        return (System.currentTimeMillis() - lastMovementTime) < Ghost.STATIONARY_THRESHOLD;
+    }
 }
