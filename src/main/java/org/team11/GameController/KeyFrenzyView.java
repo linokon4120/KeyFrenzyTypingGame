@@ -315,14 +315,14 @@ public class KeyFrenzyView {
             double x2 = paneWidth;
             double y2 = rand.nextDouble() * paneHeight;
 
-            // Generate a path
+            // Generate a path for ghosts coming from left side
             Path path1 = new Path();
             path1.getElements().add(new MoveTo(-50, y1));
 
             // Moves the path to the middle of the pane
             moveToCenter(ghost1, path1);
 
-            // Generate a path
+            // Generate a path for ghosts coming from right side
             Path path2 = new Path();
             path2.getElements().add(new MoveTo(x2 + 50, y2));
             // Moves the path to the middle of the pane
