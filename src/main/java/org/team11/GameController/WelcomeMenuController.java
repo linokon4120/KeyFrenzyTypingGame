@@ -54,28 +54,28 @@ public class WelcomeMenuController {
     @FXML
     protected void onStartButtonClick() {
 
-        // Retrieve the username from the text field
-        String userName = textFieldUserName.getText().trim();
+//        // Retrieve the username from the text field
+//        String userName = textFieldUserName.getText().trim();
 
-        if (!userName.isEmpty()) {
-            // Create an instance of KeyFrenzyView
-            KeyFrenzyView theView = new KeyFrenzyView(userName);
+//        if (!userName.isEmpty()) {
+        // Create an instance of KeyFrenzyView
+        KeyFrenzyView theView = new KeyFrenzyView();
 
-            Scene scene = new Scene(theView.getRoot());
+        Scene scene = new Scene(theView.getRoot());
 //         Attach a CSS file for styling our app
-            scene.getStylesheets().add(
-                    getClass().getResource("/KeyFrenzy.css")
-                            .toExternalForm());
-            //this.theController = new KeyFrenzyController(this.theModel, this.theView);
+        scene.getStylesheets().add(
+                getClass().getResource("/KeyFrenzy.css")
+                        .toExternalForm());
+        //this.theController = new KeyFrenzyController(this.theModel, this.theView);
 
-            Stage primaryStage = new Stage();
-            primaryStage.setTitle("Key Frenzy Typing Game");
-            primaryStage.setScene(scene);
-            primaryStage.sizeToScene();
-            primaryStage.show();
-        }
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Key Frenzy Typing Game");
+        primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
+        primaryStage.show();
 
-        // Close the current window (if needed)
+
+    // Close the current window (if needed)
 //        ((Node) event.getSource()).getScene().getWindow().hide();
 
     }

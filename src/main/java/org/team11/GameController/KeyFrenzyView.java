@@ -62,8 +62,6 @@ public class KeyFrenzyView {
     private boolean lost;
     private final Timer globalTimer;
 
-    private final String userName;
-
     //The width of the game pane
     private final double paneWidth = 800;
 
@@ -80,14 +78,12 @@ public class KeyFrenzyView {
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
-    public KeyFrenzyView(String username) {
-        this.userName = username;
-        score = 0;
+    public KeyFrenzyView() {
+        this.score = 0;
+        this.wordDictionary = new WordDictionary();
 
-        wordDictionary = new WordDictionary();
-
-        lost = false;
-        rand = new Random(System.currentTimeMillis());
+        this.lost = false;
+        this.rand = new Random(System.currentTimeMillis());
 
 
         initSceneGraph();
@@ -131,12 +127,6 @@ public class KeyFrenzyView {
 
         //Adding the text box to the game
         gamePane.add(userTypeBox, 10, 10);
-
-        // Display the username in the middle of the view
-        Text userNameText = new Text(userName);
-        userNameText.setStyle("-fx-font-size: 24;");
-        userNameText.setStyle("-fx-background-color: WHITE");
-        gamePane.add(userNameText, 50,50);
 
         //Add to the game pane
         this.root.getChildren().add(labelMessageBanner);
