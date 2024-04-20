@@ -3,7 +3,7 @@
  * Spring 2024
  * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: YOUR NAME
+ * Name: YOUR NAME: Rahul Sibal
  * Section: YOUR SECTION
  * Date: 4/9/24
  * Time: 4:24 PM
@@ -73,9 +73,6 @@ public class WordDictionary {
 
     }
 
-    private void printMap(){
-        System.out.println(wordsbylength.toString());
-    }
 
     /**
      * Get words based on the level and the number of words needed
@@ -86,16 +83,16 @@ public class WordDictionary {
         Integer key = level + 1; //because the first level starts with two letters
         words = wordsbylength.get(key);
         // if the number of words needed at that level is more than what the dictionary has stored
-        if (numwords >  words.size()){
-            numwords = words.size(); //restricts it to the size of the number of words stored in the map
+         numwords = Math.min(numwords, words.size());// number of words are greter than remaining
+        // restrict number of words to whatever remians
 
-        }
+        // Shuffle in random order
         Collections.shuffle(words);
-        int actualNumWords = Math.min(numwords, wordsbylength.size());
-        List<String> selectedWords = new ArrayList<>(words.subList(0, actualNumWords));
+       // int actualNumWords = Math.min(numwords, wordsbylength.size());
+        List<String> selectedWords = new ArrayList<>(words.subList(0, numwords));
 
         // Remove the selected words from the map to ensure they are not used again
-        words.subList(0, actualNumWords).clear();
+        words.subList(0, numwords).clear();
 
         return selectedWords;
 
@@ -118,14 +115,15 @@ public class WordDictionary {
 //        this.key ++; //because the level gets incremented each time the get words method is called
 //
 //        return new ArrayList<>(words.subList(0, numwords));
-        String word;
-        do {
-            int num = rand.nextInt(dictionary.size());
-            word = dictionary.get(num);
-        } while (currentWords.contains(word));
-        currentWords.add(word);
-        return word;
+        //String word;
+       // do {
+          //  int num = rand.nextInt(dictionary.size());
+           // word = dictionary.get(num);
+       // } while (currentWords.contains(word));
+       // currentWords.add(word);
+       // return word;
 
+        return null;
     }
 
     /**
