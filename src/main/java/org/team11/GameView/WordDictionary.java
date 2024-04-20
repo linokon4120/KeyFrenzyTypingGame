@@ -100,50 +100,11 @@ public class WordDictionary {
 
 
     }
-    public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
-//        List<String> words;
-//
-//        words = wordsbylength.get(this.key);
-//        // if the number of words needed at that level is more than what the dictionary has stored
-//        int numwords = 16; //hard coded to 16 words
-//        if (numwords >  words.size()){
-//            numwords = words.size();
-//
-//        }
-//        //randomize the list
-//        Collections.shuffle(words);
-//        this.key ++; //because the level gets incremented each time the get words method is called
-//
-//        return new ArrayList<>(words.subList(0, numwords));
-        //String word;
-       // do {
-          //  int num = rand.nextInt(dictionary.size());
-           // word = dictionary.get(num);
-       // } while (currentWords.contains(word));
-       // currentWords.add(word);
-       // return word;
 
-        return null;
-    }
-
-    /**
-     * Makes an attempt to the type a word on the screen
-     * @param text The guess made
-     * @return Either correct, invalid word, or wrong
-     */
-    public GuessStatus guess(String text) {
-        if (currentWords.contains(text)) {
-            // If the guess is correct, increase the score and remove that word
-            score++;
-            currentWords.remove(text);
-            return GuessStatus.CORRECT;
-        }
-        // If not in the dictionary
-        return GuessStatus.INVALID_WORD;
-    }
 
     public int getScore() {
-        return score;
+       // return score;
+        return 0;
     }
 
 

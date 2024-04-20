@@ -73,6 +73,8 @@ public class KeyFrenzyView {
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
 
+   // private int level = 1;
+
 
     /**
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
@@ -158,7 +160,7 @@ public class KeyFrenzyView {
                 handleUserInput(userTypeBox.getText().trim());
                 userTypeBox.clear();
 
-                GuessStatus guessStatus = wordDictionary.guess(textInput);
+
 
             }});
     }
@@ -180,7 +182,7 @@ public class KeyFrenzyView {
 
 
                 // Update the score
-                score += 10;
+                score += 1;
                 updateScoreLabel();
                 break;
             }
@@ -213,7 +215,7 @@ public class KeyFrenzyView {
 
     private void generateNewWord() {
         // Generate the new word
-        String word = wordDictionary.getWord();
+        String word ="";
 
         // Create a timer that ends the game if the player
         // does not type the word in time
@@ -229,14 +231,14 @@ public class KeyFrenzyView {
 
         // Add the words to the global map and
         // draw it on the screen
-        List<Ghost> ghostsOnScreen = createAnimation(word);
+        List<Ghost> ghostsOnScreen = createAnimation();
         ghosts.add(ghostsOnScreen.get(0));
         ghosts.add(ghostsOnScreen.get(1));
         wordTimers.put(word, new GhostAnimation(wordTimer, ghostsOnScreen.get(0)));
         wordTimers.put(word, new GhostAnimation(wordTimer, ghostsOnScreen.get(1)));
     }
 
-    private List<Ghost> createAnimation(String word) {
+    private List<Ghost> createAnimation() {
         // Tie to the text on top of the ghosts
         // Run the animation on the FX App thread
         // The movement of the ghosts should be towards the middle of the screen
@@ -247,12 +249,14 @@ public class KeyFrenzyView {
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(3, 2).toArray(new String[0]);
+        String[] words = wordDictionary.getWords(2, 2).toArray(new String[0]);
 
         Ghost ghost1 = new Ghost(words[0],80);
         Ghost ghost2 = new Ghost(words[1],80);
+
         ghostsOnScreen.add(ghost1);
         ghostsOnScreen.add(ghost2);
+
 
 
         // Run the animation on the FX App thread
