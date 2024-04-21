@@ -10,7 +10,7 @@ public class GhostTest extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Now you can run your test code here or invoke another method containin the test code
+        // Now you can run your test code here or invoke another method containing the test code
         runGhostTest();
     }
 

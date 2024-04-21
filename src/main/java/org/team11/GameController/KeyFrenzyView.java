@@ -46,20 +46,19 @@ import java.util.*;
 
 public class KeyFrenzyView {
     private VBox root;
-    private AnchorPane bottomPane;
     private Label labelMessageBanner;
     private Label currentScore;
     private Label lives;
     private GridPane gamePane;
     private List<Ghost> ghosts;
-    private Ghost ghost;
+
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
     private TextField userTypeBox;
     private final WordDictionary wordDictionary;
     private final Random rand;
     private boolean lost;
     private final Timer globalTimer;
-    private String userName;
+    private final String userName;
 
 
     //The width of the game pane
@@ -115,7 +114,7 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
-        bottomPane = new AnchorPane();
+        AnchorPane bottomPane = new AnchorPane();
 
         // Set minimum size for the gamePane
         gamePane.setMinSize(800,600); // Set minimum width
@@ -149,6 +148,7 @@ public class KeyFrenzyView {
     }
 
 
+    //TODO (Holiness) Clean this up and add comments
     /**
      * Adds the message banner into the home screen of the came
      */
@@ -206,9 +206,6 @@ public class KeyFrenzyView {
      */
     private void handleUserInput(String userInput) {
 
-        boolean matchFound = false;
-
-
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
             Ghost ghost = iterator.next();
@@ -217,7 +214,6 @@ public class KeyFrenzyView {
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
                 iterator.remove();
-                matchFound = true;
 
                 // Update the score
                 score += 10;
@@ -374,14 +370,17 @@ public class KeyFrenzyView {
     }
 
     /**
-     * Removes a life and ends the game if there no remaining lives.
+     * Removes a life and ends the game if there's no remaining lives.
      */
     private void deductALife() {
         startingLives--;
 
+        updateLivesLabel();
+
         if(startingLives == 0){
             gameOver();
         }
+
     }
 
     /**

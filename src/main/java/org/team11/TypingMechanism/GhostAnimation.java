@@ -25,13 +25,11 @@ import org.team11.GameView.Ghost;
 import java.util.Timer;
 
 public class GhostAnimation {
-
-    private Ghost ghost;
     public Timer timer;
+
     public Text text;
     public static long lastMovementTime;
 
-    public double centerThreshold;
 
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
