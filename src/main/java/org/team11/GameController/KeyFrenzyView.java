@@ -66,10 +66,10 @@ public class KeyFrenzyView {
 
 
     //The width of the game pane
-    private final double paneWidth = 800;
+    private double paneWidth;
 
     //The height of the game pane
-    private final double paneHeight = 600;
+    private double paneHeight;
     /**Variable to check the score*/
 
     //Variable to check the score
@@ -119,9 +119,12 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
+
         // Set minimum size for the gamePane
-        gamePane.setMinWidth(800); // Set minimum width
-        gamePane.setMinHeight(600); // Set minimum height
+        gamePane.setMinSize(800,600); // Set minimum width
+        // TODO Get the paneWidth and paneHeight of the game Pane
+        paneWidth = gamePane.widthProperty().getValue();
+        paneHeight = gamePane.heightProperty().getValue();
 
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
@@ -146,6 +149,7 @@ public class KeyFrenzyView {
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
         this.root.getChildren().add(gamePane);
+
     }
 
 
@@ -323,8 +327,8 @@ public class KeyFrenzyView {
             }
         };
 
-        ghost1.setAnimationTimer(animationTimer);
-        ghost2.setAnimationTimer(animationTimer);
+
+
 
 //        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
 //        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
