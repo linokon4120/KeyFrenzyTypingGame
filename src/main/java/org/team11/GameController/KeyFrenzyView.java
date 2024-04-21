@@ -27,10 +27,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -50,7 +47,7 @@ public class KeyFrenzyView {
 
     public static final double COLLISION_DISTANCE = 1;
     private VBox root;
-    private FlowPane topPane;
+    private AnchorPane bottomPane;
     private Label labelMessageBanner;
     private Label currentScore;
     private GridPane gamePane;
@@ -119,15 +116,17 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
+        bottomPane = new AnchorPane();
 
         // Set minimum size for the gamePane
         gamePane.setMinSize(800,600); // Set minimum width
         // TODO Get the paneWidth and paneHeight of the game Pane
-        paneWidth = gamePane.widthProperty().getValue();
-        paneHeight = gamePane.heightProperty().getValue();
+
 
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
+        paneWidth = 800;
+        paneHeight = 600;
         // Create and configure the message banner
         configuringMessageBanner();
 
@@ -138,18 +137,17 @@ public class KeyFrenzyView {
         this.ghosts = new ArrayList<>();
 
         //Adding the text box to the game
-        gamePane.add(userTypeBox, 10, 10);
+        bottomPane.getChildren().add(userTypeBox);
         // Display the username in the middle of the view
         Text userNameText = new Text(userName);
         userNameText.setStyle("-fx-font-size: 24;");
         userNameText.setStyle("-fx-background-color: WHITE");
         gamePane.add(userNameText, 50,50);
 
-
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
         this.root.getChildren().add(gamePane);
-
+        this.root.getChildren().add(bottomPane);
     }
 
 
@@ -475,10 +473,6 @@ public class KeyFrenzyView {
 
     public VBox getRoot() {
         return root;
-    }
-
-    public FlowPane getTopPane() {
-        return topPane;
     }
 
     public Label getLabelMessageBanner() {
