@@ -104,7 +104,6 @@ public class KeyFrenzyView {
         }, 5, WordsSetting.WORD_DELAY); // 5 is the time delayed before the first ghost appears
     }
 
-
     /**
      * Initialize the entire scene graph
      */
