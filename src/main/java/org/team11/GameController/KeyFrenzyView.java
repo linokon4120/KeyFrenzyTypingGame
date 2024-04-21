@@ -24,6 +24,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -53,6 +54,8 @@ public class KeyFrenzyView {
     private FlowPane topPane;
     private Label labelMessageBanner;
     private Label currentScore;
+    private Label usernameLabel;
+    private Label timeUsedLabel;
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private Ghost ghost;
@@ -153,44 +156,42 @@ public class KeyFrenzyView {
      * Adds the message banner into the home screen of the came
      */
     private void configuringMessageBanner() {
+        // Instruction banner
         labelMessageBanner = new Label("Type words on ghosts to destroy them!");
         this.labelMessageBanner.getStyleClass().add("instruct-banner");
+
+        // Current score label
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
-        this.userTypeBox = new TextField();
+
+        // TODO: Figure out why is this not responding to the CSS styling
+        // Username label
+        usernameLabel = new Label("Username: " + userName);
+        this.usernameLabel.getStyleClass().add("user-nickname");
+
+        // Time used label
+        timeUsedLabel = new Label("Time Used: 00:00");
+        this.timeUsedLabel.getStyleClass().add("time-spent");
+
+        // VBox to contain all components vertically
+        VBox container = new VBox();
+        container.setAlignment(Pos.CENTER); // Align contents to the center
+        container.getChildren().addAll(labelMessageBanner, currentScore, usernameLabel, timeUsedLabel);
+        container.getStyleClass().add("message-banner-container");
+
+        // Add container to the game pane
+        // Adjust layout constraints as needed
+        gamePane.getChildren().add(container);
+        // TODO: have this in a bottom pane, probably out of the configuring Message banner
+        // TextField for user input
+        userTypeBox = new TextField();
         userTypeBox.getStyleClass().add("user-type-box");
-
-        // VBox to contain username and time labels
-        VBox userInfoBox = new VBox();
-        userInfoBox.getStyleClass().add("user-info-box");
-
-        // Display the username and time used in the corner of the view
-        Label usernameLabel = new Label("Username: " + userName);
-        usernameLabel.getStyleClass().add("user-nickname");
-
-        Label timeUsedLabel = new Label("Time Used: 00:00");
-        timeUsedLabel.getStyleClass().add("time-spent");
-
-        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel);
-
-        // Add VBox to message banner
-        VBox.setMargin(userInfoBox, new Insets(10)); // Adjust margin as needed
-        labelMessageBanner.setGraphic(userInfoBox);
-
-        // Add the labels to the game pane
-        currentScore.getStyleClass().add("current-score");
-        this.labelMessageBanner.getStyleClass().add("instruct-banner");
-
-        // TODO Modify how we handle the user input to regenerate a new ghost
         userTypeBox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.SPACE) {
                 String textInput = userTypeBox.getText().trim().toLowerCase(Locale.ROOT);
-
-                handleUserInput(userTypeBox.getText().trim());
+                handleUserInput(textInput);
                 userTypeBox.clear();
-
                 GuessStatus guessStatus = wordDictionary.guess(textInput);
-
             }
         });
     }

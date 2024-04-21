@@ -10,7 +10,7 @@
 
 /* Style for the gamePane */
 .game-pane {
-    -fx-background-image: url("animation/background2.png");
+    -fx-background-image: url("animation/bg.gif");
 
     -fx-background-size: 800 600;
     -fx-background-position: center center;
