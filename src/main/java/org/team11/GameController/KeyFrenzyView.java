@@ -25,6 +25,7 @@ import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -47,7 +48,7 @@ public class KeyFrenzyView {
 
     public static final double COLLISION_DISTANCE = 1;
     private VBox root;
-    private AnchorPane bottomPane;
+    private HBox bottomPane;
     private Label labelMessageBanner;
     private Label currentScore;
     private GridPane gamePane;
@@ -60,6 +61,9 @@ public class KeyFrenzyView {
     private boolean lost;
     private final Timer globalTimer;
     private String userName;
+    private ProgressBar healthBar;
+    private int lives;
+
 
 
     //The width of the game pane
@@ -84,19 +88,17 @@ public class KeyFrenzyView {
      */
     public KeyFrenzyView(String username) {
         this.userName = username;
-        score = 0;
+        this.score = 0;
 
-        wordDictionary = new WordDictionary();
-
-        lost = false;
-        rand = new Random(System.currentTimeMillis());
-
+        this.wordDictionary = new WordDictionary();
+        this.lost = false;
+        this.rand = new Random(System.currentTimeMillis());
 
         initSceneGraph();
 //        initializeAnimationTimer();
 
-        globalTimer = new Timer();
-        globalTimer.schedule(new TimerTask() {
+        this.globalTimer = new Timer();
+        this.globalTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 generateNewWord();
@@ -115,7 +117,7 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
-        bottomPane = new AnchorPane();
+        bottomPane = new HBox();
 
         // Set minimum size for the gamePane
         gamePane.setMinSize(800,600); // Set minimum width
@@ -131,22 +133,33 @@ public class KeyFrenzyView {
 
         ghostTimer = new GhostTimerMovement();
 
-
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
 
-        //Adding the text box to the game
-        bottomPane.getChildren().add(userTypeBox);
+
         // Display the username in the middle of the view
         Text userNameText = new Text(userName);
         userNameText.setStyle("-fx-font-size: 24;");
         userNameText.setStyle("-fx-background-color: WHITE");
         gamePane.add(userNameText, 50,50);
 
-        this.root.getChildren().add(labelMessageBanner);
-        this.root.getChildren().add(currentScore);
-        this.root.getChildren().add(gamePane);
-        this.root.getChildren().add(bottomPane);
+        // Create a health bar (progress bar) to display remaining health
+        this.healthBar = new ProgressBar(1.0); // Full health initially
+        this.healthBar.setPrefWidth(200); // Set preferred width
+        this.healthBar.setStyle("-fx-accent: green;"); // Customize appearance
+        Label healthLabel = new Label("Health: ");
+        healthLabel.setStyle("-fx-background-color: WHITE");
+
+        // Initialize lives counter
+        this.lives = 3;
+
+        // Layout for health bar and lives counter
+        HBox healthBox = new HBox(10, healthLabel, healthBar);
+        VBox.setMargin(healthBox, new Insets(10));
+
+        //Adding the text box to the game
+        bottomPane.getChildren().addAll(userTypeBox, healthBox);
+        this.root.getChildren().addAll(labelMessageBanner, currentScore, gamePane, bottomPane);
     }
 
 
@@ -224,6 +237,7 @@ public class KeyFrenzyView {
         }
 
     }
+
 
     /** Updates the score on the game pane */
     private void updateScoreLabel() {
@@ -324,9 +338,6 @@ public class KeyFrenzyView {
             }
         };
 
-
-
-
 //        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
 //        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
 
@@ -356,16 +367,13 @@ public class KeyFrenzyView {
             // Moves the path to the middle of the pane
             moveToCenter(ghost2, path2);
 
-
             // Generate animation
             createPath(path1, ghost1);
             createPath(path2, ghost2);
 
-
             // Add to pane
             gamePane.getChildren().add(ghost1.getNode());
             gamePane.getChildren().add(ghost2.getNode());
-
         });
 
         return ghostsOnScreen;
@@ -381,23 +389,31 @@ public class KeyFrenzyView {
         double centerX = paneWidth/2;
         double centerY = paneHeight/2;
 
-        ghost.setPosition(centerX, centerY);
         path.getElements().add(new LineTo(centerX, centerY));
+        // Calculate distance to the center
+        double distanceToCenter = calculateDistance(ghost.getNode().getLayoutX(), ghost.getNode().getLayoutY(), centerX, centerY);
 
-        double distanceToDestruction = calculateDistance(ghost.getX(), ghost.getY(), centerX, centerY);
+        // If ghost reaches the center, decrease health and update health bar
+//        if (ghost.getNode().getScaleX() <= 10 || ghost.getNode().getScaleY() <= 10) {
+        if (distanceToCenter <= 10) {
+            // Ghost reached the center, decrease health
+            lives--;
+            updateHealthBar();
 
-        // If the ghost stays at the center for a certain duration, it disappears
-        if (distanceToDestruction <= COLLISION_DISTANCE){
-//            Timer timer = new Timer();
-//            timer.schedule(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    Platform.runLater(() -> destroy(ghost));
-//                }
-//            }, 1000);
-
+            // Remove the ghost from the game pane
+            destroy(ghost);
         }
+    }
 
+
+    private void updateHealthBar() {
+        double healthPercentage = (double) lives / 3.0; // Assuming 3 lives in total
+        healthBar.setProgress(healthPercentage);
+
+        if (lives <= 0) {
+            // Game over logic (no more health)
+            gameOver();
+        }
     }
 
 
