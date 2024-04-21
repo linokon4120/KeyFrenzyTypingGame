@@ -19,6 +19,7 @@
  * **************************************
  */
 package org.team11.GameController;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
@@ -26,10 +27,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -41,12 +39,15 @@ import org.team11.GameView.WordDictionary;
 import org.team11.TypingMechanism.GhostAnimation;
 import org.team11.TypingMechanism.GuessStatus;
 import org.team11.TypingMechanism.WordsSetting;
+
 import java.io.IOException;
 import java.util.*;
+
 public class KeyFrenzyView {
+
     public static final double COLLISION_DISTANCE = 1;
     private VBox root;
-    private FlowPane topPane;
+    private AnchorPane bottomPane;
     private Label labelMessageBanner;
     private Label currentScore;
     private GridPane gamePane;
@@ -59,18 +60,22 @@ public class KeyFrenzyView {
     private boolean lost;
     private final Timer globalTimer;
     private String userName;
+
+
     //The width of the game pane
     private double paneWidth;
+
     //The height of the game pane
     private double paneHeight;
     /**Variable to check the score*/
+
     //Variable to check the score
     private int score;
+
     private GhostTimerMovement ghostTimer;
     private Ghost ghost1;
     private Ghost ghost2;
-    private int lives = 3;
-    private Label remainingLivesLabel;
+
 
     /**
      /**
@@ -80,11 +85,16 @@ public class KeyFrenzyView {
     public KeyFrenzyView(String username) {
         this.userName = username;
         score = 0;
+
         wordDictionary = new WordDictionary();
+
         lost = false;
         rand = new Random(System.currentTimeMillis());
+
+
         initSceneGraph();
 //        initializeAnimationTimer();
+
         globalTimer = new Timer();
         globalTimer.schedule(new TimerTask() {
             @Override
@@ -105,35 +115,38 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
+        bottomPane = new AnchorPane();
+
         // Set minimum size for the gamePane
         gamePane.setMinSize(800,600); // Set minimum width
-
         // TODO Get the paneWidth and paneHeight of the game Pane
-        paneWidth = gamePane.widthProperty().getValue();
-        paneHeight = gamePane.heightProperty().getValue();
+
+
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
+        paneWidth = 800;
+        paneHeight = 600;
         // Create and configure the message banner
         configuringMessageBanner();
+
         ghostTimer = new GhostTimerMovement();
+
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
 
         //Adding the text box to the game
-        gamePane.add(userTypeBox, 10, 10);
-
+        bottomPane.getChildren().add(userTypeBox);
         // Display the username in the middle of the view
         Text userNameText = new Text(userName);
         userNameText.setStyle("-fx-font-size: 24;");
         userNameText.setStyle("-fx-background-color: WHITE");
         gamePane.add(userNameText, 50,50);
 
-
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
         this.root.getChildren().add(gamePane);
-
+        this.root.getChildren().add(bottomPane);
     }
 
 
@@ -159,11 +172,7 @@ public class KeyFrenzyView {
         Label timeUsedLabel = new Label("Time Used: 00:00");
         timeUsedLabel.getStyleClass().add("time-spent");
 
-        //Remaining lives label
-        remainingLivesLabel = new Label("Lives: " + lives);
-        remainingLivesLabel.getStyleClass().add("remaining-lives");
-
-        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel, remainingLivesLabel);
+        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel);
 
         // Add VBox to message banner
         VBox.setMargin(userInfoBox, new Insets(10)); // Adjust margin as needed
@@ -221,19 +230,19 @@ public class KeyFrenzyView {
         currentScore.setText("Current Score: " + score);
     }
 
-    /**
-     * Updates the life score of the player
-     */
-    private void updateLivesLabel(){
-        remainingLivesLabel.setText("Lives Remaining: " + lives);
-    }
 
     /**
-     * Removes a life when the ghost reaches the center.
+     * Starts the initialises and starts the animation timer
      */
-    private void deductALife(){
-        lives--;
+    private void initializeAnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                ghostTimer.handle(now);
+            }
+        };
 
+        animationTimer.start();
     }
 
 
@@ -318,6 +327,9 @@ public class KeyFrenzyView {
 
 
 
+//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
+//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
+
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
 
@@ -369,8 +381,43 @@ public class KeyFrenzyView {
         double centerX = paneWidth/2;
         double centerY = paneHeight/2;
 
+        ghost.setPosition(centerX, centerY);
         path.getElements().add(new LineTo(centerX, centerY));
 
+        double distanceToDestruction = calculateDistance(ghost.getX(), ghost.getY(), centerX, centerY);
+
+        // If the ghost stays at the center for a certain duration, it disappears
+        if (distanceToDestruction <= COLLISION_DISTANCE){
+//            Timer timer = new Timer();
+//            timer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    Platform.runLater(() -> destroy(ghost));
+//                }
+//            }, 1000);
+
+        }
+
+    }
+
+
+    private void handleAnimationStop(Ghost ghost1){
+        if (!ghost.isAnimationRunning()) {
+            destroy(ghost);
+        }
+    }
+
+    /**
+     * Calculates the ghost distance form the main character's distance
+     * @param x, ghost X Position
+     * @param y, ghost Y position
+     * @param centerX,  x position of the main character
+     * @param centerY  y position of the main character
+     * @return the vector distance between the ghost and main character
+     */
+
+    private double calculateDistance(double x, double y, double centerX, double centerY) {
+            return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY ,2));
     }
 
 
@@ -398,7 +445,7 @@ public class KeyFrenzyView {
                 wa.stop();
             }
 
-            // TODO Switch to Game Over view
+        // TODO Switch to Game Over view
 
             try {
                 // Transfer game object to game over controller
@@ -425,10 +472,6 @@ public class KeyFrenzyView {
 
     public VBox getRoot() {
         return root;
-    }
-
-    public FlowPane getTopPane() {
-        return topPane;
     }
 
     public Label getLabelMessageBanner() {
