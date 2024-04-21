@@ -19,7 +19,6 @@
  * **************************************
  */
 package org.team11.GameController;
-
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
@@ -42,12 +41,9 @@ import org.team11.GameView.WordDictionary;
 import org.team11.TypingMechanism.GhostAnimation;
 import org.team11.TypingMechanism.GuessStatus;
 import org.team11.TypingMechanism.WordsSetting;
-
 import java.io.IOException;
 import java.util.*;
-
 public class KeyFrenzyView {
-
     public static final double COLLISION_DISTANCE = 1;
     private VBox root;
     private FlowPane topPane;
@@ -63,22 +59,18 @@ public class KeyFrenzyView {
     private boolean lost;
     private final Timer globalTimer;
     private String userName;
-
-
     //The width of the game pane
     private double paneWidth;
-
     //The height of the game pane
     private double paneHeight;
     /**Variable to check the score*/
-
     //Variable to check the score
     private int score;
-
     private GhostTimerMovement ghostTimer;
     private Ghost ghost1;
     private Ghost ghost2;
-
+    private int lives = 3;
+    private Label remainingLivesLabel;
 
     /**
      /**
@@ -88,16 +80,11 @@ public class KeyFrenzyView {
     public KeyFrenzyView(String username) {
         this.userName = username;
         score = 0;
-
         wordDictionary = new WordDictionary();
-
         lost = false;
         rand = new Random(System.currentTimeMillis());
-
-
         initSceneGraph();
 //        initializeAnimationTimer();
-
         globalTimer = new Timer();
         globalTimer.schedule(new TimerTask() {
             @Override
@@ -106,7 +93,6 @@ public class KeyFrenzyView {
             }
         }, 5, WordsSetting.WORD_DELAY); // 5 is the time delayed before the first ghost appears
     }
-
 
     /**
      * Initialize the entire scene graph
@@ -119,26 +105,24 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
-
         // Set minimum size for the gamePane
         gamePane.setMinSize(800,600); // Set minimum width
+
         // TODO Get the paneWidth and paneHeight of the game Pane
         paneWidth = gamePane.widthProperty().getValue();
         paneHeight = gamePane.heightProperty().getValue();
-
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
         // Create and configure the message banner
         configuringMessageBanner();
-
         ghostTimer = new GhostTimerMovement();
-
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
 
         //Adding the text box to the game
         gamePane.add(userTypeBox, 10, 10);
+
         // Display the username in the middle of the view
         Text userNameText = new Text(userName);
         userNameText.setStyle("-fx-font-size: 24;");
@@ -175,7 +159,11 @@ public class KeyFrenzyView {
         Label timeUsedLabel = new Label("Time Used: 00:00");
         timeUsedLabel.getStyleClass().add("time-spent");
 
-        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel);
+        //Remaining lives label
+        remainingLivesLabel = new Label("Lives: " + lives);
+        remainingLivesLabel.getStyleClass().add("remaining-lives");
+
+        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel, remainingLivesLabel);
 
         // Add VBox to message banner
         VBox.setMargin(userInfoBox, new Insets(10)); // Adjust margin as needed
@@ -233,19 +221,19 @@ public class KeyFrenzyView {
         currentScore.setText("Current Score: " + score);
     }
 
+    /**
+     * Updates the life score of the player
+     */
+    private void updateLivesLabel(){
+        remainingLivesLabel.setText("Lives Remaining: " + lives);
+    }
 
     /**
-     * Starts the initialises and starts the animation timer
+     * Removes a life when the ghost reaches the center.
      */
-    private void initializeAnimationTimer() {
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                ghostTimer.handle(now);
-            }
-        };
+    private void deductALife(){
+        lives--;
 
-        animationTimer.start();
     }
 
 
@@ -330,9 +318,6 @@ public class KeyFrenzyView {
 
 
 
-//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
-//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
-
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
 
@@ -384,43 +369,8 @@ public class KeyFrenzyView {
         double centerX = paneWidth/2;
         double centerY = paneHeight/2;
 
-        ghost.setPosition(centerX, centerY);
         path.getElements().add(new LineTo(centerX, centerY));
 
-        double distanceToDestruction = calculateDistance(ghost.getX(), ghost.getY(), centerX, centerY);
-
-        // If the ghost stays at the center for a certain duration, it disappears
-        if (distanceToDestruction <= COLLISION_DISTANCE){
-//            Timer timer = new Timer();
-//            timer.schedule(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    Platform.runLater(() -> destroy(ghost));
-//                }
-//            }, 1000);
-
-        }
-
-    }
-
-
-    private void handleAnimationStop(Ghost ghost1){
-        if (!ghost.isAnimationRunning()) {
-            destroy(ghost);
-        }
-    }
-
-    /**
-     * Calculates the ghost distance form the main character's distance
-     * @param x, ghost X Position
-     * @param y, ghost Y position
-     * @param centerX,  x position of the main character
-     * @param centerY  y position of the main character
-     * @return the vector distance between the ghost and main character
-     */
-
-    private double calculateDistance(double x, double y, double centerX, double centerY) {
-            return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY ,2));
     }
 
 
@@ -448,7 +398,7 @@ public class KeyFrenzyView {
                 wa.stop();
             }
 
-        // TODO Switch to Game Over view
+            // TODO Switch to Game Over view
 
             try {
                 // Transfer game object to game over controller
