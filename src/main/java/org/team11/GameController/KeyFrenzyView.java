@@ -23,7 +23,10 @@ package org.team11.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
@@ -33,6 +36,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.GameView.Ghost;
 import org.team11.GameView.GhostTimerMovement;
@@ -338,9 +342,6 @@ public class KeyFrenzyView {
             }
         };
 
-//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
-//        ghost1.setAnimationTimer(() -> handleAnimationStop(ghost1));
-
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
 
@@ -390,18 +391,35 @@ public class KeyFrenzyView {
         double centerY = paneHeight/2;
 
         path.getElements().add(new LineTo(centerX, centerY));
-        // Calculate distance to the center
-        double distanceToCenter = calculateDistance(ghost.getNode().getLayoutX(), ghost.getNode().getLayoutY(), centerX, centerY);
-
-        // If ghost reaches the center, decrease health and update health bar
+//        // Calculate distance to the center
+//        double distanceToCenter = calculateDistance(ghost.getNode().getLayoutX(), ghost.getNode().getLayoutY(), centerX, centerY);
+//
+//        // If ghost reaches the center, decrease health and update health bar
 //        if (ghost.getNode().getScaleX() <= 10 || ghost.getNode().getScaleY() <= 10) {
-        if (distanceToCenter <= 10) {
-            // Ghost reached the center, decrease health
-            lives--;
-            updateHealthBar();
 
-            // Remove the ghost from the game pane
-            destroy(ghost);
+        // Create a PathTransition to animate the ghost along the path
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(WordsSetting.WORD_DURATION)); // Set animation duration
+        pathTransition.setPath(path); // Set the path for the animation
+        pathTransition.setNode(ghost.getNode()); // Set the node (ghost) to animate
+        pathTransition.setCycleCount(1); // Animation plays once
+
+        // Event handler to handle animation completion (ghost reaches center)
+        if (ghost.isActive()) {
+            pathTransition.setOnFinished(event -> {
+                // Check if the ghost is still in the game pane
+                if (gamePane.getChildren().contains(ghost.getNode())) {
+                    // Ghost is still present in the game pane
+                    lives--; // Decrease health
+                    updateHealthBar(); // Update health bar
+
+                    // Remove the ghost from the game pane
+                    destroy(ghost);
+                }
+            });
+
+            // Start the animation
+            pathTransition.play();
         }
     }
 
@@ -417,12 +435,6 @@ public class KeyFrenzyView {
     }
 
 
-    private void handleAnimationStop(Ghost ghost1){
-        if (!ghost.isAnimationRunning()) {
-            destroy(ghost);
-        }
-    }
-
     /**
      * Calculates the ghost distance form the main character's distance
      * @param x, ghost X Position
@@ -433,7 +445,7 @@ public class KeyFrenzyView {
      */
 
     private double calculateDistance(double x, double y, double centerX, double centerY) {
-            return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY ,2));
+            return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY, 2));
     }
 
 
@@ -451,7 +463,6 @@ public class KeyFrenzyView {
         pt.play();
     }
 
-
     private void gameOver() {
         // Perform actions on the main thread
         Platform.runLater(() -> {
@@ -464,11 +475,20 @@ public class KeyFrenzyView {
         // TODO Switch to Game Over view
 
             try {
-                // Transfer game object to game over controller
-                GameOverController newController = SceneSwitch.change(currentScore, "game-over-view.fxml");
 
-                // Move to the game over screen
-                newController.transferData(wordDictionary);
+                // Load the FXML file. Obtain the root of the scene graph
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml")); // TODO this is only the start menu
+                Parent root = loader.load();
+
+                // Transfer game object to game over controller
+                Stage primaryStage = new Stage();
+                // Set up the stage and show it
+                primaryStage.setTitle("Hello FXML!");
+                primaryStage.setScene(new Scene(root));
+                primaryStage.sizeToScene();
+                primaryStage.show();
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -481,9 +501,7 @@ public class KeyFrenzyView {
      */
     public void destroy(Ghost ghost) {
         gamePane.getChildren().remove(ghost.getNode());
-
     }
-
 
 
     public VBox getRoot() {
