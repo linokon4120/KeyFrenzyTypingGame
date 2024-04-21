@@ -18,15 +18,21 @@
  */
 package org.team11.GameView;
 
+import javafx.application.Application;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.Font;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 public class Ghost {
+    private static final double MOVEMENT_AMOUNT = 1;
     private String word;
     private boolean active;
     private Label label;
@@ -46,7 +52,6 @@ public class Ghost {
     public Ghost(String word, int gridSize) {
         this.word = word;
         this.active = true;
-
 
         initializeGhost(word, gridSize);
     }
@@ -82,11 +87,20 @@ public class Ghost {
 
     private void initializeGhost(String word, int gridSize) {
         // Create a circle for the ghost
-        Circle circle = new Circle(20); // Radius of the circle
-        circle.setFill(Color.rgb(163, 255, 214)); // Set fill color to transparent
+        Circle circle = new Circle(39); // Radius of the circle
+        //circle.setStyle("-fx-graphic: url('./animation/ghost.gif')"); //I DONT KNOW WHY THIS IS NOT WORKING!!!
+        circle.setFill(Color.TRANSPARENT);
+        //circle.setFill(Color.r gb(163, 255, 214)); // Set fill color to transparent
 
         // Set background image using CSS
-        //circle.setStyle("-fx-background-image: url('" + getClass().getResource("resources/animation/ghost.gif").toExternalForm() + "'); " + "-fx-background-size: cover;");
+        Image img = new Image("./animation/ghost1.gif");
+        circle.setFill(new ImagePattern(img));
+//        ImageView view = new ImageView(img);
+//        view.setFitHeight(20);
+//        view.setPreserveRatio(true);
+//        circle.setGraphic(view);
+        circle.setStyle("-fx-graphic: url('./animation/ghost.gif')");
+        //circle.getStyleClass().add("ghost-circle"); // Apply CSS class
 
         // Create a label for the word
         Label label = new Label(word);
@@ -104,6 +118,27 @@ public class Ghost {
         // Set the node
         this.node = pane;
     }
+
+
+
+    /* Ghost Mobility */
+
+    /**
+     * The ghosts move towards the position of the main character,
+     * collides when it is one box to the main character and the gif does its thing.
+     *
+     * @param mainCharacterX, the x position of the main character
+     * @param mainCharacterY, the y position of the main character
+     */
+
+
+
+    /**
+     * Makes the ghost disappear
+     * */
+
+
+
 
 
 
