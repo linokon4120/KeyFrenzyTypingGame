@@ -33,26 +33,15 @@ public class Ghost {
     private Pane node;
 
 
+
     /**2000 milliseconds, */
     public static final long STATIONARY_THRESHOLD = 2000;
 
     private AnimationTimer animationTimer;
     private Runnable onAnimationStopListener;
 
-    boolean moving;
-    private long stationaryTime;
-
+    private boolean destroyed;
     private boolean animationRunning;
-
-    /** The x position of the ghosts */
-    private  double x;
-
-    /** The y position of the ghosts */
-    private double y;
-
-    /**
-     * A Constructor for the ghost class
-     */
 
     public Ghost(String word, int gridSize) {
         this.word = word;
@@ -134,18 +123,30 @@ public class Ghost {
         return node;
     }
 
-    public void setPosition(double x, double y){
-        this.x = x;
-        this.y = y;
+    public void setPosition(double centerX, double centerY) {
+
+    }
+    public void destroy(){
+
+        this.destroyed = true;
     }
 
-    public double getX() {
-        return x;
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
-    public double getY() {
-        return y;
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
     }
 
+
+    // Method to stop the animation
+    public void stopAnimation() {
+        animationRunning = false;
+        animationTimer.stop();
+    }
 
 }
+
+
+

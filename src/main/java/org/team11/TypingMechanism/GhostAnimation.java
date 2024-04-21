@@ -1,3 +1,4 @@
+
 /* ***************************************
  * CSCI 205 - Software Engineering and Design
  * Spring 2024
@@ -27,8 +28,7 @@ import java.util.Timer;
 public class GhostAnimation {
     public Timer timer;
     public Text text;
-    public long lastMovementTime;
-
+    public static long lastMovementTime;
 
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
@@ -47,8 +47,9 @@ public class GhostAnimation {
             ((Pane) text.getParent()).getChildren().remove(text);
     }
 
-
     public boolean isMoving() {
+        // Implement logic to check if the animation is still active
         return (System.currentTimeMillis() - lastMovementTime) < Ghost.STATIONARY_THRESHOLD;
     }
 }
+
