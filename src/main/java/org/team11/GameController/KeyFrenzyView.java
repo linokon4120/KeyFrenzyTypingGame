@@ -20,21 +20,22 @@
  */
 package org.team11.GameController;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.team11.GameView.Ghost;
-import org.team11.GameView.GhostTimerMovement;
 import org.team11.GameView.WordDictionary;
 import org.team11.TypingMechanism.GhostAnimation;
 import org.team11.TypingMechanism.GuessStatus;
@@ -44,8 +45,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyView {
-
-    public static final double COLLISION_DISTANCE = 1;
     private VBox root;
     private AnchorPane bottomPane;
     private Label labelMessageBanner;
@@ -73,12 +72,11 @@ public class KeyFrenzyView {
     //Variable to check the score
     private int score;
 
-    //Variable for starting lices;
-    private int startingLives = 3;
+    //Variable for starting lives;
+    public static int startingLives = 3;
 
-    private GhostTimerMovement ghostTimer;
-    private Ghost ghost1;
-    private Ghost ghost2;
+    public static double centerX;
+    public static double centerY;
 
 
     /**
@@ -95,9 +93,7 @@ public class KeyFrenzyView {
         lost = false;
         rand = new Random(System.currentTimeMillis());
 
-
         initSceneGraph();
-//        initializeAnimationTimer();
 
         globalTimer = new Timer();
         globalTimer.schedule(new TimerTask() {
@@ -132,8 +128,6 @@ public class KeyFrenzyView {
         paneHeight = 600;
         // Create and configure the message banner
         configuringMessageBanner();
-
-        ghostTimer = new GhostTimerMovement();
 
 
         // Initialize ghosts
@@ -244,10 +238,6 @@ public class KeyFrenzyView {
         lives.setText("Remaining lives: " + startingLives );
     }
 
-    /** Removes a life */
-    public void deductALife(){
-        startingLives--;
-    }
 
 
     /**
@@ -314,18 +304,16 @@ public class KeyFrenzyView {
         List<Ghost> ghostsOnScreen = new ArrayList<>();
         String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
 
+
+        long creationTime = System.currentTimeMillis();
         Ghost ghost1 = new Ghost(words[0],80);
         Ghost ghost2 = new Ghost(words[1],80);
+        //Starts the timer
+        ghost1.setCreationTime(creationTime);
+        ghost2.setCreationTime(creationTime);
         ghostsOnScreen.add(ghost1);
         ghostsOnScreen.add(ghost2);
 
-        //Animation timer for each ghost
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                ghostTimer.handle(now);
-            }
-        };
 
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
@@ -362,10 +350,38 @@ public class KeyFrenzyView {
             gamePane.getChildren().add(ghost1.getNode());
             gamePane.getChildren().add(ghost2.getNode());
 
+            //Checks destroy ghosts
+            checkDestroyGhosts(ghostsOnScreen);
+
         });
 
         return ghostsOnScreen;
 
+    }
+
+    /**
+     * Destroys the ghosts based on the starting time of the animation
+     * @param ghostsOnScreen that have been animated
+     */
+    private void checkDestroyGhosts(List<Ghost> ghostsOnScreen) {
+        long currentTime = System.currentTimeMillis();
+        for(Ghost ghost : ghostsOnScreen){
+            if (currentTime - ghost.getCreationTime()>= WordsSetting.WORD_DELAY){
+                destroy(ghost);
+                deductALife();
+            }
+        }
+    }
+
+    /**
+     * Removes a life and ends the game if there no remaining lives.
+     */
+    private void deductALife() {
+        startingLives--;
+
+        if(startingLives == 0){
+            gameOver();
+        }
     }
 
     /**
@@ -374,8 +390,8 @@ public class KeyFrenzyView {
      */
     private void moveToCenter(Ghost ghost, Path path) {
 
-        double centerX = paneWidth/2;
-        double centerY = paneHeight/2;
+        centerX = paneWidth/2;
+        centerY = paneHeight/2;
 
         ghost.setPosition(centerX, centerY);
         path.getElements().add(new LineTo(centerX, centerY));
@@ -408,7 +424,7 @@ public class KeyFrenzyView {
                 wa.stop();
             }
 
-        // TODO Switch to Game Over view
+            // TODO Switch to Game Over view
 
             try {
                 // Transfer game object to game over controller
@@ -432,6 +448,10 @@ public class KeyFrenzyView {
     }
 
 
+
+    /*
+      Getters and setter methods
+     */
 
     public VBox getRoot() {
         return root;

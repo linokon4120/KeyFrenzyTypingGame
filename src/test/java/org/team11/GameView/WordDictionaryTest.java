@@ -2,8 +2,6 @@ package org.team11.GameView;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class WordDictionaryTest {
 
     @Test
@@ -13,6 +11,7 @@ class WordDictionaryTest {
     @Test
     void getWord() {
     }
+
 
     @Test
     void guess() {

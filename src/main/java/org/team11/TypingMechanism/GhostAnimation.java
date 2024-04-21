@@ -1,4 +1,3 @@
-
 /* ***************************************
  * CSCI 205 - Software Engineering and Design
  * Spring 2024
@@ -26,20 +25,27 @@ import org.team11.GameView.Ghost;
 import java.util.Timer;
 
 public class GhostAnimation {
+
+    private Ghost ghost;
     public Timer timer;
     public Text text;
     public static long lastMovementTime;
 
+    public double centerThreshold;
+
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
-        this.text = text;
-        this.lastMovementTime = System.currentTimeMillis();
-    }
-
-    public void start(){
         lastMovementTime = System.currentTimeMillis();
     }
 
+    public void start() {
+        lastMovementTime = System.currentTimeMillis();
+
+    }
+
+    /**
+     * Stops the animation
+     */
     public void stop() {
         if (timer != null)
             timer.cancel();
@@ -47,9 +53,6 @@ public class GhostAnimation {
             ((Pane) text.getParent()).getChildren().remove(text);
     }
 
-    public boolean isMoving() {
-        // Implement logic to check if the animation is still active
-        return (System.currentTimeMillis() - lastMovementTime) < Ghost.STATIONARY_THRESHOLD;
-    }
+
 }
 

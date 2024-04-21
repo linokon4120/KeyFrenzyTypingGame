@@ -31,7 +31,6 @@ public class GameMain extends Application{
     private KeyFrenzyView theView;
   //  private KeyFrenzyController theController;
 
-
     public static void main(String[] args) {launch(args);}
 
 
