@@ -50,9 +50,8 @@ public class GameMain extends Application{
         // Set up the stage and show it
         primaryStage.setTitle("Hello FXML!");
         primaryStage.setScene(new Scene(root));
+        primaryStage.sizeToScene();
         primaryStage.show();
-
-
 
 
     }
