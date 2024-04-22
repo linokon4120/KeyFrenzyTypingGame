@@ -91,7 +91,7 @@ public class KeyFrenzyView {
 
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
-    private int LEVELSCORE = 200; // change level after score reaches LEVELSCORE
+    private int LEVELSCORE = 80; // change level after score reaches LEVELSCORE
 
     private int MAXLEVEL = 7;
 
@@ -266,14 +266,14 @@ public class KeyFrenzyView {
                 score += 10;
                 updateScoreLabel();
                 //update the level and check if level has reached max level
-                updatelevel();
+                updateLevel();
                 break;
             }
         }
         }
 
 
-    private void updatelevel() {
+    private void updateLevel() {
         if (score % LEVELSCORE == 0){
             // update the level number
             level ++; //increment level number
@@ -281,6 +281,7 @@ public class KeyFrenzyView {
                 // update label
                 updateLevellbl(level);
                 // update the label
+                generateNewWord();
             }
             else{
                 // Reached the max level
@@ -411,10 +412,7 @@ public class KeyFrenzyView {
             moveToCenter(ghost2, path2);
 
 
-            // Generate animation
-            createPath(path1, ghost1);
-            createPath(path2, ghost2);
-
+//        f
 
             // Add to pane
             gamePane.getChildren().add(ghost1.getNode());
