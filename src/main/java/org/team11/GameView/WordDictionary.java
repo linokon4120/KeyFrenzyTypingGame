@@ -94,25 +94,16 @@ public class WordDictionary {
         return selectedWords;
     }
 
-    public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
-//        List<String> words;
-//
-//        words = wordsbylength.get(this.key);
-//        // if the number of words needed at that level is more than what the dictionary has stored
-//        int numwords = 16; //hard coded to 16 words
-//        if (numwords >  words.size()){
-//            numwords = words.size();
-//
-//        }
-//        //randomize the list
-//        Collections.shuffle(words);
-//        this.key ++; //because the level gets incremented each time the get words method is called
-//
-//        return new ArrayList<>(words.subList(0, numwords));
+    public String getWord(int level){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
+
+        Integer key = level + 1; //because the first level starts with two letters
+        List<String> words = wordsbylength.get(key);
+        // Shuffle in random order
+        Collections.shuffle(words);
+
         String word;
         do {
-            int num = rand.nextInt(dictionary.size());
-            word = dictionary.get(num);
+            word = words.get(rand.nextInt(wordsbylength.size()));
         } while (currentWords.contains(word));
         currentWords.add(word);
         return word;
@@ -120,6 +111,10 @@ public class WordDictionary {
     }
 
 
+    public static void main(String[] args) {
+        WordDictionary wordDictionary = new WordDictionary();
+        System.out.println("Getting 3 letter: " + wordDictionary.getWord(2));
+    }
 
 
     public int getScore() {

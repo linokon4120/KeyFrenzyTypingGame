@@ -18,6 +18,7 @@
  */
 package org.team11.GameController;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Dictionary;
@@ -27,8 +28,13 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.team11.GameView.WordDictionary;
 
 public class GameOverController {
@@ -56,8 +62,38 @@ public class GameOverController {
 
     @FXML
     protected void onRestartButtonClick() throws IOException {
-        // When the start button is clicked, go to the game view
-        SceneSwitch.change(textGameOver, "welcomeMenu.fxml", 1000, 800, "Typer [In Game]");
+//        // When the start button is clicked, go to the game view
+//        SceneSwitch.change(textGameOver, "welcomeMenu.fxml", 1000, 800, "Typer [In Game]");
+        try {
+            // Load the FXML file for KeyFrenzyView
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KeyFrenzyView.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller of KeyFrenzyView
+            KeyFrenzyView keyFrenzyController = loader.getController();
+
+            // Create a new stage and scene for KeyFrenzyView
+            Stage primaryStage = new Stage();
+            primaryStage.setTitle("Key Frenzy Game");
+            primaryStage.setScene(new Scene(root));
+
+            // Show the KeyFrenzyView
+            primaryStage.show();
+
+            // Close the current (game over) stage
+            Stage currentStage = (Stage) ((Node) buttonPlayAgain).getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle loading error
+        }
+
+    }
+
+    @FXML
+    private void handleQuitGameButtonClick() {
+        // Close the application
+        Platform.exit();
     }
 
     @FXML
@@ -67,12 +103,12 @@ public class GameOverController {
 
     }
 
-    protected void transferData(WordDictionary dict) {
+    public void transferData(int score) {
         // Set the game to an instance variable
         this.dict = dict;
 
         // Get the score from the game
-        scoreText.setText("Score: " + dict.getScore());
+        scoreText.setText("Score: " + score);
 
         // Enable the "restart" button after 1 second
         new Timer().schedule(new TimerTask() {
@@ -82,5 +118,6 @@ public class GameOverController {
             }
         }, 1000);
     }
+
 
 }

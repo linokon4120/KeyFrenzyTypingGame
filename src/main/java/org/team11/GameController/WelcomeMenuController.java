@@ -74,10 +74,9 @@ public class WelcomeMenuController {
             primaryStage.sizeToScene();
             primaryStage.show();
 
-
-            // Close the current window (if needed)
-//        ((Node) event.getSource()).getScene().getWindow().hide();
-
+            // Close the current WelcomeMenu window
+            Stage currentStage = (Stage) buttonStartGame.getScene().getWindow();
+            currentStage.close();
         }
     }
 

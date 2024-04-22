@@ -115,6 +115,7 @@ public class KeyFrenzyView {
         this.wordDictionary = new WordDictionary();
         this.lost = false;
         this.rand = new Random(System.currentTimeMillis());
+        this.level = 1;
 
 
         initSceneGraph();
@@ -280,7 +281,7 @@ public class KeyFrenzyView {
                 // update label
                 updateLevellbl(level);
                 // update the label
-                generateNewWord();
+//                generateNewWord();.
             }
             else{
                 // Reached the max level
@@ -310,7 +311,9 @@ public class KeyFrenzyView {
      */
     private void generateNewWord() {
         // Generate the new word
-        String word = wordDictionary.getWord();
+        System.out.println("Current level is: " + level);
+
+        String word = wordDictionary.getWord(level);
 
         // Create a timer that ends the game if the player does not type the word in time.
         Timer wordTimer = new Timer();
@@ -371,12 +374,11 @@ public class KeyFrenzyView {
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
-
 
         long creationTime = System.currentTimeMillis();
-        Ghost ghost1 = new Ghost(words[0], 80);
-        Ghost ghost2 = new Ghost(words[1], 80);
+
+        Ghost ghost1 = new Ghost(wordDictionary.getWord(level), 80);
+        Ghost ghost2 = new Ghost(wordDictionary.getWord(level), 80);
         //Starts the timer
         ghost1.setCreationTime(creationTime);
         ghost2.setCreationTime(creationTime);
@@ -410,9 +412,6 @@ public class KeyFrenzyView {
             // Moves the path to the middle of the pane
             moveToCenter(ghost2, path2);
 
-
-//        f
-
             // Add to pane
             gamePane.getChildren().add(ghost1.getNode());
             gamePane.getChildren().add(ghost2.getNode());
@@ -436,11 +435,6 @@ public class KeyFrenzyView {
         double centerY = paneHeight/2;
 
         path.getElements().add(new LineTo(centerX, centerY));
-//        // Calculate distance to the center
-//        double distanceToCenter = calculateDistance(ghost.getNode().getLayoutX(), ghost.getNode().getLayoutY(), centerX, centerY);
-//
-//        // If ghost reaches the center, decrease health and update health bar
-//        if (ghost.getNode().getScaleX() <= 10 || ghost.getNode().getScaleY() <= 10) {
 
         // Create a PathTransition to animate the ghost along the path
         PathTransition pathTransition = new PathTransition();
@@ -481,10 +475,6 @@ public class KeyFrenzyView {
     }
 
 
-
-
-
-
     private void gameOver() {
         // Perform actions on the main thread
         Platform.runLater(() -> {
@@ -500,8 +490,12 @@ public class KeyFrenzyView {
 
                 // Load the FXML file. Obtain the root of the scene graph
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml")); // TODO this is only the start menu
+                loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml"));
                 Parent root = loader.load();
+//                GameOverController gameOverController = loader.getController();
+//
+//                // Pass the score to the game over controller
+//                gameOverController.transferData(score);
 
                 // Transfer game object to game over controller
                 Stage primaryStage = new Stage();
@@ -510,6 +504,10 @@ public class KeyFrenzyView {
                 primaryStage.setScene(new Scene(root));
                 primaryStage.sizeToScene();
                 primaryStage.show();
+
+                // Close the current WelcomeMenu window
+                Stage currentStage = (Stage) labelMessageBanner.getScene().getWindow();
+                currentStage.close();
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
