@@ -26,11 +26,10 @@ package org.team11.GameView;
 
 import org.team11.TypingMechanism.GuessStatus;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
-import java.util.Collections;
 
 public class WordDictionary {
 
@@ -41,9 +40,10 @@ public class WordDictionary {
     private int score;
     private Random rand;
 
+    /**
+     * The constructor for the WordDictionary class
+     */
     public WordDictionary() {
-
-
         loadFileIntoMap("src/main/resources/Dictionary");
         score = 0;
         rand = new Random(System.currentTimeMillis());
@@ -68,8 +68,6 @@ public class WordDictionary {
             System.err.println("Error in loading the file");
             e.printStackTrace();
         }
-        //check if this loaded correctly and call print map
-        // printMap();
 
     }
 
@@ -95,10 +93,6 @@ public class WordDictionary {
         words.subList(0, numwords).clear();
 
         return selectedWords;
-
-
-
-
     }
 
 
@@ -106,7 +100,5 @@ public class WordDictionary {
        // return score;
         return 0;
     }
-
-
 }
 

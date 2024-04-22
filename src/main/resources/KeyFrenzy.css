@@ -10,7 +10,7 @@
 
 /* Style for the gamePane */
 .game-pane {
-    -fx-background-image: url("animation/background1.png");
+    -fx-background-image: url("animation/bg.gif");
 
     -fx-background-size: 800 600;
     -fx-background-position: center center;
@@ -49,18 +49,21 @@
     -fx-font-family: Futura;
 }
 /* Style for the ghost circles */
-/*.ghost-circle {*/
-/*    -fx-background-image: url("animation/ghost.gif");*/
-/*    -fx-font-family: Futura; !* Set font family *!*/
-/*    -fx-font-size: 12px; !* Set font size *!*/
-/*    -fx-text-fill: #A3FFD6; !* Set text color *!*/
-/*}*/
+.ghost-circle {
+    -fx-graphic: url("animation/ghost.gif");
+    -fx-font-family: Futura; /* Set font family */
+    -fx-font-size: 12px; /* Set font size */
+    -fx-text-fill: #A3FFD6; /* Set text color */
+}
 
 /* Style for the ghost labels */
 .ghost-label {
 
 }
 
-.main-character {
-
+.remaining-lives {
+    -fx-font-size: 13;
+    -fx-font-weight: medium;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Futura;
 }

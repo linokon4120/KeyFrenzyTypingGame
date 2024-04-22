@@ -26,13 +26,24 @@ import java.util.Timer;
 
 public class GhostAnimation {
     public Timer timer;
+
     public Text text;
+    public static long lastMovementTime;
+
 
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
-        this.text = text;
+        lastMovementTime = System.currentTimeMillis();
     }
 
+    public void start() {
+        lastMovementTime = System.currentTimeMillis();
+
+    }
+
+    /**
+     * Stops the animation
+     */
     public void stop() {
         if (timer != null)
             timer.cancel();
@@ -40,4 +51,6 @@ public class GhostAnimation {
             ((Pane) text.getParent()).getChildren().remove(text);
     }
 
+
 }
+

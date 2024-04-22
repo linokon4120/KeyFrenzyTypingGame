@@ -73,11 +73,12 @@ public class WelcomeMenuController {
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
             primaryStage.show();
-        }
 
-        // Close the current window (if needed)
+
+            // Close the current window (if needed)
 //        ((Node) event.getSource()).getScene().getWindow().hide();
 
+        }
     }
 
     @FXML

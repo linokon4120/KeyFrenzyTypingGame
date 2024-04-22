@@ -31,7 +31,6 @@ public class GameMain extends Application{
     private KeyFrenzyView theView;
   //  private KeyFrenzyController theController;
 
-
     public static void main(String[] args) {launch(args);}
 
 
@@ -51,9 +50,8 @@ public class GameMain extends Application{
         // Set up the stage and show it
         primaryStage.setTitle("Hello FXML!");
         primaryStage.setScene(new Scene(root));
+        primaryStage.sizeToScene();
         primaryStage.show();
-
-
 
 
     }
