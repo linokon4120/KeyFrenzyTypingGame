@@ -30,15 +30,13 @@ import java.util.Random;
 public class Ghost {
     private static final double MOVEMENT_AMOUNT = 1;
     private String word;
-    private boolean active;
-    private Label label;
+
+
     private Pane node;
 
-    /** The x position of the ghosts */
-    private  double x;
 
-    /** The y position of the ghosts */
-    private double y;
+
+
 
     /**
      * A Constructor for the ghost class
@@ -46,7 +44,7 @@ public class Ghost {
 
     public Ghost(String word, int gridSize) {
         this.word = word;
-        this.active = true;
+
 
         initializeGhost(word, gridSize);
     }
@@ -89,28 +87,6 @@ public class Ghost {
     }
 
 
-
-    /* Ghost Mobility */
-
-    /**
-     * The ghosts move towards the position of the main character,
-     * collides when it is one box to the main character and the gif does its thing.
-     *
-     * @param mainCharacterX, the x position of the main character
-     * @param mainCharacterY, the y position of the main character
-     */
-
-
-
-    /**
-     * Makes the ghost disappear
-     * */
-
-
-
-
-
-
     /*
      All getter methods:
     */
@@ -119,19 +95,9 @@ public class Ghost {
         return word;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
     public Node getNode() {
         return node;
     }
 
-    public double getX() {
-        return x;
-    }
 
-    public double getY() {
-        return y;
-    }
 }

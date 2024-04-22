@@ -33,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.team11.GameView.Ghost;
@@ -50,8 +51,9 @@ public class KeyFrenzyView {
     // TODO fix the controller problem :(
     private VBox root;
     private FlowPane topPane;
-    private Label labelMessageBanner;
-    private Label currentScore;
+    private Label labelMessageBanner; // Message Banner reamains same for all leve/
+    private Label currentScore; // Score label
+    private Label levelbl; // Level number label
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private Ghost ghost;
@@ -69,9 +71,14 @@ public class KeyFrenzyView {
     /**Variable to check the score*/
     private int score;
 
+    private int level; //this is where we store the level number
+
 
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
+    private int LEVELSCORE = 20; // change level after score reaches LEVELSCORE
+
+    private int MAXLEVEL = 7;
 
    // private int level = 1;
 
@@ -82,7 +89,8 @@ public class KeyFrenzyView {
      */
     public KeyFrenzyView(String username) {
         this.userName = username;
-        score = 0;
+        score = 0; //score is initialized to 0
+        level = 1; //level is initialized to 1
 
         wordDictionary = new WordDictionary();
 
@@ -122,6 +130,10 @@ public class KeyFrenzyView {
         // Create and configure the message banner
         configuringMessageBanner();
 
+        //create and configure the level banner
+        configureLevelBanner();
+
+
         ghostTimer = new GhostTimerMovement();
 
         // Initialize ghosts
@@ -138,6 +150,7 @@ public class KeyFrenzyView {
 
         this.root.getChildren().add(labelMessageBanner);
         this.root.getChildren().add(currentScore);
+        this.root.getChildren().add(levelbl);
         this.root.getChildren().add(gamePane);
     }
 
@@ -146,7 +159,10 @@ public class KeyFrenzyView {
      * Adds the message banner into the home screen of the came
      */
     private void configuringMessageBanner() {
-        labelMessageBanner = new Label("Type words on ghosts to destroy them!");
+        labelMessageBanner = new Label("Type words to destroy Ghosts!");
+        labelMessageBanner.setStyle("-fx-text-fill: white;");
+        labelMessageBanner.setFont(Font.font(18));
+
         currentScore = new Label("Current Score: ");
         this.currentScore.getStyleClass().add("current-score");
         this.userTypeBox = new TextField();
@@ -165,12 +181,16 @@ public class KeyFrenzyView {
             }});
     }
 
+    private void configureLevelBanner(){
+        levelbl = new Label();
+        updateLevellbl(level);
+    }
+
     /**
      * Handle the user input when prompted
      * @param userInput the String input from user
      */
     private void handleUserInput(String userInput) {
-        boolean matchFound = false;
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
             Ghost ghost = iterator.next();
@@ -178,23 +198,43 @@ public class KeyFrenzyView {
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
                 iterator.remove();
-                matchFound = true;
-
 
                 // Update the score
                 score += 1;
                 updateScoreLabel();
+                //update the level and check if level has reached max level
+                updatelevel();
                 break;
             }
         }
+    }
 
-        if (!matchFound) {
-
+    private void updatelevel() {
+        if (score % LEVELSCORE == 0){
+            // update the level number
+            level ++; //increment level number
+            if(level <= MAXLEVEL) {
+                // update label
+                updateLevellbl(level);
+                // update the label
+            }
+            else{
+                // Reached the max level
+                gameOver();
+            }
         }
     }
 
     private void updateScoreLabel() {
         currentScore.setText("Current Score: " + String.valueOf(score));
+    }
+
+
+    private void updateLevellbl(int level){
+        levelbl.setText("Level: " + String.valueOf(level));
+
+        levelbl.setFont(Font.font(18));
+        levelbl.setStyle("-fx-text-fill: white;");
     }
 
 
@@ -249,7 +289,7 @@ public class KeyFrenzyView {
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(2, 2).toArray(new String[0]);
+        String[] words = wordDictionary.getWords(level, 2).toArray(new String[0]);
 
         Ghost ghost1 = new Ghost(words[0],80);
         Ghost ghost2 = new Ghost(words[1],80);
@@ -340,25 +380,9 @@ public class KeyFrenzyView {
         gamePane.getChildren().remove(ghost.getNode());
     }
 
-
-
     public VBox getRoot() {
         return root;
     }
 
-    public FlowPane getTopPane() {
-        return topPane;
-    }
 
-    public Label getLabelMessageBanner() {
-        return labelMessageBanner;
-    }
-
-    public Pane getGamePane() {
-        return gamePane;
-    }
-
-    public List<Ghost> getGhosts() {
-        return ghosts;
-    }
 }
