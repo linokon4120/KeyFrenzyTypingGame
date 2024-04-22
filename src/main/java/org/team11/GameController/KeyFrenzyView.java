@@ -251,7 +251,6 @@ public class KeyFrenzyView {
      */
     private void handleUserInput(String userInput) {
 
-        boolean matchFound = false;
 
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
@@ -260,7 +259,7 @@ public class KeyFrenzyView {
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
                 iterator.remove();
-                matchFound = true;
+
 
                 // Update the score
                 score += 10;
@@ -482,32 +481,7 @@ public class KeyFrenzyView {
     }
 
 
-    /**
-     * Creates a path to be followed by the ghost
-     *
-     * @param path  followed by the ghost
-     * @param ghost to be destroyed
-     */
-    private static void createPath(Path path, Ghost ghost) {
-        PathTransition pt = new PathTransition();
-        pt.setDuration(Duration.millis(WordsSetting.WORD_DURATION));
-        pt.setPath(path);
-        pt.setNode(ghost.getNode());
-        pt.setCycleCount(1);
-        pt.play();
-    }
-    /**
-     * Calculates the ghost distance form the main character's distance
-     * @param x, ghost X Position
-     * @param y, ghost Y position
-     * @param centerX,  x position of the main character
-     * @param centerY  y position of the main character
-     * @return the vector distance between the ghost and main character
-     */
 
-    private double calculateDistance(double x, double y, double centerX, double centerY) {
-        return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY, 2));
-    }
 
 
 

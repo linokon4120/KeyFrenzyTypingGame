@@ -31,18 +31,14 @@ import javafx.scene.text.Font;
 import java.util.Random;
 
 public class Ghost {
-    private static final double MOVEMENT_AMOUNT = 1;
+
     private String word;
     private boolean active;
     private Label label;
     private Pane node;
 
     private long creationTime;
-    private  final double TO_SECONDS = 1e9;
 
-    private AnimationTimer animationTimer;
-
-    private boolean animationRunning;
 
     public Ghost(String word, int gridSize) {
         this.word = word;
@@ -94,26 +90,6 @@ public class Ghost {
         // Set the node
         this.node = pane;
     }
-
-
-
-    /* Ghost Mobility */
-
-    /**
-     * The ghosts move towards the position of the main character,
-     * collides when it is one box to the main character and the gif does its thing.
-     *
-     * @param mainCharacterX, the x position of the main character
-     * @param mainCharacterY, the y position of the main character
-     */
-
-
-
-    /**
-     * Makes the ghost disappear
-     * */
-
-
 
 
 
