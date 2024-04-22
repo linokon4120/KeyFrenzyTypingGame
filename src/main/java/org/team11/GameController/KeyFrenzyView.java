@@ -40,6 +40,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.GameView.Ghost;
+import org.team11.GameView.GhostTimerMovement;
 import org.team11.GameView.WordDictionary;
 import org.team11.TypingMechanism.GhostAnimation;
 
@@ -59,7 +60,6 @@ public class KeyFrenzyView {
 
     private GridPane gamePane;
     private List<Ghost> ghosts;
-
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
     private TextField userTypeBox;
     private final WordDictionary wordDictionary;
@@ -91,7 +91,7 @@ public class KeyFrenzyView {
 
     private AnimationTimer animationTimer;
     private GhostTimerMovement ghostTimer;
-    private int LEVELSCORE = 20; // change level after score reaches LEVELSCORE
+    private int LEVELSCORE = 200; // change level after score reaches LEVELSCORE
 
     private int MAXLEVEL = 7;
 
@@ -236,8 +236,6 @@ public class KeyFrenzyView {
                 handleUserInput(userTypeBox.getText().trim());
                 userTypeBox.clear();
 
-                GuessStatus guessStatus = wordDictionary.guess(textInput);
-
             }
         });
     }
@@ -327,7 +325,7 @@ public class KeyFrenzyView {
 
         // Add the words to the global map and
         // draw it on the screen
-        List<Ghost> ghostsOnScreen = createAnimation();
+        List<Ghost> ghostsOnScreen = createAnimation(word);
         ghosts.add(ghostsOnScreen.get(0));
         ghosts.add(ghostsOnScreen.get(1));
 

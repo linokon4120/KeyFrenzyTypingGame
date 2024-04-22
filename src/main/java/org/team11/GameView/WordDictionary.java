@@ -24,7 +24,6 @@
  */
 package org.team11.GameView;
 
-import org.team11.TypingMechanism.GuessStatus;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -94,6 +93,33 @@ public class WordDictionary {
 
         return selectedWords;
     }
+
+    public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
+//        List<String> words;
+//
+//        words = wordsbylength.get(this.key);
+//        // if the number of words needed at that level is more than what the dictionary has stored
+//        int numwords = 16; //hard coded to 16 words
+//        if (numwords >  words.size()){
+//            numwords = words.size();
+//
+//        }
+//        //randomize the list
+//        Collections.shuffle(words);
+//        this.key ++; //because the level gets incremented each time the get words method is called
+//
+//        return new ArrayList<>(words.subList(0, numwords));
+        String word;
+        do {
+            int num = rand.nextInt(dictionary.size());
+            word = dictionary.get(num);
+        } while (currentWords.contains(word));
+        currentWords.add(word);
+        return word;
+
+    }
+
+
 
 
     public int getScore() {
