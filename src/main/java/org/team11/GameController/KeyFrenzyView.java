@@ -40,7 +40,7 @@ import org.team11.GameView.Ghost;
 import org.team11.GameView.GhostTimerMovement;
 import org.team11.GameView.WordDictionary;
 import org.team11.TypingMechanism.GhostAnimation;
-import org.team11.TypingMechanism.GuessStatus;
+
 import org.team11.TypingMechanism.WordsSetting;
 
 import java.io.IOException;
