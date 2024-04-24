@@ -27,48 +27,33 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyView {
-    public static final double COLLISION_DISTANCE = 1;
     private VBox root;
     private HBox bottomPane;
-
     private Label labelMessageBanner;
     private Label currentScore;
     private GridPane gamePane;
     private List<Ghost> ghosts;
-
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
     private TextField userTypeBox;
     private final WordDictionary wordDictionary;
     private final Random rand;
     private boolean lost;
     private final Timer globalTimer;
+    //User's desired nickname
     private final String userName;
     private ProgressBar healthBar;
+
+    //The lives of the ghost before
     private int lives;
-
-
 
     //The width of the game pane
     private double paneWidth;
 
     //The height of the game pane
     private double paneHeight;
-    /**
-     * Variable to check the score
-     */
 
     //Variable to check the score
     private int score;
-
-    //Variable for starting lives;
-    public static int startingLives = 3;
-
-    public static double centerX;
-    public static double centerY;
-//    private GhostTimerMovement ghostTimer;
-    private Ghost ghost1;
-    private Ghost ghost2;
-
 
 
     /**
@@ -133,6 +118,8 @@ public class KeyFrenzyView {
         userNameText.setStyle("-fx-font-size: 24;");
         userNameText.setStyle("-fx-background-color: WHITE");
         gamePane.add(userNameText, 50,50);
+
+
 
         // Create a health bar (progress bar) to display remaining health
         this.healthBar = new ProgressBar(1.0); // Full health initially
@@ -364,8 +351,6 @@ public class KeyFrenzyView {
             gamePane.getChildren().add(ghost1.getNode());
             gamePane.getChildren().add(ghost2.getNode());
 
-//            //Checks destroy ghosts
-//            checkDestroyGhosts(ghostsOnScreen);
 
         });
 
@@ -386,11 +371,7 @@ public class KeyFrenzyView {
         double centerY = paneHeight/2;
 
         path.getElements().add(new LineTo(centerX, centerY));
-//        // Calculate distance to the center
-//        double distanceToCenter = calculateDistance(ghost.getNode().getLayoutX(), ghost.getNode().getLayoutY(), centerX, centerY);
-//
-//        // If ghost reaches the center, decrease health and update health bar
-//        if (ghost.getNode().getScaleX() <= 10 || ghost.getNode().getScaleY() <= 10) {
+
 
         // Create a PathTransition to animate the ghost along the path
         PathTransition pathTransition = new PathTransition();
