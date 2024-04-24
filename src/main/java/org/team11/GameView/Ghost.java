@@ -28,18 +28,17 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
+import java.util.Random;
+
 public class Ghost {
+
     private String word;
     private boolean active;
     private Label label;
     private Pane node;
 
     private long creationTime;
-    private  final double TO_SECONDS = 1e9;
 
-    private AnimationTimer animationTimer;
-
-    private boolean animationRunning;
 
     public Ghost(String word, int gridSize) {
         this.word = word;
@@ -79,6 +78,11 @@ public class Ghost {
         label.layoutXProperty().bind(circle.centerXProperty().subtract(label.widthProperty().divide(2)));
         label.layoutYProperty().bind(circle.centerYProperty().subtract(circle.radiusProperty()).subtract(label.heightProperty()));
 
+        // Initiating the starting position of the ghosts
+        // TODO: To be fixed (ensure within grid size)
+        Random random = new Random();
+        int x = random.nextInt(gridSize);
+        int y = random.nextInt(gridSize);
 
         // Create a new pane to contain the circle and label
         Pane pane = new Pane(circle, label);
@@ -89,8 +93,9 @@ public class Ghost {
 
 
 
+
     /*
-     All getter and setter methods:
+     All getter methods:
     */
 
     public String getWord() {
@@ -117,6 +122,3 @@ public class Ghost {
         return creationTime;
     }
 }
-
-
-

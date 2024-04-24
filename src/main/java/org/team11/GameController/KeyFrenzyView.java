@@ -1,5 +1,26 @@
+/* ***************************************
+ * CSCI 205 - Software Engineering and Design
+ * Spring 2024
+ * Instructor: Prof. Lily Romano / Prof. Joshua Stough
+ *
+ * Name: Ellyn Ngo
+ * Section: 02
+ * Date: 4/8/2024
+ * Time: 2:35 PM
+ *
+ * Project: csci205_final_project
+ * Package: org.team11.GameView
+ * Class: KeyFrenzyView
+ *
+ * Description: This is the main view class
+ * of the game, including every detail that will
+ * show up on the screen once hit Run in the GameMain
+ *
+ * **************************************
+ */
 package org.team11.GameController;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -14,23 +35,29 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.GameView.Ghost;
+import org.team11.GameView.GhostTimerMovement;
 import org.team11.GameView.WordDictionary;
 import org.team11.TypingMechanism.GhostAnimation;
-import org.team11.TypingMechanism.GuessStatus;
+
 import org.team11.TypingMechanism.WordsSetting;
 
 import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyView {
+    public static final double COLLISION_DISTANCE = 1;
     private VBox root;
+    private FlowPane topPane;
+    private Label labelMessageBanner; // Message Banner reamains same for all leve/
+    private Label currentScore; // Score label
+    private Label levelbl; // Level number label
     private HBox bottomPane;
-    private Label labelMessageBanner;
-    private Label currentScore;
+
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
@@ -39,25 +66,45 @@ public class KeyFrenzyView {
     private final Random rand;
     private boolean lost;
     private final Timer globalTimer;
-    //User's desired nickname
     private final String userName;
     private ProgressBar healthBar;
-
-    //The lives of the ghost before
     private int lives;
+
+
 
     //The width of the game pane
     private double paneWidth;
 
     //The height of the game pane
     private double paneHeight;
+    /**
+     * Variable to check the score
+     */
 
     //Variable to check the score
     private int score;
 
+    private int level; //this is where we store the level number
+
+    //Variable for starting lives;
+    public static int startingLives = 3;
+
+    private AnimationTimer animationTimer;
+    private GhostTimerMovement ghostTimer;
+    private int LEVELSCORE = 80; // change level after score reaches LEVELSCORE
+
+    private int MAXLEVEL = 7;
+
+   // private int level = 1;
+    public static double centerX;
+    public static double centerY;
+//    private GhostTimerMovement ghostTimer;
+    private Ghost ghost1;
+    private Ghost ghost2;
+
+
 
     /**
-     * /**
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
@@ -68,6 +115,7 @@ public class KeyFrenzyView {
         this.wordDictionary = new WordDictionary();
         this.lost = false;
         this.rand = new Random(System.currentTimeMillis());
+        this.level = 1;
 
 
         initSceneGraph();
@@ -106,6 +154,11 @@ public class KeyFrenzyView {
         // Create and configure the message banner
         configuringMessageBanner();
 
+        //create and configure the level banner
+        configureLevelBanner();
+
+
+        ghostTimer = new GhostTimerMovement();
 
 //        ghostTimer = new GhostTimerMovement();
 
@@ -118,8 +171,6 @@ public class KeyFrenzyView {
         userNameText.setStyle("-fx-font-size: 24;");
         userNameText.setStyle("-fx-background-color: WHITE");
         gamePane.add(userNameText, 50,50);
-
-
 
         // Create a health bar (progress bar) to display remaining health
         this.healthBar = new ProgressBar(1.0); // Full health initially
@@ -138,6 +189,8 @@ public class KeyFrenzyView {
         //Adding the text box to the game
         bottomPane.getChildren().addAll(userTypeBox, healthBox);
         this.root.getChildren().addAll(labelMessageBanner, currentScore, gamePane, bottomPane);
+        this.root.getChildren().add(levelbl);
+
     }
 
 
@@ -184,43 +237,58 @@ public class KeyFrenzyView {
                 handleUserInput(userTypeBox.getText().trim());
                 userTypeBox.clear();
 
-                GuessStatus guessStatus = wordDictionary.guess(textInput);
-
             }
         });
     }
 
+    private void configureLevelBanner(){
+        levelbl = new Label();
+        updateLevellbl(level);
+    }
 
     /**
      * Handle the user input when prompted
-     *
      * @param userInput the String input from user
      */
     private void handleUserInput(String userInput) {
 
-        boolean matchFound = false;
 
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
             Ghost ghost = iterator.next();
             if (ghost.getWord().equalsIgnoreCase(userInput)) {
-
                 // Word matched, remove the ghost from the game pane
                 destroy(ghost);
                 iterator.remove();
-                matchFound = true;
+
 
                 // Update the score
                 score += 10;
                 updateScoreLabel();
+                //update the level and check if level has reached max level
+                updateLevel();
                 break;
             }
         }
+        }
 
 
+    private void updateLevel() {
+        if (score % LEVELSCORE == 0){
+            // update the level number
+            level ++; //increment level number
+            if(level <= MAXLEVEL) {
+                // update label
+                updateLevellbl(level);
+                // update the label
+//                generateNewWord();.
+            }
+            else{
+                // Reached the max level
+                gameOver();
+            }
+        }
     }
-
-
 
     /**
      * Updates the score on the game pane
@@ -229,12 +297,13 @@ public class KeyFrenzyView {
         currentScore.setText("Current Score: " + score);
     }
 
-//    /**
-//     * Updates the lives  on the game pane
-//     */
-//    private void updateLivesLabel() {
-//        lives.setText("Remaining lives: " + startingLives);
-//    }
+
+    private void updateLevellbl(int level){
+        levelbl.setText("Level: " + String.valueOf(level));
+
+        levelbl.setFont(Font.font(18));
+        levelbl.setStyle("-fx-text-fill: white;");
+    }
 
 
     /**
@@ -242,11 +311,12 @@ public class KeyFrenzyView {
      */
     private void generateNewWord() {
         // Generate the new word
-        String word = wordDictionary.getWord();
+        System.out.println("Current level is: " + level);
+
+        String word = wordDictionary.getWord(level);
 
         // Create a timer that ends the game if the player does not type the word in time.
         Timer wordTimer = new Timer();
-
         wordTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -256,7 +326,8 @@ public class KeyFrenzyView {
             }
         }, WordsSetting.GAME_LENGTH);
 
-        // Add the words to the global map and draws it on the screen
+        // Add the words to the global map and
+        // draw it on the screen
         List<Ghost> ghostsOnScreen = createAnimation(word);
         ghosts.add(ghostsOnScreen.get(0));
         ghosts.add(ghostsOnScreen.get(1));
@@ -303,12 +374,11 @@ public class KeyFrenzyView {
 
         // Create the text object
         List<Ghost> ghostsOnScreen = new ArrayList<>();
-        String[] words = wordDictionary.getWords(3, 4).toArray(new String[0]);
-
 
         long creationTime = System.currentTimeMillis();
-        Ghost ghost1 = new Ghost(words[0], 80);
-        Ghost ghost2 = new Ghost(words[1], 80);
+
+        Ghost ghost1 = new Ghost(wordDictionary.getWord(level), 80);
+        Ghost ghost2 = new Ghost(wordDictionary.getWord(level), 80);
         //Starts the timer
         ghost1.setCreationTime(creationTime);
         ghost2.setCreationTime(creationTime);
@@ -318,6 +388,7 @@ public class KeyFrenzyView {
 
         // Run the animation on the FX App thread
         Platform.runLater(() -> {
+            // Get dimensions of the wordPane
 
             // Moves the animation towards the center of the game pane
             // Get x and y coords of the word
@@ -341,16 +412,9 @@ public class KeyFrenzyView {
             // Moves the path to the middle of the pane
             moveToCenter(ghost2, path2);
 
-
-            // Generate animation
-            createPath(path1, ghost1);
-            createPath(path2, ghost2);
-
-
             // Add to pane
             gamePane.getChildren().add(ghost1.getNode());
             gamePane.getChildren().add(ghost2.getNode());
-
 
         });
 
@@ -371,7 +435,6 @@ public class KeyFrenzyView {
         double centerY = paneHeight/2;
 
         path.getElements().add(new LineTo(centerX, centerY));
-
 
         // Create a PathTransition to animate the ghost along the path
         PathTransition pathTransition = new PathTransition();
@@ -412,35 +475,6 @@ public class KeyFrenzyView {
     }
 
 
-    /**
-     * Creates a path to be followed by the ghost
-     *
-     * @param path  followed by the ghost
-     * @param ghost to be destroyed
-     */
-    private static void createPath(Path path, Ghost ghost) {
-        PathTransition pt = new PathTransition();
-        pt.setDuration(Duration.millis(WordsSetting.WORD_DURATION));
-        pt.setPath(path);
-        pt.setNode(ghost.getNode());
-        pt.setCycleCount(1);
-        pt.play();
-    }
-    /**
-     * Calculates the ghost distance form the main character's distance
-     * @param x, ghost X Position
-     * @param y, ghost Y position
-     * @param centerX,  x position of the main character
-     * @param centerY  y position of the main character
-     * @return the vector distance between the ghost and main character
-     */
-
-    private double calculateDistance(double x, double y, double centerX, double centerY) {
-        return Math.sqrt(Math.pow(x - centerX, 2)+ Math.pow(y-centerY, 2));
-    }
-
-
-
     private void gameOver() {
         // Perform actions on the main thread
         Platform.runLater(() -> {
@@ -450,14 +484,18 @@ public class KeyFrenzyView {
                 wa.stop();
             }
 
-            // TODO Switch to Game Over view
+        // TODO Switch to Game Over view
 
             try {
 
                 // Load the FXML file. Obtain the root of the scene graph
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml")); // TODO this is only the start menu
+                loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml"));
                 Parent root = loader.load();
+//                GameOverController gameOverController = loader.getController();
+//
+//                // Pass the score to the game over controller
+//                gameOverController.transferData(score);
 
                 // Transfer game object to game over controller
                 Stage primaryStage = new Stage();
@@ -466,6 +504,10 @@ public class KeyFrenzyView {
                 primaryStage.setScene(new Scene(root));
                 primaryStage.sizeToScene();
                 primaryStage.show();
+
+                // Close the current WelcomeMenu window
+                Stage currentStage = (Stage) labelMessageBanner.getScene().getWindow();
+                currentStage.close();
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -480,7 +522,6 @@ public class KeyFrenzyView {
     public void destroy(Ghost ghost) {
         gamePane.getChildren().remove(ghost.getNode());
     }
-
 
     public VBox getRoot() {
         return root;
@@ -498,4 +539,3 @@ public class KeyFrenzyView {
         return ghosts;
     }
 }
-

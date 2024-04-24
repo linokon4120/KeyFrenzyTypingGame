@@ -19,8 +19,8 @@
       <Label text="Do you want to play again?" />
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" spacing="20.0">
          <children>
-            <Button fx:id="buttonPlayAgain" disable="true" mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again" />
-            <Button fx:id="buttonQuitGame" mnemonicParsing="false" text="Quit Game" />
+            <Button fx:id="buttonPlayAgain"  mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again" />
+            <Button fx:id="buttonQuitGame" mnemonicParsing="false" onAction="#handleQuitGameButtonClick" text="Quit Game" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -3,7 +3,7 @@
  * Spring 2024
  * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: YOUR NAME
+ * Name: YOUR NAME: Rahul Sibal
  * Section: YOUR SECTION
  * Date: 4/9/24
  * Time: 4:24 PM
@@ -24,7 +24,6 @@
  */
 package org.team11.GameView;
 
-import org.team11.TypingMechanism.GuessStatus;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -81,62 +80,46 @@ public class WordDictionary {
         Integer key = level + 1; //because the first level starts with two letters
         words = wordsbylength.get(key);
         // if the number of words needed at that level is more than what the dictionary has stored
-        if (numwords >  words.size()){
-            numwords = words.size(); //restricts it to the size of the number of words stored in the map
+         numwords = Math.min(numwords, words.size());// number of words are greter than remaining
+        // restrict number of words to whatever remians
 
-        }
+        // Shuffle in random order
         Collections.shuffle(words);
-        int actualNumWords = Math.min(numwords, wordsbylength.size());
-        List<String> selectedWords = new ArrayList<>(words.subList(0, actualNumWords));
+       // int actualNumWords = Math.min(numwords, wordsbylength.size());
+        List<String> selectedWords = new ArrayList<>(words.subList(0, numwords));
 
         // Remove the selected words from the map to ensure they are not used again
-        words.subList(0, actualNumWords).clear();
+        words.subList(0, numwords).clear();
 
         return selectedWords;
     }
-    public String getWord(){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
-//        List<String> words;
-//
-//        words = wordsbylength.get(this.key);
-//        // if the number of words needed at that level is more than what the dictionary has stored
-//        int numwords = 16; //hard coded to 16 words
-//        if (numwords >  words.size()){
-//            numwords = words.size();
-//
-//        }
-//        //randomize the list
-//        Collections.shuffle(words);
-//        this.key ++; //because the level gets incremented each time the get words method is called
-//
-//        return new ArrayList<>(words.subList(0, numwords));
+
+    public String getWord(int level){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
+
+        Integer key = level + 1; //because the first level starts with two letters
+        List<String> words = wordsbylength.get(key);
+        // Shuffle in random order
+        Collections.shuffle(words);
+
         String word;
         do {
-            int num = rand.nextInt(dictionary.size());
-            word = dictionary.get(num);
+            word = words.get(rand.nextInt(wordsbylength.size()));
         } while (currentWords.contains(word));
         currentWords.add(word);
         return word;
 
     }
 
-    /**
-     * Makes an attempt to the type a word on the screen
-     * @param text The guess made
-     * @return Either correct, invalid word, or wrong
-     */
-    public GuessStatus guess(String text) {
-        if (currentWords.contains(text)) {
-            // If the guess is correct, increase the score and remove that word
-            score++;
-            currentWords.remove(text);
-            return GuessStatus.CORRECT;
-        }
-        // If not in the dictionary
-        return GuessStatus.INVALID_WORD;
+
+    public static void main(String[] args) {
+        WordDictionary wordDictionary = new WordDictionary();
+        System.out.println("Getting 3 letter: " + wordDictionary.getWord(2));
     }
 
+
     public int getScore() {
-        return score;
+       // return score;
+        return 0;
     }
 }
 
