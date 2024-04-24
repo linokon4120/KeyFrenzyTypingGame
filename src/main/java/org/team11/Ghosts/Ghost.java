@@ -16,9 +16,8 @@
  *
  * **************************************
  */
-package org.team11.GameView;
+package org.team11.Ghosts;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

@@ -16,11 +16,11 @@
  *
  * **************************************
  */
-package org.team11.TypingMechanism;
+package org.team11.Ghosts;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import org.team11.GameView.Ghost;
+import org.team11.Ghosts.Ghost;
 
 import java.util.Timer;
 

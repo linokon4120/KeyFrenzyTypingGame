@@ -16,7 +16,7 @@
  *
  * **************************************
  */
-package org.team11.GameView;
+package org.team11.GameController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -21,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.team11.GameView.GameMain;
 
 import java.io.IOException;
 

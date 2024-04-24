@@ -16,7 +16,7 @@
  *
  * **************************************
  */
-package org.team11.GameView;
+package org.team11.Ghosts;
 
 /*
     Animation timer and Ghost mobility
@@ -26,7 +26,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.layout.GridPane;
 import org.team11.GameController.KeyFrenzyView;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class GhostTimerMovement extends AnimationTimer {

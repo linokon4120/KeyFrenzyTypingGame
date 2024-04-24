@@ -1,4 +1,4 @@
-package org.team11.GameView;
+package org.team11.Ghosts;
 
 import org.junit.jupiter.api.Test;
 
