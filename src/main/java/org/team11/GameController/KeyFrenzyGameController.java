@@ -48,15 +48,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyGameController {
+    /** A vertical box for the main view */
     private VBox root;
-
-    // Message Banner remains same for all leve/
+    /** Message Banner remains same for all level */
     private Label labelMessageBanner;
-
-    // Score label
+    /** Score label */
     private Label currentScore;
-
-    // Level number label
+    /** Level number label */
     private Label leveLbl;
     private GridPane gamePane;
     private List<Ghost> ghosts;
