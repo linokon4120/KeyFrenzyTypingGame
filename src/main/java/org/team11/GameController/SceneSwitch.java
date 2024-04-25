@@ -26,19 +26,19 @@ import java.io.IOException;
 
 public class SceneSwitch {
 
-    private static KeyFrenzyView theView;
+    private static KeyFrenzyGameController theView;
 
     private SceneSwitch() {
-//        this.theView = new KeyFrenzyView();
+//        this.theView = new KeyFrenzyGameController();
     }
 
-    public static <T> T change(Node node, String page) throws IOException {
+    public static <T> T changeToGameOver(Node node, String page) throws IOException {
         return change(node, page, 320, 240, "Typer");
     }
 
-    public static <T> T change(Node node, String page, int width, int height) throws IOException {
-        return change(node, page, width, height, "Typer");
-    }
+//    public static <T> T change(Node node, String page, int width, int height) throws IOException {
+//        return change(node, page, width, height, "Typer");
+//    }
 
     public static <T> T change(Node node, String page, int width, int height, String title) throws IOException {
         Stage stage = (Stage) node.getScene().getWindow();

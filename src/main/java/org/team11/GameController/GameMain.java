@@ -23,13 +23,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.team11.GameController.KeyFrenzyView;
 
 import java.io.IOException;
 
 public class GameMain extends Application{
-    private KeyFrenzyView theView;
-  //  private KeyFrenzyController theController;
+    private KeyFrenzyGameController theView;
 
     public static void main(String[] args) {launch(args);}
 
@@ -37,14 +35,14 @@ public class GameMain extends Application{
     @Override
     public void init() throws Exception {
         super.init();
-//        this.theView = new KeyFrenzyView();
+
     }
     @Override
     public void start(Stage primaryStage) throws IOException {
 
         // Load the FXML file. Obtain the root of the scene graph
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/welcomeMenu.fxml")); // TODO this is only the start menu
+        loader.setLocation(getClass().getResource("/fxml/welcomeMenu.fxml"));
         Parent root = loader.load();
 
         // Set up the stage and show it

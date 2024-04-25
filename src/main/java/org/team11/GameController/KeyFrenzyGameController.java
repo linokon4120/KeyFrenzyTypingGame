@@ -10,7 +10,7 @@
  *
  * Project: csci205_final_project
  * Package: org.team11.GameView
- * Class: KeyFrenzyView
+ * Class: KeyFrenzyGameController
  *
  * Description: This is the main view class
  * of the game, including every detail that will
@@ -20,7 +20,6 @@
  */
 package org.team11.GameController;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +39,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.Ghosts.Ghost;
-import org.team11.Ghosts.GhostTimerMovement;
 import org.team11.TypingMechanism.WordDictionary;
 import org.team11.Ghosts.GhostAnimation;
 
@@ -49,9 +47,9 @@ import org.team11.TypingMechanism.WordsSetting;
 import java.io.IOException;
 import java.util.*;
 
-public class KeyFrenzyView {
+public class KeyFrenzyGameController {
     private VBox root;
-    private Label labelMessageBanner; // Message Banner reamains same for all leve/
+    private Label labelMessageBanner; // Message Banner remains same for all leve/
     private Label currentScore; // Score label
     private Label leveLbl; // Level number label
     private HBox bottomPane;
@@ -62,16 +60,11 @@ public class KeyFrenzyView {
     private TextField userTypeBox;
     private final WordDictionary wordDictionary;
     private final Random rand;
-    private boolean lost;
     private final Timer globalTimer;
-    private AnimationTimer animationTimer;
-    private GhostTimerMovement ghostTimer;
     private final String userName;
     private ProgressBar healthBar;
     private int lives;
     private boolean gamePaused = false;
-
-
 
     //The width of the game pane
     private double paneWidth;
@@ -98,12 +91,11 @@ public class KeyFrenzyView {
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
-    public KeyFrenzyView(String username) {
+    public KeyFrenzyGameController(String username) {
         this.userName = username;
         this.score = 0;
 
         this.wordDictionary = new WordDictionary();
-        this.lost = false;
         this.rand = new Random(System.currentTimeMillis());
         this.level = 1;
 
@@ -144,8 +136,6 @@ public class KeyFrenzyView {
 
         // Create and configure the level banner
         configureLevelBanner();
-
-        ghostTimer = new GhostTimerMovement();
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
@@ -297,7 +287,6 @@ public class KeyFrenzyView {
             @Override
             public void run() {
                 // When the timer runs out (8 seconds), that means the player loses
-                lost = true;
                 gameOver();
             }
         }, WordsSetting.GAME_LENGTH);
@@ -443,15 +432,17 @@ public class KeyFrenzyView {
         if (!gamePaused) {
             gamePaused = true;
             // Pause any ongoing animations or timers
-             animationTimer.stop();
+//             animationTimer.stop();
              globalTimer.cancel();
             // Stop any ghost animations
             stopGhostAnimations();
 
+
+
         } else {
             gamePaused = false;
             // Resume animations or timers
-             animationTimer.start();
+//             animationTimer.start();
             // Resume ghost animations
             resumeGhostAnimations();
         }
@@ -489,9 +480,10 @@ public class KeyFrenzyView {
             try {
                 // Load the FXML file. Obtain the root of the scene graph
                 FXMLLoader loader = new FXMLLoader();
+
                 loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml"));
+
                 Parent root = loader.load();
-                // Transfer game object to game over controller
                 Stage primaryStage = new Stage();
                 // Set up the stage and show it
                 primaryStage.setTitle("Hello FXML!");
@@ -507,6 +499,7 @@ public class KeyFrenzyView {
                 throw new RuntimeException(e);
             }
         });
+        
     }
 
     /**
@@ -519,5 +512,9 @@ public class KeyFrenzyView {
 
     public VBox getRoot() {
         return root;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

@@ -18,9 +18,9 @@
  */
 package org.team11.Ghosts;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import org.team11.Ghosts.Ghost;
 
 import java.util.Timer;
 
@@ -29,28 +29,50 @@ public class GhostAnimation {
 
     public Text text;
     public static long lastMovementTime;
+    private boolean isPaused;
+
 
 
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
         lastMovementTime = System.currentTimeMillis();
+        isPaused = false;
+
     }
 
     public void start() {
-        lastMovementTime = System.currentTimeMillis();
-
+//        lastMovementTime = System.currentTimeMillis();
+        new AnimationTimer() {
+            public void handle(long currentNanoTime) {
+                if (!isPaused) {
+                    // Animation logic here
+                }
+            }
+        }.start();
     }
+
+    public void pause() throws InterruptedException {
+        if (timer != null)
+            timer.wait();
+//        else {
+//
+//        }
+//        if (text != null)
+//            ((Pane) text.getParent()).getChildren().remove(text);
+        isPaused = true;
+    }
+
 
     /**
      * Stops the animation
      */
     public void stop() {
         if (timer != null)
+
             timer.cancel();
         if (text != null)
             ((Pane) text.getParent()).getChildren().remove(text);
     }
-
 
 }
 

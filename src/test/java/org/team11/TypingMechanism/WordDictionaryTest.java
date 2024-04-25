@@ -1,4 +1,4 @@
-package org.team11.Ghosts;
+package org.team11.TypingMechanism;
 
 import org.junit.jupiter.api.Test;
 
