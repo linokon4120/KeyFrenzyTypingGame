@@ -20,5 +20,12 @@ The game would have multiple levels, with every level going up the complexity of
 *Write a few sentences about your project. This can be done later, as you
 may not quite know all the details yet.*
 
+* ● A couple of paragraphs summarizing what this project is.
+
+
+* ● Explanation of your package structure
+* ● List all third-party libraries you used that are not part of the standard Java API (yes, you should include JavaFX here). Include version numbers of all libraries and URLs to the library's main page. ● Please provide a URL to your video presentation (your URL should point to a video placed on Google Drive or Bucknell's media space. See details on presentation).
+
+
 ## How to run it
 Simply run the GameMain file in the GameView package and enjoy the game!

@@ -133,6 +133,7 @@ public class KeyFrenzyGameController {
 
         paneWidth = 800;
         paneHeight = 600;
+
         // Create and configure the message banner
         configuringMessageBanner();
 
@@ -192,10 +193,8 @@ public class KeyFrenzyGameController {
         Label usernameLabel = new Label("Username: " + userName);
         usernameLabel.getStyleClass().add("user-nickname");
 
-        Label timeUsedLabel = new Label("Time Used: 00:00");
-        timeUsedLabel.getStyleClass().add("time-spent");
 
-        userInfoBox.getChildren().addAll(usernameLabel, timeUsedLabel);
+        userInfoBox.getChildren().addAll(usernameLabel);
 
         // Add VBox to message banner
         VBox.setMargin(userInfoBox, new Insets(10)); // Adjust margin as needed
@@ -415,6 +414,9 @@ public class KeyFrenzyGameController {
     }
 
 
+    /**
+     * Updates the health
+     */
 
     private void updateHealthBar() {
         double healthPercentage = (double) lives / 3.0; // Assuming 3 lives in total
@@ -426,29 +428,32 @@ public class KeyFrenzyGameController {
         }
     }
 
-    // TODO Need to implement this
+    /**
+     * Pauses the game
+     */
+    // Doesn't work well though
     private void pauseGame() {
         if (!gamePaused) {
             gamePaused = true;
             // Pause any ongoing animations or timers
-//             animationTimer.stop();
+             //animationTimer.stop();
              globalTimer.cancel();
             // Stop any ghost animations
             stopGhostAnimations();
 
-
-
         } else {
             gamePaused = false;
             // Resume animations or timers
-//             animationTimer.start();
+            // animationTimer.start();
             // Resume ghost animations
             resumeGhostAnimations();
         }
     }
 
 
-
+    /**
+     * Stops the ghost animations
+     */
     private void stopGhostAnimations() {
         for (Ghost ghost : ghosts) {
             GhostAnimation animation = wordTimers.get(ghost.getWord());
@@ -458,6 +463,9 @@ public class KeyFrenzyGameController {
         }
     }
 
+    /**
+     * Stops the ghost animations
+     */
     private void resumeGhostAnimations() {
         for (Ghost ghost : ghosts) {
             GhostAnimation animation = wordTimers.get(ghost.getWord());
@@ -466,6 +474,10 @@ public class KeyFrenzyGameController {
             }
         }
     }
+
+    /**
+     * Terminates the game
+     */
 
     private void gameOver() {
         // Perform actions on the main thread
@@ -509,6 +521,9 @@ public class KeyFrenzyGameController {
         gamePane.getChildren().remove(ghost.getNode());
     }
 
+    /*
+    Getter method
+     */
     public VBox getRoot() {
         return root;
     }

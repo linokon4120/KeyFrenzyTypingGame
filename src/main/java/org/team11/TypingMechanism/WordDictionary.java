@@ -34,8 +34,6 @@ public class WordDictionary {
 
     private final Map<Integer, List<String>> wordsByLength = new HashMap<>();
 
-    //TODO (Cleaning up code - is this still necessary?)
-    private static final int key  = 2; //start off with 2-letter words
     private final Set<String> currentWords;
     private final Random rand;
 
@@ -67,25 +65,6 @@ public class WordDictionary {
             e.printStackTrace();
         }
 
-    }
-
-    //TODO(cleaning up and I saw that it is not used, is it safe to delete?)
-    public List<String> getWords(int level, int numwords){
-        List<String> words;
-        Integer key = level + 1; //because the first level starts with two letters
-        words = wordsByLength.get(key);
-        // if the number of words needed at that level is more than what the dictionary has stored
-         numwords = Math.min(numwords, words.size());// number of words are greater than remaining
-        // restrict number of words to whatever remains
-
-        // Shuffle in random order
-        Collections.shuffle(words);
-        List<String> selectedWords = new ArrayList<>(words.subList(0, numwords));
-
-        // Remove the selected words from the map to ensure they are not used again
-        words.subList(0, numwords).clear();
-
-        return selectedWords;
     }
 
     /**
