@@ -13,7 +13,19 @@
  * Class: GhostAnimation
  *
  * Description:
+ * Manages the animation and movement of ghost entities
+ * timer: A Timer object used for scheduling tasks related to ghost animation.
+ * text: A JavaFX Text object representing the textual content associated with the ghost animation.
+ * lastMovementTime: A static long variable representing the time of the last ghost movement.
+ * isPaused: A boolean flag indicating whether the animation is currently paused.
  *
+ * The class provides a constructor to initialize a GhostAnimation object with a Timer instance and a Ghost object.
+ * It initializes the lastMovementTime variable and sets isPaused to false.
+ * The start() method initiates the animation loop using an AnimationTimer.
+ * Within this loop, the animation logic is executed if the animation is not paused.
+ * The pause() method pauses the animation by halting the execution of the Timer object, effectively suspending the animation.
+ * It sets isPaused to true.
+ * The stop() method stops the animation by canceling the Timer object and removing the associated text element from its parent Pane.
  * **************************************
  */
 package org.team11.Ghosts;
@@ -25,14 +37,25 @@ import javafx.scene.text.Text;
 import java.util.Timer;
 
 public class GhostAnimation {
+
+    //Schedules tasks related to ghost animations
     public Timer timer;
 
+    //the text associated with the ghost movement
     public Text text;
+
+    //the time of last ghost movement
     public static long lastMovementTime;
+
+    //Checks if the game is paused
     private boolean isPaused;
 
 
-
+    /**
+     * A constructor for the ghost Animation class
+     * @param timer
+     * @param ghost
+     */
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
         lastMovementTime = System.currentTimeMillis();
@@ -40,8 +63,10 @@ public class GhostAnimation {
 
     }
 
+    /**
+     * Starts the  animation
+     */
     public void start() {
-//        lastMovementTime = System.currentTimeMillis();
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 if (!isPaused) {
@@ -51,6 +76,13 @@ public class GhostAnimation {
         }.start();
     }
 
+    //TODO(Ellyn, are you using this?)
+
+    /**
+     * Pauses the animation
+     *
+     * @throws InterruptedException if an interruption occurs
+     */
     public void pause() throws InterruptedException {
         if (timer != null)
             timer.wait();

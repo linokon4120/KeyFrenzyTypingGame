@@ -49,11 +49,15 @@ import java.util.*;
 
 public class KeyFrenzyGameController {
     private VBox root;
-    private Label labelMessageBanner; // Message Banner remains same for all leve/
-    private Label currentScore; // Score label
-    private Label leveLbl; // Level number label
-    private HBox bottomPane;
 
+    // Message Banner remains same for all leve/
+    private Label labelMessageBanner;
+
+    // Score label
+    private Label currentScore;
+
+    // Level number label
+    private Label leveLbl;
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
@@ -61,9 +65,16 @@ public class KeyFrenzyGameController {
     private final WordDictionary wordDictionary;
     private final Random rand;
     private final Timer globalTimer;
+
+    //Users desired nickname
     private final String userName;
+
+    ///Keeps track of the players' lives
     private ProgressBar healthBar;
+
+    //Number of lives
     private int lives;
+    //Checks if the game is paused or not
     private boolean gamePaused = false;
 
     //The width of the game pane
@@ -71,20 +82,11 @@ public class KeyFrenzyGameController {
 
     //The height of the game pane
     private double paneHeight;
-    /**
-     * Variable to check the score
-     */
 
     //Variable to check the score
     private int score;
-
-    private int level; //this is where we store the level number
-
-
-    private final int LEVEL_SCORE = 80; // change level after score reaches LEVEL_SCORE
-
-    private final int MAX_LEVEL = 7;
-
+    // Stores the level number
+    private int level;
 
 
     /**
@@ -122,7 +124,7 @@ public class KeyFrenzyGameController {
         // Create and configure the game pane
         gamePane = new GridPane();
 
-        bottomPane = new HBox();
+        HBox bottomPane = new HBox();
 
         // Set minimum size for the gamePane
         gamePane.setMinSize(800, 600); // Set minimum width
@@ -231,9 +233,10 @@ public class KeyFrenzyGameController {
                 destroy(ghost);
                 iterator.remove();
 
-                // Update the score
+                // Update the score and score label
                 score += 10;
-                updateScoreLabel();
+                currentScore.setText("Current Score: " + score);
+
                 //update the level and check if level has reached max level
                 updateLevel();
                 break;
@@ -243,9 +246,13 @@ public class KeyFrenzyGameController {
 
 
     private void updateLevel() {
+
+        // change level after score reaches LEVEL_SCORE
+        int LEVEL_SCORE = 80;
         if (score % LEVEL_SCORE == 0){
             // update the level number
-            level ++; //increment level number
+            level ++;
+            int MAX_LEVEL = 7;
             if(level <= MAX_LEVEL) {
                 // update label
                 updateLevelLbl(level);
@@ -256,14 +263,6 @@ public class KeyFrenzyGameController {
             }
         }
     }
-
-    /**
-     * Updates the score on the game pane
-     */
-    private void updateScoreLabel() {
-        currentScore.setText("Current Score: " + score);
-    }
-
 
     private void updateLevelLbl(int level){
         leveLbl.setText("Level: " + level);
@@ -338,8 +337,8 @@ public class KeyFrenzyGameController {
 
         long creationTime = System.currentTimeMillis();
 
-        Ghost ghost1 = new Ghost(wordDictionary.getWord(level), 80);
-        Ghost ghost2 = new Ghost(wordDictionary.getWord(level), 80);
+        Ghost ghost1 = new Ghost(wordDictionary.getWord(level));
+        Ghost ghost2 = new Ghost(wordDictionary.getWord(level));
         //Starts the timer
         ghost1.setCreationTime(creationTime);
         ghost2.setCreationTime(creationTime);
@@ -514,7 +513,4 @@ public class KeyFrenzyGameController {
         return root;
     }
 
-    public int getScore() {
-        return score;
-    }
 }

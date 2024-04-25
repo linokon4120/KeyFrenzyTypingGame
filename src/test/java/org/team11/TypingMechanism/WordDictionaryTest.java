@@ -10,6 +10,8 @@ class WordDictionaryTest {
 
     @Test
     void getWord() {
+        WordDictionary wordDictionary = new WordDictionary();
+        System.out.println("Getting 3 letter: " + wordDictionary.getWord(2));
     }
 
 

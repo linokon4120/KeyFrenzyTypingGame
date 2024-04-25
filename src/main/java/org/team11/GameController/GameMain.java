@@ -13,7 +13,8 @@
  * Class: GameMain
  *
  * Description:
- *
+ * GameMain class serves as the starting point for the KeyFrenzy game application,
+ * initializing the graphical user interface (GUI) and displaying the welcome menu to the user.
  * **************************************
  */
 package org.team11.GameController;
@@ -27,6 +28,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GameMain extends Application{
+
+    //TODO (Do we need this?)
     private KeyFrenzyGameController theView;
 
     public static void main(String[] args) {launch(args);}
@@ -37,6 +40,13 @@ public class GameMain extends Application{
         super.init();
 
     }
+
+    /**
+     * Sets up the primary stage by loading the FXML file containing the welcome menu layout,
+     * configuring the stage with the loaded scene, and displaying the stage.
+     * @param primaryStage , sets up and defines the appearance of the initial scene
+     * @throws IOException input exception
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
 
@@ -46,7 +56,7 @@ public class GameMain extends Application{
         Parent root = loader.load();
 
         // Set up the stage and show it
-        primaryStage.setTitle("Hello FXML!");
+        primaryStage.setTitle("KeyFrenzy Welcome Menu");
         primaryStage.setScene(new Scene(root));
         primaryStage.sizeToScene();
         primaryStage.show();
