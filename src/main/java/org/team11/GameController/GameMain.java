@@ -29,9 +29,6 @@ import java.io.IOException;
 
 public class GameMain extends Application{
 
-    //TODO (Do we need this?)
-    private KeyFrenzyGameController theView;
-
     public static void main(String[] args) {launch(args);}
 
 

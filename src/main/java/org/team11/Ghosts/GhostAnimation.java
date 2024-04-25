@@ -53,8 +53,8 @@ public class GhostAnimation {
 
     /**
      * A constructor for the ghost Animation class
-     * @param timer
-     * @param ghost
+     * @param timer scheduling tasks related to ghost animation.
+     * @param ghost the animated ghost
      */
     public GhostAnimation(Timer timer, Ghost ghost) {
         this.timer = timer;
@@ -71,12 +71,12 @@ public class GhostAnimation {
             public void handle(long currentNanoTime) {
                 if (!isPaused) {
                     // Animation logic here
+
                 }
             }
         }.start();
     }
 
-    //TODO(Ellyn, are you using this?)
 
     /**
      * Pauses the animation
@@ -84,13 +84,12 @@ public class GhostAnimation {
      * @throws InterruptedException if an interruption occurs
      */
     public void pause() throws InterruptedException {
+
         if (timer != null)
             timer.wait();
-//        else {
-//
-//        }
-//        if (text != null)
-//            ((Pane) text.getParent()).getChildren().remove(text);
+
+        if (text != null)
+            ((Pane) text.getParent()).getChildren().remove(text);
         isPaused = true;
     }
 

@@ -2,7 +2,6 @@ package org.team11.Ghosts;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.team11.Ghosts.Ghost;
 
 public class GhostTest extends Application {
 
@@ -18,7 +17,7 @@ public class GhostTest extends Application {
 
     private void runGhostTest() {
         // Your test code here
-        Ghost ghost = new Ghost("Test", 80);
+        Ghost ghost = new Ghost("Test");
         // Set a creation time
         long creationTime = System.currentTimeMillis();
         ghost.setCreationTime(creationTime);
