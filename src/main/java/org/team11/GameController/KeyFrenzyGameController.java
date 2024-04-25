@@ -10,7 +10,7 @@
  *
  * Project: csci205_final_project
  * Package: org.team11.GameView
- * Class: KeyFrenzyView
+ * Class: KeyFrenzyGameController
  *
  * Description: This is the main view class
  * of the game, including every detail that will
@@ -20,7 +20,6 @@
  */
 package org.team11.GameController;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +39,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.Ghosts.Ghost;
-import org.team11.Ghosts.GhostTimerMovement;
 import org.team11.TypingMechanism.WordDictionary;
 import org.team11.Ghosts.GhostAnimation;
 
@@ -49,61 +47,57 @@ import org.team11.TypingMechanism.WordsSetting;
 import java.io.IOException;
 import java.util.*;
 
-public class KeyFrenzyView {
+public class KeyFrenzyGameController {
     private VBox root;
-    private Label labelMessageBanner; // Message Banner reamains same for all leve/
-    private Label currentScore; // Score label
-    private Label leveLbl; // Level number label
-    private HBox bottomPane;
 
+    // Message Banner remains same for all leve/
+    private Label labelMessageBanner;
+
+    // Score label
+    private Label currentScore;
+
+    // Level number label
+    private Label leveLbl;
     private GridPane gamePane;
     private List<Ghost> ghosts;
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
     private TextField userTypeBox;
     private final WordDictionary wordDictionary;
     private final Random rand;
-    private boolean lost;
     private final Timer globalTimer;
-    private AnimationTimer animationTimer;
-    private GhostTimerMovement ghostTimer;
+
+    //Users desired nickname
     private final String userName;
+
+    ///Keeps track of the players' lives
     private ProgressBar healthBar;
+
+    //Number of lives
     private int lives;
+    //Checks if the game is paused or not
     private boolean gamePaused = false;
-
-
 
     //The width of the game pane
     private double paneWidth;
 
     //The height of the game pane
     private double paneHeight;
-    /**
-     * Variable to check the score
-     */
 
     //Variable to check the score
     private int score;
-
-    private int level; //this is where we store the level number
-
-
-    private final int LEVEL_SCORE = 80; // change level after score reaches LEVEL_SCORE
-
-    private final int MAX_LEVEL = 7;
-
+    // Stores the level number
+    private int level;
 
 
     /**
      * This is the "view" in the MVC design for the game Key Frenzy. A view class
      * does nothing more than initializes all nodes for the scene graph for this view.
      */
-    public KeyFrenzyView(String username) {
+    public KeyFrenzyGameController(String username) {
         this.userName = username;
         this.score = 0;
 
         this.wordDictionary = new WordDictionary();
-        this.lost = false;
         this.rand = new Random(System.currentTimeMillis());
         this.level = 1;
 
@@ -130,7 +124,7 @@ public class KeyFrenzyView {
         // Create and configure the game pane
         gamePane = new GridPane();
 
-        bottomPane = new HBox();
+        HBox bottomPane = new HBox();
 
         // Set minimum size for the gamePane
         gamePane.setMinSize(800, 600); // Set minimum width
@@ -144,8 +138,6 @@ public class KeyFrenzyView {
 
         // Create and configure the level banner
         configureLevelBanner();
-
-        ghostTimer = new GhostTimerMovement();
 
         // Initialize ghosts
         this.ghosts = new ArrayList<>();
@@ -241,9 +233,10 @@ public class KeyFrenzyView {
                 destroy(ghost);
                 iterator.remove();
 
-                // Update the score
+                // Update the score and score label
                 score += 10;
-                updateScoreLabel();
+                currentScore.setText("Current Score: " + score);
+
                 //update the level and check if level has reached max level
                 updateLevel();
                 break;
@@ -253,9 +246,13 @@ public class KeyFrenzyView {
 
 
     private void updateLevel() {
+
+        // change level after score reaches LEVEL_SCORE
+        int LEVEL_SCORE = 80;
         if (score % LEVEL_SCORE == 0){
             // update the level number
-            level ++; //increment level number
+            level ++;
+            int MAX_LEVEL = 7;
             if(level <= MAX_LEVEL) {
                 // update label
                 updateLevelLbl(level);
@@ -266,14 +263,6 @@ public class KeyFrenzyView {
             }
         }
     }
-
-    /**
-     * Updates the score on the game pane
-     */
-    private void updateScoreLabel() {
-        currentScore.setText("Current Score: " + score);
-    }
-
 
     private void updateLevelLbl(int level){
         leveLbl.setText("Level: " + level);
@@ -297,7 +286,6 @@ public class KeyFrenzyView {
             @Override
             public void run() {
                 // When the timer runs out (8 seconds), that means the player loses
-                lost = true;
                 gameOver();
             }
         }, WordsSetting.GAME_LENGTH);
@@ -349,8 +337,8 @@ public class KeyFrenzyView {
 
         long creationTime = System.currentTimeMillis();
 
-        Ghost ghost1 = new Ghost(wordDictionary.getWord(level), 80);
-        Ghost ghost2 = new Ghost(wordDictionary.getWord(level), 80);
+        Ghost ghost1 = new Ghost(wordDictionary.getWord(level));
+        Ghost ghost2 = new Ghost(wordDictionary.getWord(level));
         //Starts the timer
         ghost1.setCreationTime(creationTime);
         ghost2.setCreationTime(creationTime);
@@ -443,15 +431,17 @@ public class KeyFrenzyView {
         if (!gamePaused) {
             gamePaused = true;
             // Pause any ongoing animations or timers
-             animationTimer.stop();
+//             animationTimer.stop();
              globalTimer.cancel();
             // Stop any ghost animations
             stopGhostAnimations();
 
+
+
         } else {
             gamePaused = false;
             // Resume animations or timers
-             animationTimer.start();
+//             animationTimer.start();
             // Resume ghost animations
             resumeGhostAnimations();
         }
@@ -489,9 +479,10 @@ public class KeyFrenzyView {
             try {
                 // Load the FXML file. Obtain the root of the scene graph
                 FXMLLoader loader = new FXMLLoader();
+
                 loader.setLocation(getClass().getResource("/fxml/gameOverView.fxml"));
+
                 Parent root = loader.load();
-                // Transfer game object to game over controller
                 Stage primaryStage = new Stage();
                 // Set up the stage and show it
                 primaryStage.setTitle("Hello FXML!");
@@ -507,6 +498,7 @@ public class KeyFrenzyView {
                 throw new RuntimeException(e);
             }
         });
+        
     }
 
     /**
@@ -520,4 +512,5 @@ public class KeyFrenzyView {
     public VBox getRoot() {
         return root;
     }
+
 }

@@ -18,18 +18,15 @@
  */
 package org.team11.GameController;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class WelcomeMenuController {
 
@@ -49,7 +46,7 @@ public class WelcomeMenuController {
     private TextField textFieldUserName;
 
     /**
-     * Once the user hits the Start Game button, we take them to the KeyFrenzyView
+     * Once the user hits the Start Game button, we take them to the KeyFrenzyGameController
      */
     @FXML
     protected void onStartButtonClick() {
@@ -58,15 +55,14 @@ public class WelcomeMenuController {
         String userName = textFieldUserName.getText().trim();
 
         if (!userName.isEmpty()) {
-            // Create an instance of KeyFrenzyView
-            KeyFrenzyView theView = new KeyFrenzyView(userName);
+            // Create an instance of KeyFrenzyGameController
+            KeyFrenzyGameController theView = new KeyFrenzyGameController(userName);
 
             Scene scene = new Scene(theView.getRoot());
-//         Attach a CSS file for styling our app
+            // Attach a CSS file for styling our app
             scene.getStylesheets().add(
                     getClass().getResource("/KeyFrenzy.css")
                             .toExternalForm());
-            //this.theController = new KeyFrenzyController(this.theModel, this.theView);
 
             Stage primaryStage = new Stage();
             primaryStage.setTitle("Key Frenzy Typing Game");
