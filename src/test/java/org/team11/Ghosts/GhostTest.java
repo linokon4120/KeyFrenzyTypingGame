@@ -1,6 +1,8 @@
+package org.team11.Ghosts;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.team11.GameView.Ghost;
+import org.team11.Ghosts.Ghost;
 
 public class GhostTest extends Application {
 

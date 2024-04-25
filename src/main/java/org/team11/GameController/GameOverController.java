@@ -18,7 +18,6 @@
  */
 package org.team11.GameController;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Dictionary;
@@ -29,18 +28,20 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.team11.GameView.WordDictionary;
+import org.team11.TypingMechanism.WordDictionary;
 
 public class GameOverController {
 
     @FXML
     private ResourceBundle resources;
+    @FXML
+    private VBox rootGameOver;
 
     @FXML
     private URL location;
@@ -58,30 +59,30 @@ public class GameOverController {
     private Button buttonQuitGame;
 
     @FXML
-    private WordDictionary dict;
+    private KeyFrenzyGameController gameController;
+
+    public GameOverController () {
+        this.rootGameOver = new VBox();
+    }
 
     @FXML
-    protected void onRestartButtonClick() throws IOException {
-//        // When the start button is clicked, go to the game view
-//        SceneSwitch.change(textGameOver, "welcomeMenu.fxml", 1000, 800, "Typer [In Game]");
+    protected void onRestartButtonClick() {
         try {
-            // Load the FXML file for KeyFrenzyView
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KeyFrenzyView.fxml"));
+            Stage primaryStage = new Stage();
+            // Load the FXML file. Obtain the root of the scene graph
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/welcomeMenu.fxml")); // TODO this is only the start menu
             Parent root = loader.load();
 
-            // Get the controller of KeyFrenzyView
-            KeyFrenzyView keyFrenzyController = loader.getController();
-
-            // Create a new stage and scene for KeyFrenzyView
-            Stage primaryStage = new Stage();
-            primaryStage.setTitle("Key Frenzy Game");
+            // Set up the stage and show it
+            primaryStage.setTitle("Hello FXML!");
             primaryStage.setScene(new Scene(root));
-
-            // Show the KeyFrenzyView
+            primaryStage.sizeToScene();
             primaryStage.show();
 
+
             // Close the current (game over) stage
-            Stage currentStage = (Stage) ((Node) buttonPlayAgain).getScene().getWindow();
+            Stage currentStage = (Stage) (buttonPlayAgain).getScene().getWindow();
             currentStage.close();
 
         } catch (IOException e) {
@@ -91,7 +92,7 @@ public class GameOverController {
     }
 
     @FXML
-    private void handleQuitGameButtonClick() {
+    private void onQuitGameButtonClick() {
         // Close the application
         Platform.exit();
     }
@@ -100,12 +101,28 @@ public class GameOverController {
     void initialize() {
         assert buttonPlayAgain != null : "fx:id=\"buttonPlayAgain\" was not injected: check your FXML file 'gameOverView.fxml'.";
         assert buttonQuitGame != null : "fx:id=\"buttonQuitGame\" was not injected: check your FXML file 'gameOverView.fxml'.";
-
+        assert rootGameOver != null : "fx:id=\"rootGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
+        assert textGameOver != null : "fx:id=\"textGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
     }
+
+//    public void transferData(int score) {
+//        // Set the game to an instance variable
+//        this.dict = dict;
+//
+//        // Get the score from the game
+//        scoreText.setText("Score: " + score);
+//
+//        // Enable the "restart" button after 1 second
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Platform.runLater(() -> buttonPlayAgain.setDisable(false));
+//            }
+//        }, 1000);
 
     public void transferData(int score) {
         // Set the game to an instance variable
-        this.dict = dict;
+        this.gameController = gameController;
 
         // Get the score from the game
         scoreText.setText("Score: " + score);
@@ -119,5 +136,7 @@ public class GameOverController {
         }, 1000);
     }
 
-
+    public VBox getRootGameOver() {
+        return rootGameOver;
+    }
 }

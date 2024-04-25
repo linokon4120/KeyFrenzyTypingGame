@@ -22,7 +22,7 @@
  *
  * ****************************************
  */
-package org.team11.GameView;
+package org.team11.TypingMechanism;
 
 
 import java.io.BufferedReader;
