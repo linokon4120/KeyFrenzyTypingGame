@@ -48,7 +48,7 @@ public class GhostAnimation {
     public static long lastMovementTime;
 
     //Checks if the game is paused
-    private boolean isPaused;
+    public boolean isPaused;
 
 
     /**
@@ -86,7 +86,7 @@ public class GhostAnimation {
     public void pause() throws InterruptedException {
 
         if (timer != null)
-            timer.wait();
+            timer.cancel();
 
         if (text != null)
             ((Pane) text.getParent()).getChildren().remove(text);

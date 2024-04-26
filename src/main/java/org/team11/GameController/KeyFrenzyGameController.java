@@ -48,15 +48,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyGameController {
+    /** A vertical box for the main view */
     private VBox root;
-
-    // Message Banner remains same for all leve/
+    /** Message Banner remains same for all level */
     private Label labelMessageBanner;
-
-    // Score label
+    /** Score label */
     private Label currentScore;
-
-    // Level number label
+    /** Level number label */
     private Label leveLbl;
     private GridPane gamePane;
     private List<Ghost> ghosts;
@@ -149,6 +147,7 @@ public class KeyFrenzyGameController {
         Button stopButton = new Button("Stop Game");
 
         // Add action handlers for the buttons
+        // TODO for later: need to fix the pauseGame button
         pauseButton.setOnAction(event -> pauseGame());
         stopButton.setOnAction(event -> gameOver());
 
@@ -528,4 +527,11 @@ public class KeyFrenzyGameController {
         return root;
     }
 
+    public void setGamePane(GridPane gamePane) {
+        this.gamePane = gamePane;
+    }
+
+    public GridPane getGamePane() {
+        return this.gamePane;
+    }
 }

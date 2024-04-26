@@ -43,7 +43,7 @@ public class Ghost {
     private final String word;
 
     //checks if the ghost is active in the game
-    private final boolean active;
+    private boolean active;
     //graphical representation of the ghost
     private Pane node;
     //the time the ghost was created
@@ -57,8 +57,17 @@ public class Ghost {
         this.word = word;
         this.active = true;
 
-        initializeGhost(word);
+        try {
+            initializeGhost(word);
+        } catch (Exception e) {
+            // Handle the exception gracefully
+            System.err.println("Error initializing Ghost: " + e.getMessage());
+            // Optionally, set active to false or perform fallback behavior
+            this.active = false;
+            this.node = null;
+        }
     }
+
 
 
     /**

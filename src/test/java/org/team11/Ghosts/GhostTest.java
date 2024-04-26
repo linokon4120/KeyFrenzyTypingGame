@@ -1,34 +1,36 @@
 package org.team11.Ghosts;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class GhostTest extends Application {
+import static org.junit.jupiter.api.Assertions.*;
 
-    public static void main(String[] args) {
-        launch(args); // Launches the JavaFX application
+public class GhostTest {
+
+    @AfterEach
+    void tearDown() {
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        // Now you can run your test code here or invoke another method containing the test code
-        runGhostTest();
+    @Test
+    void getWord() {
     }
 
-    private void runGhostTest() {
-        // Your test code here
-        Ghost ghost = new Ghost("Test");
-        // Set a creation time
-        long creationTime = System.currentTimeMillis();
-        ghost.setCreationTime(creationTime);
+    @Test
+    void isActive() {
+    }
 
-        // Get the creation time and compare with the expected value
-        long retrievedTime = ghost.getCreationTime();
+    @Test
+    void getNode() {
+    }
 
-        if (retrievedTime == creationTime) {
-            System.out.println("Creation time set and retrieved successfully!");
-        } else {
-            System.out.println("Error: Creation time mismatch!");
-        }
+    @Test
+    void setCreationTime() {
+    }
+
+    @Test
+    void getCreationTime() {
     }
 }
