@@ -49,12 +49,15 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyGameController {
+
     /** A vertical box for the main view */
     private VBox root;
     /** Message Banner remains same for all level */
     private Label labelMessageBanner;
+
     /** Score label */
     private Label currentScore;
+
     /** Level number label */
     private Label leveLbl;
     private GridPane gamePane;
@@ -65,26 +68,28 @@ public class KeyFrenzyGameController {
     private final Random rand;
     private final Timer globalTimer;
 
-    //Users desired nickname
+    /** Users desired nickname */
     private final String userName;
 
-    //Keeps track of the players' lives
+    /** Keeps track of the players' lives*/
     private ProgressBar healthBar;
 
-    //Number of lives
+    /** Number of lives */
     private int lives;
-    //Checks if the game is paused or not
+
+    /** Checks if the game is paused or not */
     private boolean gamePaused = false;
 
-    //The width of the game pane
+    /** The width of the game pane */
     private double paneWidth;
 
-    //The height of the game pane
+    /**The height of the game pane*/
     private double paneHeight;
 
-    //Variable to check the score
+    /**Variable to check the score*/
     private int score;
-    // Stores the level number
+
+    /** Stores the level number */
     private int level;
 
 
