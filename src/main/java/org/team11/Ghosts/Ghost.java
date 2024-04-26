@@ -13,12 +13,21 @@
  * Class: Ghost
  *
  * Description:
+ * The Ghost class encapsulates the characteristics and behavior of ghost entities in the game.
+ *It includes the following attributes:
+ * word: A string representing the word associated with the ghost that the player needs to type.
+ * active: A boolean flag indicating whether the ghost is currently active in the game.
+ * label: A JavaFX Label object displaying the word associated with the ghost.
+ * node: A JavaFX Pane object containing the graphical representation of the ghost, including its circle shape and label.
+ * creationTime: A long value representing the time at which the ghost was created.
  *
+ * The class provides a constructor to initialize a Ghost object with a given word and grid size.
+ * It also includes a private method, initializeGhost, to set up the visual representation of the ghost using JavaFX element
+ * the class also provides getter methods to access the attributes of the ghost, such as the word, activity status, graphical node, and creation time
  * **************************************
  */
-package org.team11.GameView;
+package org.team11.Ghosts;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -28,50 +37,59 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
-import java.util.Random;
-
 public class Ghost {
-    private static final double MOVEMENT_AMOUNT = 1;
-    private String word;
+
+    //The word associated with a ghost
+    private final String word;
+
+    //checks if the ghost is active in the game
     private boolean active;
-    private Label label;
+    //graphical representation of the ghost
     private Pane node;
-
+    //the time the ghost was created
     private long creationTime;
-    private  final double TO_SECONDS = 1e9;
 
-    private AnimationTimer animationTimer;
-
-    private boolean animationRunning;
-
-    public Ghost(String word, int gridSize) {
+    /**
+     * Constructor for the ghost class
+     * @param word to be typed
+     */
+    public Ghost(String word) {
         this.word = word;
         this.active = true;
 
-        initializeGhost(word, gridSize);
+        try {
+            initializeGhost(word);
+        } catch (Exception e) {
+            // Handle the exception gracefully
+            System.err.println("Error initializing Ghost: " + e.getMessage());
+            // Optionally, set active to false or perform fallback behavior
+            this.active = false;
+            this.node = null;
+        }
     }
+
 
 
     /**
      * Creates and positions the words on the ghost and the ghost on the game pane
+     * Sets up the visual representation of the ghost using the JAVA FX methods
      * @param word, the word to be typed by the player
-     * @param gridSize, the size of the game pane
+     *
      *
      */
 
-    private void initializeGhost(String word, int gridSize) {
+    private void initializeGhost(String word) {
+
         // Create a circle for the ghost
         Circle circle = new Circle(39); // Radius of the circle
-        //circle.setStyle("-fx-graphic: url('./animation/ghost.gif')"); //I DONT KNOW WHY THIS IS NOT WORKING!!!
-        circle.setFill(Color.TRANSPARENT);
-        //circle.setFill(Color.r gb(163, 255, 214)); // Set fill color to transparent
+        circle.setFill(Color.TRANSPARENT); // Set fill color to transparent
+
 
         // Set background image using CSS
         Image img = new Image("./animation/ghost1.gif");
         circle.setFill(new ImagePattern(img));
 
         circle.setStyle("-fx-graphic: url('./animation/ghost.gif')");
-        //circle.getStyleClass().add("ghost-circle"); // Apply CSS class
 
         // Create a label for the word
         Label label = new Label(word);
@@ -82,44 +100,14 @@ public class Ghost {
         label.layoutXProperty().bind(circle.centerXProperty().subtract(label.widthProperty().divide(2)));
         label.layoutYProperty().bind(circle.centerYProperty().subtract(circle.radiusProperty()).subtract(label.heightProperty()));
 
-        // Initiating the starting position of the ghosts
-        // TODO: To be fixed (ensure within grid size)
-        Random random = new Random();
-        int x = random.nextInt(gridSize);
-        int y = random.nextInt(gridSize);
-
-        // Create a new pane to contain the circle and label
-        Pane pane = new Pane(circle, label);
-
-        // Set the node
-        this.node = pane;
+        // Create a new pane to contain the circle and label and sets the node
+        this.node = new Pane(circle, label);
     }
 
 
 
-    /* Ghost Mobility */
-
-    /**
-     * The ghosts move towards the position of the main character,
-     * collides when it is one box to the main character and the gif does its thing.
-     *
-     * @param mainCharacterX, the x position of the main character
-     * @param mainCharacterY, the y position of the main character
-     */
-
-
-
-    /**
-     * Makes the ghost disappear
-     * */
-
-
-
-
-
-
     /*
-     All getter methods:
+     All getter and setter methods:
     */
 
     public String getWord() {
@@ -132,10 +120,6 @@ public class Ghost {
 
     public Node getNode() {
         return node;
-    }
-
-    public void setPosition(double centerX, double centerY) {
-
     }
 
     public void setCreationTime(long creationTime) {
