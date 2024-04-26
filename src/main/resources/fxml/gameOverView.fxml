@@ -8,8 +8,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="rootGameOver" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.team11.GameController.GameOverController">
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Game%20Over.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.team11.GameController.GameOverController">
+<VBox fx:id="rootGameOver" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../GameOver.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.team11.GameController.GameOverController">
+
+
+
+
    <children>
       <Text fx:id="textGameOver" fill="#a3ffd6" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over!">
          <font>
@@ -26,16 +29,15 @@
          </font></Label>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" spacing="20.0">
          <children>
-            <Button fx:id="buttonPlayAgain" disable="true" mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again">
+            <Button fx:id="buttonPlayAgain" mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again">
                <font>
                   <Font name="Futura Bold" size="13.0" />
                </font></Button>
-            <Button fx:id="buttonQuitGame" mnemonicParsing="false" text="Quit Game">
+            <Button fx:id="buttonQuitGame" mnemonicParsing="false" onAction="#onQuitGameButtonClick" text="Quit Game">
                <font>
                   <Font name="Futura Bold" size="13.0" />
                </font></Button>
-            <Button fx:id="buttonPlayAgain" mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again" />
-            <Button fx:id="buttonQuitGame" mnemonicParsing="false" onAction="#onQuitGameButtonClick" text="Quit Game" />
+
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
