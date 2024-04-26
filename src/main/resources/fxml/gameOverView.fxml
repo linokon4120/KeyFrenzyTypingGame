@@ -25,11 +25,11 @@
          </font></Label>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="150.0" spacing="20.0">
          <children>
-            <Button fx:id="buttonPlayAgain" disable="true" mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again">
+            <Button fx:id="buttonPlayAgain" mnemonicParsing="false" onAction="#onRestartButtonClick" text="Play Again">
                <font>
                   <Font name="Futura Bold" size="13.0" />
                </font></Button>
-            <Button fx:id="buttonQuitGame" mnemonicParsing="false" text="Quit Game">
+            <Button fx:id="buttonQuitGame" mnemonicParsing="false" onAction="#onQuitGameButtonClick" text="Quit Game">
                <font>
                   <Font name="Futura Bold" size="13.0" />
                </font></Button>
