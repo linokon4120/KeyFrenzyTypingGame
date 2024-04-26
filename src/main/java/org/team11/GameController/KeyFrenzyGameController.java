@@ -153,6 +153,7 @@ public class KeyFrenzyGameController {
         Button stopButton = new Button("Stop Game");
 
         // Add action handlers for the buttons
+        // TODO for later: need to fix the pauseGame button
         pauseButton.setOnAction(event -> pauseGame());
         stopButton.setOnAction(event -> gameOver());
 
