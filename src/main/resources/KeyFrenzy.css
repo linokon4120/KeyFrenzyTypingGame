@@ -5,7 +5,7 @@
     -fx-pref-height: 600;
     -fx-pref-width: 800;
     -fx-background-color: #0d0b33;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #A3FFD6;
 }
 
 /* Style for the gamePane */
@@ -24,7 +24,7 @@
 .current-score {
     -fx-font-size: 31;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #A3FFD6;
     -fx-font-family: Valorax;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .user-nickname {
-    -fx-font-size: 13;
+    -fx-font-size: 15;
     -fx-font-weight: medium;
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
@@ -65,5 +65,15 @@
     -fx-font-size: 13;
     -fx-font-weight: medium;
     -fx-text-fill: #ffffff;
+    -fx-font-family: Futura;
+}
+
+.health-bars {
+    -fx-background-color: TRANSPARENT;
+    -fx-accent: green; /*Customize appearance */
+    -fx-font-weight: medium;
+    -fx-font-size: 20;
+    -fx-text-fill: #A3FFD6;
+    -fx-text-alignment: right;
     -fx-font-family: Futura;
 }
