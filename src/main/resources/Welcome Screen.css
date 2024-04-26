@@ -1,0 +1,20 @@
+.root {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-pref-height: 600;
+    -fx-pref-width: 800;
+    -fx-background-color: #0d0b33;
+    -fx-background-image: url("animation/WelcomeScreen.gif");
+    -fx-background-position: center center;
+    -fx-background-repeat: stretch;
+    -fx-text-fill: #ffffff;
+}
+.button {
+    -fx-background-color: #8576FF;
+    -fx-text-fill: #A3FFD6;
+}
+.text-field{
+    -fx-background-color: #8576FF;
+    -fx-text-fill: #A3FFD6;
+}
