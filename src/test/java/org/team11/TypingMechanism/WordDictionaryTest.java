@@ -15,7 +15,7 @@ class WordDictionaryTest {
         WordDictionary wordGenerator = new WordDictionary();
         Set<String> generatedWords = new HashSet<>();
 
-        // Test for 16 consecutive levels
+
         for (int level = 1; level <= 7; level++) {
             String word = wordGenerator.getWord(level);
             assertNotNull(word);
@@ -24,7 +24,7 @@ class WordDictionaryTest {
         }
 
         // Test for the case when level exceeds the maximum level
-        String word = wordGenerator.getWord(4);
+        String word = wordGenerator.getWord(7);
         assertNotNull(word);
         assertFalse(generatedWords.contains(word));
     }

@@ -137,7 +137,8 @@ public class GameOverController {
     /*
      Getter methods
      */
-    public VBox getRootGameOver() {
-        return rootGameOver;
-    }
+
+//    public VBox getRootGameOver() {
+//        return rootGameOver;
+//    }
 }
