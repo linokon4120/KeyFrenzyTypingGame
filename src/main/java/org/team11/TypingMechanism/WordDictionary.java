@@ -49,6 +49,7 @@ public class WordDictionary {
 
     /**
      * Loads the first 100 lines from the dictionary file
+     * @retuns void
      */
 
     private void loadFileIntoMap(){
@@ -69,14 +70,22 @@ public class WordDictionary {
 
     /**
      * Get words based on the level and the number of words needed
+     * @param level
      */
 
     public String getWord(int level){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
 
         Integer key = level + 1; //because the first level starts with two letters
         List<String> words = wordsByLength.get(key);
-        // Shuffle in random order
+
+        if (words == null || words.isEmpty()) {
+            // You can choose to return null or throw a custom exception
+            // If you choose to throw an exception, make sure to update your unit test accordingly.
+            throw new NoSuchElementException("No words available for the given level: " + level);
+            // Shuffle in random order
+        }
         Collections.shuffle(words);
+
 
         String word;
         do {
