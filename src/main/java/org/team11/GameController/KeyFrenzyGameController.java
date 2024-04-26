@@ -527,4 +527,11 @@ public class KeyFrenzyGameController {
         return root;
     }
 
+    public void setGamePane(GridPane gamePane) {
+        this.gamePane = gamePane;
+    }
+
+    public GridPane getGamePane() {
+        return this.gamePane;
+    }
 }
