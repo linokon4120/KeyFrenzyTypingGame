@@ -37,7 +37,7 @@
          <font>
             <Font name="Futura Bold" size="13.0" />
          </font></TextField>
-<!--      <Button fx:id="buttonStartGame" onAction="#onStartButtonClick" mnemonicParsing="false" text="Start Game" />-->
+      <!--      <Button fx:id="buttonStartGame" onAction="#onStartButtonClick" mnemonicParsing="false" text="Start Game" />-->
       <Button fx:id="buttonStartGame" mnemonicParsing="false" onAction="#onStartButtonClick" text="START HERE" textFill="#7bc9ff" wrapText="true">
          <font>
             <Font name="Futura Bold" size="22.0" />

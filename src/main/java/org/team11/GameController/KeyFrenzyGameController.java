@@ -246,7 +246,7 @@ public class KeyFrenzyGameController {
                 break;
             }
         }
-        }
+    }
 
 
     private void updateLevel() {
@@ -440,8 +440,8 @@ public class KeyFrenzyGameController {
         if (!gamePaused) {
             gamePaused = true;
             // Pause any ongoing animations or timers
-             //animationTimer.stop();
-             globalTimer.cancel();
+            //animationTimer.stop();
+            globalTimer.cancel();
             // Stop any ghost animations
             stopGhostAnimations();
 
@@ -514,7 +514,7 @@ public class KeyFrenzyGameController {
                 throw new RuntimeException(e);
             }
         });
-        
+
     }
 
     /**
