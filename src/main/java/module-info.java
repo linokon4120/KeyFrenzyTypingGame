@@ -9,6 +9,7 @@ module csci205_final_project {
     exports org.team11.GameController;
 
 
+
     opens org.team11.GameController to javafx.fxml;
     opens org.team11.Ghosts to javafx.fxml;
     exports org.team11.TypingMechanism;

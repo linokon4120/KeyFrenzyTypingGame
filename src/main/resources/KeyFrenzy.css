@@ -5,7 +5,7 @@
     -fx-pref-height: 600;
     -fx-pref-width: 800;
     -fx-background-color: #0d0b33;
-    -fx-text-fill: #A3FFD6;
+    -fx-text-fill: #ffffff;
 }
 
 /* Style for the gamePane */
@@ -67,13 +67,38 @@
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
 }
-
-.health-bars {
-    -fx-background-color: TRANSPARENT;
-    -fx-accent: green; /*Customize appearance */
-    -fx-font-weight: medium;
-    -fx-font-size: 20;
+.pause {
+    -fx-background-color: #8576FF;
     -fx-text-fill: #A3FFD6;
-    -fx-text-alignment: right;
+    -fx-font-family: Futura;
+}
+
+.stop {
+    -fx-background-color: #8576FF;
+    -fx-text-fill: #A3FFD6;
+    -fx-font-family: Futura;
+}
+
+.health-bar{
+    -fx-accent: #8576FF;
+    -fx-background-color: #8576FF;
+}
+
+.health-label{
+    -fx-background-color: transparent;
+    -fx-text-fill: #A3FFD6;
+    -fx-font-family: Futura;
+}
+
+.user-type-box{
+    -fx-background-color: #A3FFD6;
+    -fx-text-fill:#8576FF;
+    -fx-font-family: Futura;
+    -fx-pref-width: 331;
+    -fx-max-width: 331;
+}
+
+.level-label{
+    -fx-text-fill: #A3FFD6;
     -fx-font-family: Futura;
 }
