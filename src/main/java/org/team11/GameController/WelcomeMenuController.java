@@ -24,12 +24,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.ResourceBundle;
+import java.util.Objects;
 
 public class WelcomeMenuController {
-
-    @FXML
-    private ResourceBundle resources;
 
     @FXML
     private Button buttonStartGame;
@@ -53,7 +50,7 @@ public class WelcomeMenuController {
             Scene scene = new Scene(theView.getRoot());
             // Attach a CSS file for styling our app
             scene.getStylesheets().add(
-                    getClass().getResource("/KeyFrenzy.css")
+                    Objects.requireNonNull(getClass().getResource("/KeyFrenzy.css"))
                             .toExternalForm());
 
             Stage primaryStage = new Stage();

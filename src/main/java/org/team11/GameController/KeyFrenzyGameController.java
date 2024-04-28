@@ -24,6 +24,7 @@ import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -48,12 +49,15 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyGameController {
+
     /** A vertical box for the main view */
     private VBox root;
     /** Message Banner remains same for all level */
     private Label labelMessageBanner;
+
     /** Score label */
     private Label currentScore;
+
     /** Level number label */
     private Label leveLbl;
     private GridPane gamePane;
@@ -64,26 +68,28 @@ public class KeyFrenzyGameController {
     private final Random rand;
     private final Timer globalTimer;
 
-    //Users desired nickname
+    /** Users desired nickname */
     private final String userName;
 
-    ///Keeps track of the players' lives
+    /** Keeps track of the players' lives*/
     private ProgressBar healthBar;
 
-    //Number of lives
+    /** Number of lives */
     private int lives;
-    //Checks if the game is paused or not
+
+    /** Checks if the game is paused or not */
     private boolean gamePaused = false;
 
-    //The width of the game pane
+    /** The width of the game pane */
     private double paneWidth;
 
-    //The height of the game pane
+    /**The height of the game pane*/
     private double paneHeight;
 
-    //Variable to check the score
+    /**Variable to check the score*/
     private int score;
-    // Stores the level number
+
+    /** Stores the level number */
     private int level;
 
 
@@ -151,20 +157,33 @@ public class KeyFrenzyGameController {
         pauseButton.setOnAction(event -> pauseGame());
         stopButton.setOnAction(event -> gameOver());
 
+        //Styling the pause and stop button
+        pauseButton.setStyle("-fx-background-color: rgb(0, 0, 0, 0.2) ; -fx-text-fill: #A3FFD6; -fx-font-size: 14px; -fx-padding: 10px;");
+        stopButton.setStyle("-fx-background-color: rgb(0, 0, 0, 0.2) ; -fx-text-fill: #A3FFD6; -fx-font-size: 14px; -fx-padding: 10px;");
+
+
 
         // Create a health bar (progress bar) to display remaining health
         this.healthBar = new ProgressBar(1.0); // Full health initially
         this.healthBar.setPrefWidth(200); // Set preferred width
         this.healthBar.setStyle("-fx-accent: green;"); // Customize appearance
+
+        //Health label
         Label healthLabel = new Label("Health: ");
-        healthLabel.setStyle("-fx-background-color: WHITE");
+        healthLabel.getStyleClass().add("health-bars");
 
         // Initialize lives counter
         this.lives = 3;
 
         // Layout for health bar and lives counter
         HBox healthBox = new HBox(10, healthLabel, healthBar);
+        healthBox.setAlignment(Pos.BASELINE_CENTER);
         VBox.setMargin(healthBox, new Insets(10));
+
+        //Set spacing between elements
+        bottomPane.setSpacing(30);
+        HBox.setMargin(userTypeBox, new Insets(10));
+
 
         //Adding the text box to the game
         bottomPane.getChildren().addAll(userTypeBox, healthBox, pauseButton, stopButton);
