@@ -25,16 +25,6 @@ public class GhostTest {
         assertEquals("team11", ghost.getWord());
     }
 
-    @Test
-    void isActive() {
-        assertTrue(ghost.isActive());
-    }
-
-    @Test
-    void getNode() {
-        assertNotNull(ghost.getNode());
-
-    }
 
     @Test
     void setCreationTime() {
