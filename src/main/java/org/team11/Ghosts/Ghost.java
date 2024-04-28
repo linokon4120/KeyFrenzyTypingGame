@@ -30,6 +30,7 @@ package org.team11.Ghosts;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -84,6 +85,14 @@ public class Ghost {
         Circle circle = new Circle(39); // Radius of the circle
         circle.setFill(Color.TRANSPARENT); // Set fill color to transparent
 
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.DARKBLUE);
+        dropShadow.setOffsetX(0f);
+        dropShadow.setOffsetY(0f);
+        dropShadow.setWidth(31);
+        dropShadow.setHeight(31);
+        circle.setEffect(dropShadow);
+
 
         // Set background image using CSS
         Image img = new Image("./animation/ghost1.gif");
@@ -95,6 +104,7 @@ public class Ghost {
         Label label = new Label(word);
         label.setFont(Font.font("Futura", 12));
         label.setTextFill(Color.rgb(163, 255, 214));
+        label.setEffect(dropShadow);
 
         // Position the label at the top of the circle
         label.layoutXProperty().bind(circle.centerXProperty().subtract(label.widthProperty().divide(2)));
