@@ -24,6 +24,7 @@ import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -48,12 +49,15 @@ import java.io.IOException;
 import java.util.*;
 
 public class KeyFrenzyGameController {
+
     /** A vertical box for the main view */
     private VBox root;
     /** Message Banner remains same for all level */
     private Label labelMessageBanner;
+
     /** Score label */
     private Label currentScore;
+
     /** Level number label */
     private Label leveLbl;
     private GridPane gamePane;
@@ -64,26 +68,28 @@ public class KeyFrenzyGameController {
     private final Random rand;
     private final Timer globalTimer;
 
-    //Users desired nickname
+    /** Users desired nickname */
     private final String userName;
 
-    ///Keeps track of the players' lives
+    /** Keeps track of the players' lives*/
     private ProgressBar healthBar;
 
-    //Number of lives
+    /** Number of lives */
     private int lives;
-    //Checks if the game is paused or not
+
+    /** Checks if the game is paused or not */
     private boolean gamePaused = false;
 
-    //The width of the game pane
+    /** The width of the game pane */
     private double paneWidth;
 
-    //The height of the game pane
+    /**The height of the game pane*/
     private double paneHeight;
 
-    //Variable to check the score
+    /**Variable to check the score*/
     private int score;
-    // Stores the level number
+
+    /** Stores the level number */
     private int level;
 
 
@@ -122,7 +128,6 @@ public class KeyFrenzyGameController {
         // Create and configure the game pane
         gamePane = new GridPane();
 
-        HBox bottomPane = new HBox();
 
         // Set minimum size for the gamePane
         gamePane.setMinSize(800, 600); // Set minimum width
@@ -131,6 +136,10 @@ public class KeyFrenzyGameController {
 
         paneWidth = 800;
         paneHeight = 600;
+        // Display the username and time used in the corner of the view
+        Label usernameLabel = new Label("Username: " + userName);
+        usernameLabel.getStyleClass().add("user-nickname");
+        usernameLabel.setFont(Font.font(18));
 
         // Create and configure the message banner
         configuringMessageBanner();
@@ -144,32 +153,43 @@ public class KeyFrenzyGameController {
 
         // Create Pause and Stop Game buttons
         Button pauseButton = new Button("Pause");
+        pauseButton.getStyleClass().add("pause");
         Button stopButton = new Button("Stop Game");
+        stopButton.getStyleClass().add("stop");
 
-        // Add action handlers for the buttons
-        // TODO for later: need to fix the pauseGame button
+// Add action handlers for the buttons
+// TODO for later: need to fix the pauseGame button
         pauseButton.setOnAction(event -> pauseGame());
         stopButton.setOnAction(event -> gameOver());
 
-
-        // Create a health bar (progress bar) to display remaining health
+// Create a health bar (progress bar) to display remaining health
         this.healthBar = new ProgressBar(1.0); // Full health initially
         this.healthBar.setPrefWidth(200); // Set preferred width
-        this.healthBar.setStyle("-fx-accent: green;"); // Customize appearance
+        this.healthBar.getStyleClass().add("health-bar");
         Label healthLabel = new Label("Health: ");
-        healthLabel.setStyle("-fx-background-color: WHITE");
+        healthLabel.getStyleClass().add("health-label");
 
-        // Initialize lives counter
+// Initialize lives counter
         this.lives = 3;
 
-        // Layout for health bar and lives counter
+// Layout for health bar and lives counter
         HBox healthBox = new HBox(10, healthLabel, healthBar);
         VBox.setMargin(healthBox, new Insets(10));
 
-        //Adding the text box to the game
-        bottomPane.getChildren().addAll(userTypeBox, healthBox, pauseButton, stopButton);
-        this.root.getChildren().addAll(labelMessageBanner, currentScore, gamePane, bottomPane);
-        this.root.getChildren().add(leveLbl);
+// Layout for buttons
+        HBox buttonBox = new HBox(10, pauseButton, stopButton);
+        buttonBox.setAlignment(Pos.CENTER_RIGHT);
+
+// Layout for bottom pane
+        HBox bottomPane = new HBox(20, healthBox, buttonBox);
+        bottomPane.setAlignment(Pos.CENTER);
+        bottomPane.setPadding(new Insets(20, 0, 20, 0)); // Padding bottom only
+        HBox gameInfo = new HBox(10, usernameLabel, leveLbl);
+        gameInfo.setAlignment(Pos.CENTER);
+        gameInfo.setPadding(new Insets(0, 0, 20, 0)); // Padding bottom only
+
+//Adding the text box to the game
+        this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
     }
 
 
@@ -184,20 +204,6 @@ public class KeyFrenzyGameController {
         this.userTypeBox = new TextField();
         userTypeBox.getStyleClass().add("user-type-box");
 
-        // VBox to contain username and time labels
-        VBox userInfoBox = new VBox();
-        userInfoBox.getStyleClass().add("user-info-box");
-
-        // Display the username and time used in the corner of the view
-        Label usernameLabel = new Label("Username: " + userName);
-        usernameLabel.getStyleClass().add("user-nickname");
-
-
-        userInfoBox.getChildren().addAll(usernameLabel);
-
-        // Add VBox to message banner
-        VBox.setMargin(userInfoBox, new Insets(10)); // Adjust margin as needed
-        labelMessageBanner.setGraphic(userInfoBox);
 
         // Add the labels to the game pane
         currentScore.getStyleClass().add("current-score");
@@ -240,7 +246,7 @@ public class KeyFrenzyGameController {
                 break;
             }
         }
-        }
+    }
 
 
     private void updateLevel() {
@@ -264,9 +270,8 @@ public class KeyFrenzyGameController {
 
     private void updateLevelLbl(int level){
         leveLbl.setText("Level: " + level);
-
         leveLbl.setFont(Font.font(18));
-        leveLbl.setStyle("-fx-text-fill: white;");
+        leveLbl.getStyleClass().add("level-label");
     }
 
 
@@ -435,8 +440,8 @@ public class KeyFrenzyGameController {
         if (!gamePaused) {
             gamePaused = true;
             // Pause any ongoing animations or timers
-             //animationTimer.stop();
-             globalTimer.cancel();
+            //animationTimer.stop();
+            globalTimer.cancel();
             // Stop any ghost animations
             stopGhostAnimations();
 
@@ -509,7 +514,7 @@ public class KeyFrenzyGameController {
                 throw new RuntimeException(e);
             }
         });
-        
+
     }
 
     /**
