@@ -24,7 +24,7 @@
 .current-score {
     -fx-font-size: 31;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #A3FFD6;
     -fx-font-family: Valorax;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .user-nickname {
-    -fx-font-size: 13;
+    -fx-font-size: 15;
     -fx-font-weight: medium;
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
@@ -65,5 +65,40 @@
     -fx-font-size: 13;
     -fx-font-weight: medium;
     -fx-text-fill: #ffffff;
+    -fx-font-family: Futura;
+}
+.pause {
+    -fx-background-color: #8576FF;
+    -fx-text-fill: #A3FFD6;
+    -fx-font-family: Futura;
+}
+
+.stop {
+    -fx-background-color: #8576FF;
+    -fx-text-fill: #A3FFD6;
+    -fx-font-family: Futura;
+}
+
+.health-bar{
+    -fx-accent: #8576FF;
+    -fx-background-color: #8576FF;
+}
+
+.health-label{
+    -fx-background-color: transparent;
+    -fx-text-fill: #A3FFD6;
+    -fx-font-family: Futura;
+}
+
+.user-type-box{
+    -fx-background-color: #A3FFD6;
+    -fx-text-fill:#8576FF;
+    -fx-font-family: Futura;
+    -fx-pref-width: 331;
+    -fx-max-width: 331;
+}
+
+.level-label{
+    -fx-text-fill: #A3FFD6;
     -fx-font-family: Futura;
 }
