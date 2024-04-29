@@ -15,10 +15,10 @@
             <Font name="Futura Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="#8576ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Score is: ">
-         <font>
-            <Font name="Futura Bold" size="13.0" />
-         </font></Text>
+<!--      <Text fill="#8576ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Score is: ">-->
+<!--         <font>-->
+<!--            <Font name="Futura Bold" size="13.0" />-->
+<!--         </font></Text>-->
       <Label text="Do you want to play again?" textFill="#8576ff">
          <font>
             <Font name="Futura Bold" size="13.0" />
