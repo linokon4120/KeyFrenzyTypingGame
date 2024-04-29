@@ -36,6 +36,7 @@ public class GameMain extends Application{
     public void init() throws Exception {
         super.init();
 
+
     }
 
     /**
