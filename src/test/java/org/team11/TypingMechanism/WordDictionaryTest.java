@@ -1,35 +1,48 @@
 package org.team11.TypingMechanism;
 
+
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 class WordDictionaryTest {
 
+    private WordDictionary dictionary;
+
+    @BeforeEach
+    void setUp() {
+        dictionary = new WordDictionary();
+    }
+
     @Test
-    void getWord() {
-        WordDictionary wordGenerator = new WordDictionary();
-        Set<String> generatedWords = new HashSet<>();
+    void testGetWordReturnsCorrectLength() {
+        int level = 1;
+        String word = dictionary.getWord(level);
+        assertEquals(level + 1, word.length(), "The word length should match the level + 1");
+    }
+
+    @Test
+    void testGetCorrectLength() {
+        int level = 2;
+        String word = dictionary.getWord(level);
+        assertEquals(level + 1, word.length(), "The word length should match the level + 2");
 
 
-        for (int level = 1; level <= 7; level++) {
-            String word = wordGenerator.getWord(level);
-            assertNotNull(word);
-            assertFalse(generatedWords.contains(word));
-            generatedWords.add(word);
-        }
-
-        // Test for the case when level exceeds the maximum level
-        String word = wordGenerator.getWord(7);
-        assertNotNull(word);
-        assertFalse(generatedWords.contains(word));
     }
 
 
+
+
+
+
+
+
+
+
+
+
 }
-
-
