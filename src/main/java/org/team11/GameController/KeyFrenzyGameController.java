@@ -194,7 +194,7 @@ public class KeyFrenzyGameController {
         gameInfo.setPadding(new Insets(0, 0, 0, 0)); // Padding bottom only
 
 //Adding the text box to the game
-//        this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
+        this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
 //
 //        //Adding audio
 //        Media media = new Media(new File("audio/chippy.mp3").toURI().toString());
