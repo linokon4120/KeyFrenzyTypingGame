@@ -28,6 +28,8 @@ class GhostAnimationTest {
     @Test
     void stop() {
 
+        ghostAnimation.start();
+
         ghostAnimation.stop();
         assertTrue(true, "Animation loop should stop.");
     }

@@ -84,7 +84,7 @@ public class SceneSwitch {
     public <T> T changeToGame(Node node, String page, int width, int height, String title) throws IOException {
         Stage primaryStage = (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(GameMain.class.getResource(page));
-                Scene scene = new Scene(theView.getRoot());
+        Scene scene = new Scene(theView.getRoot());
 
         // Attach CSS to style the game view
         scene.getStylesheets().add(
