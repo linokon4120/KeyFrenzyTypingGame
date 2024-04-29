@@ -105,39 +105,13 @@ public class GameOverController {
         assert textGameOver != null : "fx:id=\"textGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
     }
 
-//    public void transferData(int score) {
-//        // Set the game to an instance variable
-//        this.dict = dict;
-//
-//        // Get the score from the game
-//        scoreText.setText("Score: " + score);
-//
-//        // Enable the "restart" button after 1 second
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Platform.runLater(() -> buttonPlayAgain.setDisable(false));
-//            }
-//        }, 1000);
 
-//    public void transferData(int score) {
-//
-//        // Get the score from the game
-//        scoreText.setText("Score: " + score);
-//
-//        // Enable the "restart" button after 1 second
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Platform.runLater(() -> buttonPlayAgain.setDisable(false));
-//            }
-//        }, 1000);
-//    }
 
     /*
      Getter methods
      */
-    public VBox getRootGameOver() {
-        return rootGameOver;
-    }
+
+//    public VBox getRootGameOver() {
+//        return rootGameOver;
+//    }
 }

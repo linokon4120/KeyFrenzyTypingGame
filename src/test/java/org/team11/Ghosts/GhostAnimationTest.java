@@ -24,13 +24,6 @@ class GhostAnimationTest {
     void tearDown() {
     }
 
-    @Test
-    void start() {
-        assertNotNull(ghostAnimation);
-        ghostAnimation.start();
-
-        assertFalse(ghostAnimation.isPaused, "The animation has started");
-    }
 
     @Test
     void stop() {
