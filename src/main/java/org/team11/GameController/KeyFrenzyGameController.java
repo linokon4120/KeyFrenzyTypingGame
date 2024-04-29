@@ -37,6 +37,9 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
+//import javafx.scene.Group;
+//import javafx.scene.media.Media;
+//import javafx.scene.
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.Ghosts.Ghost;
@@ -45,6 +48,8 @@ import org.team11.Ghosts.GhostAnimation;
 
 import org.team11.TypingMechanism.WordsSetting;
 
+import javax.print.attribute.standard.Media;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -189,7 +194,13 @@ public class KeyFrenzyGameController {
         gameInfo.setPadding(new Insets(0, 0, 0, 0)); // Padding bottom only
 
 //Adding the text box to the game
-        this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
+//        this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
+//
+//        //Adding audio
+//        Media media = new Media(new File("audio/chippy.mp3").toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setAutoPlay(true);
+//        }
     }
 
 
