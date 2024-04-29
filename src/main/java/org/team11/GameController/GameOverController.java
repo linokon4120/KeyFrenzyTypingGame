@@ -12,7 +12,8 @@
  * Package: org.team11.GameController
  * Class: GameOverController
  *
- * Description:
+ * Description: This is the controller class
+ * for the game over fxml
  *
  * **************************************
  */
@@ -60,7 +61,7 @@ public class GameOverController {
      * The restart button implementation
      */
     @FXML
-    protected void onRestartButtonClick() {
+    public void onRestartButtonClick() {
         try {
             Stage primaryStage = new Stage();
             // Load the FXML file. Obtain the root of the scene graph
@@ -89,7 +90,7 @@ public class GameOverController {
      * The button that quits the game
      */
     @FXML
-    private void onQuitGameButtonClick() {
+    public void onQuitGameButtonClick() {
         // Close the application
         Platform.exit();
     }
@@ -104,14 +105,4 @@ public class GameOverController {
         assert rootGameOver != null : "fx:id=\"rootGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
         assert textGameOver != null : "fx:id=\"textGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
     }
-
-
-
-    /*
-     Getter methods
-     */
-
-//    public VBox getRootGameOver() {
-//        return rootGameOver;
-//    }
 }
