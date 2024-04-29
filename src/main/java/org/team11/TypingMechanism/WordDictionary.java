@@ -49,7 +49,7 @@ public class WordDictionary {
 
     /**
      * Loads the first 100 lines from the dictionary file
-     * @retuns void
+     *
      */
 
     private void loadFileIntoMap(){
@@ -70,7 +70,7 @@ public class WordDictionary {
 
     /**
      * Get words based on the level and the number of words needed
-     * @param level
+     * @param level to be played
      */
 
     public String getWord(int level){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
@@ -98,4 +98,5 @@ public class WordDictionary {
 
 
 }
+
 

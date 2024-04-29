@@ -62,5 +62,3 @@ public class GameMain extends Application{
     }
 }
 
-
-
