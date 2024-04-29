@@ -183,10 +183,10 @@ public class KeyFrenzyGameController {
 // Layout for bottom pane
         HBox bottomPane = new HBox(20, healthBox, buttonBox);
         bottomPane.setAlignment(Pos.CENTER);
-        bottomPane.setPadding(new Insets(20, 0, 20, 0)); // Padding bottom only
+        bottomPane.setPadding(new Insets(0, 0, 20, 0)); // Padding bottom only
         HBox gameInfo = new HBox(10, usernameLabel, leveLbl);
         gameInfo.setAlignment(Pos.CENTER);
-        gameInfo.setPadding(new Insets(0, 0, 20, 0)); // Padding bottom only
+        gameInfo.setPadding(new Insets(0, 0, 0, 0)); // Padding bottom only
 
 //Adding the text box to the game
         this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);

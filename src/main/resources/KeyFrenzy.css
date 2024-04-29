@@ -1,6 +1,6 @@
 .root {
     -fx-spacing: 10;
-    -fx-padding: 10;
+    -fx-padding: 0;
     -fx-alignment: center;
     -fx-pref-height: 600;
     -fx-pref-width: 800;
