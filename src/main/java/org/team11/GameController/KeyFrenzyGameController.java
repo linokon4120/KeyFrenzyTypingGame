@@ -51,46 +51,59 @@ import java.util.*;
 
 public class KeyFrenzyGameController {
 
-    /** A vertical box for the main view */
+    // A vertical box for the main view
     private VBox root;
-    /** Message Banner remains same for all level */
+
+    // Message Banner remains same for all level
     private Label labelMessageBanner;
 
-    /** Score label */
+    // Score label
     private Label currentScore;
 
-    /** Level number label */
+    // Level number label
     private Label leveLbl;
+
+    //The grid of the game
     private GridPane gamePane;
+
+    // A list of ghosts to be generated and animated
     private List<Ghost> ghosts;
+
+    //A hashmap that aids in animation, attaching words to the animation
     private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
+
+    //The text box where the user types the words
     private TextField userTypeBox;
+
+    //Words from the word dictionary
     private final WordDictionary wordDictionary;
+    //A random number
     private final Random rand;
+    // A timer that schedules the animation time
     private final Timer globalTimer;
 
-    /** Users desired nickname */
+    // Users desired nickname
     private final String userName;
 
-    /** Keeps track of the players' lives*/
+    // Keeps track of the players' lives
     private ProgressBar healthBar;
 
-    /** Number of lives */
+    // Number of lives
     private int lives;
 
-    /** Checks if the game is paused or not */
+    // Checks if the game is paused or not
     private boolean gamePaused = false;
 
-    /** The width of the game pane */
+    // The width of the game pane
     private double paneWidth;
 
-    /**The height of the game pane*/
+    // The height of the game pane
     private double paneHeight;
 
-    /**Variable to check the score*/
+    // Variable to check the score*/
     private int score;
 
-    /** Stores the level number */
+    // Stores the level number
     private int level;
 
 
@@ -158,30 +171,30 @@ public class KeyFrenzyGameController {
         Button stopButton = new Button("Stop Game");
         stopButton.getStyleClass().add("stop");
 
-// Add action handlers for the buttons
-// TODO for later: need to fix the pauseGame button
+        // Add action handlers for the buttons
+        // TODO for later: need to fix the pauseGame button
         pauseButton.setOnAction(event -> pauseGame());
         stopButton.setOnAction(event -> gameOver());
 
-// Create a health bar (progress bar) to display remaining health
+        // Create a health bar (progress bar) to display remaining health
         this.healthBar = new ProgressBar(1.0); // Full health initially
         this.healthBar.setPrefWidth(200); // Set preferred width
         this.healthBar.getStyleClass().add("health-bar");
         Label healthLabel = new Label("Health: ");
         healthLabel.getStyleClass().add("health-label");
 
-// Initialize lives counter
+        // Initialize lives counter
         this.lives = 3;
 
-// Layout for health bar and lives counter
+        // Layout for health bar and lives counter
         HBox healthBox = new HBox(10, healthLabel, healthBar);
         VBox.setMargin(healthBox, new Insets(10));
 
-// Layout for buttons
+        // Layout for buttons
         HBox buttonBox = new HBox(10, pauseButton, stopButton);
         buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
-// Layout for bottom pane
+        // Layout for bottom pane
         HBox bottomPane = new HBox(20, healthBox, buttonBox);
         bottomPane.setAlignment(Pos.CENTER);
         bottomPane.setPadding(new Insets(0, 0, 20, 0)); // Padding bottom only
@@ -189,7 +202,7 @@ public class KeyFrenzyGameController {
         gameInfo.setAlignment(Pos.CENTER);
         gameInfo.setPadding(new Insets(0, 0, 0, 0)); // Padding bottom only
 
-//Adding the text box to the game
+        //Adding the text box to the game
         this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
 //
 //        //Adding audio
@@ -259,7 +272,9 @@ public class KeyFrenzyGameController {
     }
 
 
-
+    /**
+     * Updates the level as the game is played
+     */
     private void updateLevel() {
 
         // change level after score reaches LEVEL_SCORE
@@ -279,6 +294,10 @@ public class KeyFrenzyGameController {
         }
     }
 
+    /**
+     *
+     * @param level, current main
+     */
     private void updateLevelLbl(int level){
         leveLbl.setText("Level: " + level);
         leveLbl.setFont(Font.font(18));
@@ -539,14 +558,25 @@ public class KeyFrenzyGameController {
     /*
     Getter method
      */
+
+    /**
+     * @return the root
+     */
     public VBox getRoot() {
         return root;
     }
 
+    /**
+     * Sets the game pane
+     * @param gamePane, the current game pane
+     */
     public void setGamePane(GridPane gamePane) {
         this.gamePane = gamePane;
     }
 
+    /**
+     * @return the gamePane
+     */
     public GridPane getGamePane() {
         return this.gamePane;
     }

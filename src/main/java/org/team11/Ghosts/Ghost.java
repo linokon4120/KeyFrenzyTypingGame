@@ -45,8 +45,10 @@ public class Ghost {
 
     //checks if the ghost is active in the game
     private boolean active;
+
     //graphical representation of the ghost
     private Pane node;
+
     //the time the ghost was created
     private long creationTime;
 

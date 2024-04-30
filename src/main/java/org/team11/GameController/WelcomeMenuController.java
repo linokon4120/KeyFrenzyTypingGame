@@ -23,13 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.util.ResourceBundle;
-import java.util.Objects;
 
 public class WelcomeMenuController {
-
-    @FXML
-    private ResourceBundle resources;
 
     @FXML
     public Button buttonStartGame;
@@ -68,6 +63,9 @@ public class WelcomeMenuController {
         }
     }
 
+    /**
+     * Initialises the start game button and text field username
+     */
     @FXML
     void initialize() {
         assert buttonStartGame != null : "fx:id=\"buttonStartGame\" was not injected: check your FXML file 'welcomeMenu.fxml'.";
@@ -75,10 +73,16 @@ public class WelcomeMenuController {
 
     }
 
+    /**
+     * @return the start game button
+     */
     public Button getButtonStartGame() {
         return buttonStartGame;
     }
 
+    /**
+     * @return the username text field
+     */
     public TextField getTextFieldUserName() {
         return textFieldUserName;
     }
