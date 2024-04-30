@@ -32,24 +32,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
-//import javafx.scene.Group;
-//import javafx.scene.media.Media;
-//import javafx.scene.
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.Ghosts.Ghost;
-import org.team11.TypingMechanism.WordDictionary;
 import org.team11.Ghosts.GhostAnimation;
-
+import org.team11.TypingMechanism.WordDictionary;
 import org.team11.TypingMechanism.WordsSetting;
 
-import javax.print.attribute.standard.Media;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -229,6 +225,9 @@ public class KeyFrenzyGameController {
         });
     }
 
+    /**
+     * Updates the level banner
+     */
     private void configureLevelBanner(){
         leveLbl = new Label();
         updateLevelLbl(level);
@@ -258,6 +257,7 @@ public class KeyFrenzyGameController {
             }
         }
     }
+
 
 
     private void updateLevel() {
