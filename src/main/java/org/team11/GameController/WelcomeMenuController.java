@@ -32,10 +32,10 @@ public class WelcomeMenuController {
     private ResourceBundle resources;
 
     @FXML
-    private Button buttonStartGame;
+    public Button buttonStartGame;
 
     @FXML
-    private TextField textFieldUserName;
+    public TextField textFieldUserName;
 
     /**
      * Once the user hits the Start Game button, we take them to the KeyFrenzyGameController
@@ -75,4 +75,11 @@ public class WelcomeMenuController {
 
     }
 
+    public Button getButtonStartGame() {
+        return buttonStartGame;
+    }
+
+    public TextField getTextFieldUserName() {
+        return textFieldUserName;
+    }
 }
