@@ -12,9 +12,12 @@
  * Package: org.team11.GameView
  * Class: KeyFrenzyGameController
  *
- * Description: This is the main view class
- * of the game, including every detail that will
- * show up on the screen once hit Run in the GameMain
+ * Description: This class serves as the main view controller for the Key Frenzy game,
+ *  managing all elements displayed on the screen during gameplay.
+ * It handles the generation and animation of ghosts carrying words for the player to type,
+ * tracks the player's score and health, and provides functionality for pausing and ending the game.
+ * Additionally, it initializes the scene graph for the game interface
+ * Dynamically updates elements such as the message banner and level indicator.
  *
  * **************************************
  */

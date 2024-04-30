@@ -12,10 +12,14 @@
  * Package: org.team11.GameController
  * Class: SceneSwitch
  *
- * Description:
+ * Description: A utility class designed to manage transitions between different scenes in a game.
+ *  It provides methods for switching to specific scenes, such as game over screens or main game screens,
+ * with customizable parameters like width, height, and title.
+ * This class enhances the game development process by simplifying scene management and improving code readability."
  *
  * **************************************
  */
+
 package org.team11.GameController;
 
 import javafx.fxml.FXMLLoader;

@@ -12,8 +12,7 @@
  * Package: org.team11.GameController
  * Class: GameOverController
  *
- * Description: This is the controller class
- * for the game over fxml
+ * Description: This is the controller class for the game over fxml
  *
  * **************************************
  */

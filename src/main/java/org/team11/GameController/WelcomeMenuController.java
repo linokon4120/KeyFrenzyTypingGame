@@ -13,9 +13,13 @@
  * Class: WelcomeMenuController
  *
  * Description:
- *
+ * This controller class manages user interactions on the Welcome Menu screen of the Key Frenzy Typing Game.
+ * It handles actions such as starting the game and retrieving the user's username from a text field.
+ * Upon clicking the Start Game button,
+ * it initiates the game and opens the main game screen while closing the current Welcome Menu window."
  * **************************************
  */
+
 package org.team11.GameController;
 
 import javafx.fxml.FXML;
