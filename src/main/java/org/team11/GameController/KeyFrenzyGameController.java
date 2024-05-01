@@ -144,15 +144,15 @@ public class KeyFrenzyGameController {
 
         // Create and configure the game pane
         gamePane = new GridPane();
-
+        paneWidth = 750;
+        paneHeight = 570;
 
         // Set minimum size for the gamePane
-        gamePane.setMinSize(800, 600); // Set minimum width
+        gamePane.setMinSize(paneWidth, paneHeight); // Set minimum width
 
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
-        paneWidth = 800;
-        paneHeight = 600;
+
         // Display the username and time used in the corner of the view
         Label usernameLabel = new Label("Username: " + userName);
         usernameLabel.getStyleClass().add("user-nickname");
@@ -253,7 +253,7 @@ public class KeyFrenzyGameController {
      * Handle the user input when prompted
      * @param userInput the String input from user
      */
-    private void handleUserInput(String userInput) {
+    public void handleUserInput(String userInput) {
 
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
@@ -278,7 +278,7 @@ public class KeyFrenzyGameController {
     /**
      * Updates the level as the game is played
      */
-    private void updateLevel() {
+    public void updateLevel() {
 
         // change level after score reaches LEVEL_SCORE
         int LEVEL_SCORE = 80;
@@ -301,7 +301,7 @@ public class KeyFrenzyGameController {
      *
      * @param level, current main
      */
-    private void updateLevelLbl(int level){
+    public void updateLevelLbl(int level){
         leveLbl.setText("Level: " + level);
         leveLbl.setFont(Font.font(18));
         leveLbl.getStyleClass().add("level-label");
@@ -455,7 +455,7 @@ public class KeyFrenzyGameController {
      * Updates the health
      */
 
-    private void updateHealthBar() {
+    public void updateHealthBar() {
         double healthPercentage = (double) lives / 3.0; // Assuming 3 lives in total
         healthBar.setProgress(healthPercentage);
 
@@ -582,5 +582,41 @@ public class KeyFrenzyGameController {
      */
     public GridPane getGamePane() {
         return this.gamePane;
+    }
+
+    public Label getLeveLbl() {
+        return leveLbl;
+    }
+
+    public TextField getUserTypeBox() {
+        return userTypeBox;
+    }
+
+    public ProgressBar getHealthBar() {
+        return healthBar;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public Label getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

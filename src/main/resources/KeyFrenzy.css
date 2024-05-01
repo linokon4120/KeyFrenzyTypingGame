@@ -52,8 +52,8 @@
 .ghost-circle {
     -fx-graphic: url("animation/ghost.gif");
     -fx-font-family: Futura; /* Set font family */
-    -fx-font-size: 12px; /* Set font size */
-    -fx-text-fill: #A3FFD6; /* Set text color */
+    -fx-font-size: 15px; /* Set font size */
+    -fx-text-fill: #fdf0d5; /* Set text color */
 }
 
 /* Style for the ghost labels */

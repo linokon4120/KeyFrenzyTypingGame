@@ -95,17 +95,14 @@ public class Ghost {
         dropShadow.setHeight(31);
         circle.setEffect(dropShadow);
 
-
         // Set background image using CSS
-        Image img = new Image("./animation/ghost1.gif");
+        Image img = new Image(getClass().getResourceAsStream("/animation/ghost1.gif"));
         circle.setFill(new ImagePattern(img));
-
-        circle.setStyle("-fx-graphic: url('./animation/ghost.gif')");
 
         // Create a label for the word
         Label label = new Label(word);
-        label.setFont(Font.font("Futura", 12));
-        label.setTextFill(Color.rgb(163, 255, 214));
+        label.setFont(Font.font("Futura", 15));
+        label.setTextFill(Color.web("#fdf0d5"));
         label.setEffect(dropShadow);
 
         // Position the label at the top of the circle
