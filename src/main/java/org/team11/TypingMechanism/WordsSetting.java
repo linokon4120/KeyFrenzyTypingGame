@@ -25,9 +25,9 @@ package org.team11.TypingMechanism;
 
 public class WordsSetting {
         /** The delay before a new ghost appear on the screen */
-        public final static int WORD_DELAY = 3500;
+        public final static int WORD_DELAY = 5000;
         /** The total time taken for a ghost to reach the main char */
-        public final static int WORD_DURATION = 7000;
+        public final static int WORD_DURATION = 10000;
         /** The total length of the game */
         public final static int GAME_LENGTH = 90000;
 }
