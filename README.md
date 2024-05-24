@@ -45,3 +45,7 @@ Welcome to our KeyFrenzy Game. it is a dynamic typing game using Java Fx to impr
 
 ## How to run it
 Simply run the GameMain file in the Game Controller package and enjoy the game!
+
+## Demo video
+Link to Bucknell Media Space:
+https://mediaspace.bucknell.edu/media/CSCI+Final+Proj+1/1_d1a646dh
