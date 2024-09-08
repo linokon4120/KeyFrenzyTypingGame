@@ -1,14 +1,9 @@
 /* *****************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: YOUR NAME: Rahul Sibal
- * Section: YOUR SECTION
- * Date: 4/9/24
- * Time: 4:24
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameView
  * Class: WordDictionary
  *
