@@ -26,19 +26,19 @@ import java.io.IOException;
 
 public class GameOverController {
 
-
+    // The box "Game Over"
     @FXML
     private VBox rootGameOver;
 
-    //Text that corresponds with the action: game over
+    // Text that corresponds with the action: game over
     @FXML
     private Text textGameOver;
 
-    //Play again button
+    // Play again button
     @FXML
     private Button buttonPlayAgain;
 
-    //Quit game button
+    // Quit game button
     @FXML
     private Button buttonQuitGame;
 
@@ -67,7 +67,6 @@ public class GameOverController {
             primaryStage.setScene(new Scene(root));
             primaryStage.sizeToScene();
             primaryStage.show();
-
 
             // Close the current (game over) stage
             Stage currentStage = (Stage) (buttonPlayAgain).getScene().getWindow();

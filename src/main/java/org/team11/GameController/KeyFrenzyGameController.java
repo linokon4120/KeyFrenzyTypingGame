@@ -8,7 +8,7 @@
  * Class: KeyFrenzyGameController
  *
  * Description: This class serves as the main view controller for the Key Frenzy game,
- *  managing all elements displayed on the screen during gameplay.
+ * managing all elements displayed on the screen during gameplay.
  * It handles the generation and animation of ghosts carrying words for the player to type,
  * tracks the player's score and health, and provides functionality for pausing and ending the game.
  * Additionally, it initializes the scene graph for the game interface
@@ -55,14 +55,29 @@ public class KeyFrenzyGameController {
     // Message Banner remains same for all level
     private Label labelMessageBanner;
 
+    //The grid of the game
+    private GridPane gamePane;
+
     // Score label
     private Label currentScore;
 
     // Level number label
     private Label leveLbl;
 
-    //The grid of the game
-    private GridPane gamePane;
+    // Variable to check the score
+    private int score;
+
+    // Stores the level number
+    private int level;
+
+    // Users desired nickname
+    private final String userName;
+
+    // Keeps track of the players' lives
+    private ProgressBar healthBar;
+
+    // Number of lives
+    private int lives;
 
     // A list of ghosts to be generated and animated
     private List<Ghost> ghosts;
@@ -75,19 +90,12 @@ public class KeyFrenzyGameController {
 
     //Words from the word dictionary
     private final WordDictionary wordDictionary;
+
     //A random number
     private final Random rand;
+
     // A timer that schedules the animation time
     private final Timer globalTimer;
-
-    // Users desired nickname
-    private final String userName;
-
-    // Keeps track of the players' lives
-    private ProgressBar healthBar;
-
-    // Number of lives
-    private int lives;
 
     // Checks if the game is paused or not
     private boolean gamePaused = false;
@@ -97,12 +105,6 @@ public class KeyFrenzyGameController {
 
     // The height of the game pane
     private double paneHeight;
-
-    // Variable to check the score*/
-    private int score;
-
-    // Stores the level number
-    private int level;
 
 
     /**

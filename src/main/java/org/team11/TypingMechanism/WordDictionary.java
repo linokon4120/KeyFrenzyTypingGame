@@ -25,10 +25,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * A class to read the dictionary input and get the word list based on level
+ */
 public class WordDictionary {
 
     private final Map<Integer, List<String>> wordsByLength = new HashMap<>();
-
     private final Set<String> currentWords;
     private final Random rand;
 
@@ -41,12 +43,9 @@ public class WordDictionary {
         currentWords = new HashSet<>();
     }
 
-
     /**
      * Loads the first 100 lines from the dictionary file
-     *
      */
-
     private void loadFileIntoMap(){
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/Dictionary"))) {
             String line;
@@ -60,14 +59,12 @@ public class WordDictionary {
             System.err.println("Error in loading the file");
             e.printStackTrace();
         }
-
     }
 
     /**
      * Get words based on the level and the number of words needed
      * @param level to be played
      */
-
     public String getWord(int level){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
 
         Integer key = level + 1; //because the first level starts with two letters
@@ -81,17 +78,13 @@ public class WordDictionary {
         }
         Collections.shuffle(words);
 
-
         String word;
         do {
             word = words.get(rand.nextInt(wordsByLength.size()));
         } while (currentWords.contains(word));
         currentWords.add(word);
         return word;
-
     }
-
-
 }
 
 
