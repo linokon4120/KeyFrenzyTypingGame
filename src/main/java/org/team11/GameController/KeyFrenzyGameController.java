@@ -465,7 +465,7 @@ public class KeyFrenzyGameController {
     /**
      * Pauses the game
      */
-    // Doesn't work well though
+    // Doesn't work as of right now
     private void pauseGame() {
         if (!gamePaused) {
             gamePaused = true;
