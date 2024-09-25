@@ -404,9 +404,7 @@ public class KeyFrenzyGameController {
             gamePane.getChildren().add(ghost2.getNode());
 
         });
-
         return ghostsOnScreen;
-
     }
 
     /**
@@ -451,7 +449,6 @@ public class KeyFrenzyGameController {
     /**
      * Updates the health
      */
-
     public void updateHealthBar() {
         double healthPercentage = (double) lives / 3.0; // Assuming 3 lives in total
         healthBar.setProgress(healthPercentage);
@@ -512,7 +509,6 @@ public class KeyFrenzyGameController {
     /**
      * Terminates the game
      */
-
     private void gameOver() {
         // Perform actions on the main thread
         Platform.runLater(() -> {
@@ -530,6 +526,7 @@ public class KeyFrenzyGameController {
 
                 Parent root = loader.load();
                 Stage primaryStage = new Stage();
+
                 // Set up the stage and show it
                 primaryStage.setTitle("Hello FXML!");
                 primaryStage.setScene(new Scene(root));
@@ -544,7 +541,6 @@ public class KeyFrenzyGameController {
                 throw new RuntimeException(e);
             }
         });
-
     }
 
     /**
@@ -554,10 +550,6 @@ public class KeyFrenzyGameController {
     public void destroy(Ghost ghost) {
         gamePane.getChildren().remove(ghost.getNode());
     }
-
-    /*
-    Getter method
-     */
 
     /**
      * @return the root
