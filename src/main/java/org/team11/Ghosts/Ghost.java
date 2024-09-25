@@ -1,14 +1,9 @@
 /* ***************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Ellyn Ngo
- * Section: 02
- * Date: 4/8/2024
- * Time: 3:07 PM
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameModel
  * Class: Ghost
  *
@@ -45,8 +40,10 @@ public class Ghost {
 
     //checks if the ghost is active in the game
     private boolean active;
+
     //graphical representation of the ghost
     private Pane node;
+
     //the time the ghost was created
     private long creationTime;
 
@@ -93,17 +90,14 @@ public class Ghost {
         dropShadow.setHeight(31);
         circle.setEffect(dropShadow);
 
-
         // Set background image using CSS
-        Image img = new Image("./animation/ghost1.gif");
+        Image img = new Image(getClass().getResourceAsStream("/animation/ghost1.gif"));
         circle.setFill(new ImagePattern(img));
-
-        circle.setStyle("-fx-graphic: url('./animation/ghost.gif')");
 
         // Create a label for the word
         Label label = new Label(word);
-        label.setFont(Font.font("Futura", 12));
-        label.setTextFill(Color.rgb(163, 255, 214));
+        label.setFont(Font.font("Futura", 15));
+        label.setTextFill(Color.web("#fdf0d5"));
         label.setEffect(dropShadow);
 
         // Position the label at the top of the circle

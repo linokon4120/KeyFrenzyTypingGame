@@ -41,12 +41,15 @@ javafx {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.mockito:mockito-core:4.2.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
+    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
 }
 
 application {
     mainModule = "csci205_final_project"
-    mainClassName = "org.team11.Main"
+    mainClassName = "org.team11.GameController.GameMain"
 
     if (project.hasProperty("mainClass")) {
         getMainClass().set(project.getProperty("mainClass"))

@@ -1,14 +1,9 @@
 /* ***************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Ellyn Ngo
- * Section: 02
- * Date: 4/8/2024
- * Time: 2:22 PM
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameView
  * Class: GameMain
  *
@@ -35,8 +30,6 @@ public class GameMain extends Application{
     @Override
     public void init() throws Exception {
         super.init();
-
-
     }
 
     /**
@@ -58,10 +51,6 @@ public class GameMain extends Application{
         primaryStage.setScene(new Scene(root));
         primaryStage.sizeToScene();
         primaryStage.show();
-
-
     }
 }
-
-
 

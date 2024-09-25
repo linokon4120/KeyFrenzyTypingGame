@@ -1,21 +1,20 @@
 /* ***************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Ellyn Ngo
- * Section: 02
- * Date: 4/16/2024
- * Time: 8:51 PM
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameController
  * Class: WelcomeMenuController
  *
  * Description:
- *
+ * This controller class manages user interactions on the Welcome Menu screen of the Key Frenzy Typing Game.
+ * It handles actions such as starting the game and retrieving the user's username from a text field.
+ * Upon clicking the Start Game button,
+ * it initiates the game and opens the main game screen while closing the current Welcome Menu window."
  * **************************************
  */
+
 package org.team11.GameController;
 
 import javafx.fxml.FXML;
@@ -24,18 +23,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.ResourceBundle;
-
 public class WelcomeMenuController {
 
     @FXML
-    private ResourceBundle resources;
+    public Button buttonStartGame;
 
     @FXML
-    private Button buttonStartGame;
-
-    @FXML
-    private TextField textFieldUserName;
+    public TextField textFieldUserName;
 
     /**
      * Once the user hits the Start Game button, we take them to the KeyFrenzyGameController
@@ -68,6 +62,9 @@ public class WelcomeMenuController {
         }
     }
 
+    /**
+     * Initialises the start game button and text field username
+     */
     @FXML
     void initialize() {
         assert buttonStartGame != null : "fx:id=\"buttonStartGame\" was not injected: check your FXML file 'welcomeMenu.fxml'.";
@@ -75,4 +72,17 @@ public class WelcomeMenuController {
 
     }
 
+    /**
+     * @return the start game button
+     */
+    public Button getButtonStartGame() {
+        return buttonStartGame;
+    }
+
+    /**
+     * @return the username text field
+     */
+    public TextField getTextFieldUserName() {
+        return textFieldUserName;
+    }
 }

@@ -1,20 +1,18 @@
 /* ***************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Ellyn Ngo
- * Section: 02
- * Date: 4/8/2024
- * Time: 2:35 PM
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameView
  * Class: KeyFrenzyGameController
  *
- * Description: This is the main view class
- * of the game, including every detail that will
- * show up on the screen once hit Run in the GameMain
+ * Description: This class serves as the main view controller for the Key Frenzy game,
+ * managing all elements displayed on the screen during gameplay.
+ * It handles the generation and animation of ghosts carrying words for the player to type,
+ * tracks the player's score and health, and provides functionality for pausing and ending the game.
+ * Additionally, it initializes the scene graph for the game interface
+ * Dynamically updates elements such as the message banner and level indicator.
  *
  * **************************************
  */
@@ -32,7 +30,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -40,9 +40,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.team11.Ghosts.Ghost;
-import org.team11.TypingMechanism.WordDictionary;
 import org.team11.Ghosts.GhostAnimation;
-
+import org.team11.TypingMechanism.WordDictionary;
 import org.team11.TypingMechanism.WordsSetting;
 
 import java.io.IOException;
@@ -50,47 +49,62 @@ import java.util.*;
 
 public class KeyFrenzyGameController {
 
-    /** A vertical box for the main view */
+    // A vertical box for the main view
     private VBox root;
-    /** Message Banner remains same for all level */
+
+    // Message Banner remains same for all level
     private Label labelMessageBanner;
 
-    /** Score label */
+    //The grid of the game
+    private GridPane gamePane;
+
+    // Score label
     private Label currentScore;
 
-    /** Level number label */
+    // Level number label
     private Label leveLbl;
-    private GridPane gamePane;
-    private List<Ghost> ghosts;
-    private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
-    private TextField userTypeBox;
-    private final WordDictionary wordDictionary;
-    private final Random rand;
-    private final Timer globalTimer;
 
-    /** Users desired nickname */
-    private final String userName;
-
-    /** Keeps track of the players' lives*/
-    private ProgressBar healthBar;
-
-    /** Number of lives */
-    private int lives;
-
-    /** Checks if the game is paused or not */
-    private boolean gamePaused = false;
-
-    /** The width of the game pane */
-    private double paneWidth;
-
-    /**The height of the game pane*/
-    private double paneHeight;
-
-    /**Variable to check the score*/
+    // Variable to check the score
     private int score;
 
-    /** Stores the level number */
+    // Stores the level number
     private int level;
+
+    // Users desired nickname
+    private final String userName;
+
+    // Keeps track of the players' lives
+    private ProgressBar healthBar;
+
+    // Number of lives
+    private int lives;
+
+    // A list of ghosts to be generated and animated
+    private List<Ghost> ghosts;
+
+    //A hashmap that aids in animation, attaching words to the animation
+    private final Map<String, GhostAnimation> wordTimers = new HashMap<>();
+
+    //The text box where the user types the words
+    private TextField userTypeBox;
+
+    //Words from the word dictionary
+    private final WordDictionary wordDictionary;
+
+    //A random number
+    private final Random rand;
+
+    // A timer that schedules the animation time
+    private final Timer globalTimer;
+
+    // Checks if the game is paused or not
+    private boolean gamePaused = false;
+
+    // The width of the game pane
+    private double paneWidth;
+
+    // The height of the game pane
+    private double paneHeight;
 
 
     /**
@@ -127,15 +141,15 @@ public class KeyFrenzyGameController {
 
         // Create and configure the game pane
         gamePane = new GridPane();
-
+        paneWidth = 750;
+        paneHeight = 570;
 
         // Set minimum size for the gamePane
-        gamePane.setMinSize(800, 600); // Set minimum width
+        gamePane.setMinSize(paneWidth, paneHeight); // Set minimum width
 
         this.gamePane.getStyleClass().add("game-pane"); // Apply CSS class to gamePane
 
-        paneWidth = 800;
-        paneHeight = 600;
+
         // Display the username and time used in the corner of the view
         Label usernameLabel = new Label("Username: " + userName);
         usernameLabel.getStyleClass().add("user-nickname");
@@ -157,39 +171,45 @@ public class KeyFrenzyGameController {
         Button stopButton = new Button("Stop Game");
         stopButton.getStyleClass().add("stop");
 
-// Add action handlers for the buttons
-// TODO for later: need to fix the pauseGame button
+        // Add action handlers for the buttons
+        // TODO for later: need to fix the pauseGame button
         pauseButton.setOnAction(event -> pauseGame());
         stopButton.setOnAction(event -> gameOver());
 
-// Create a health bar (progress bar) to display remaining health
+        // Create a health bar (progress bar) to display remaining health
         this.healthBar = new ProgressBar(1.0); // Full health initially
         this.healthBar.setPrefWidth(200); // Set preferred width
         this.healthBar.getStyleClass().add("health-bar");
         Label healthLabel = new Label("Health: ");
         healthLabel.getStyleClass().add("health-label");
 
-// Initialize lives counter
+        // Initialize lives counter
         this.lives = 3;
 
-// Layout for health bar and lives counter
+        // Layout for health bar and lives counter
         HBox healthBox = new HBox(10, healthLabel, healthBar);
         VBox.setMargin(healthBox, new Insets(10));
 
-// Layout for buttons
+        // Layout for buttons
         HBox buttonBox = new HBox(10, pauseButton, stopButton);
         buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
-// Layout for bottom pane
+        // Layout for bottom pane
         HBox bottomPane = new HBox(20, healthBox, buttonBox);
         bottomPane.setAlignment(Pos.CENTER);
-        bottomPane.setPadding(new Insets(20, 0, 20, 0)); // Padding bottom only
+        bottomPane.setPadding(new Insets(0, 0, 20, 0)); // Padding bottom only
         HBox gameInfo = new HBox(10, usernameLabel, leveLbl);
         gameInfo.setAlignment(Pos.CENTER);
-        gameInfo.setPadding(new Insets(0, 0, 20, 0)); // Padding bottom only
+        gameInfo.setPadding(new Insets(0, 0, 0, 0)); // Padding bottom only
 
-//Adding the text box to the game
+        //Adding the text box to the game
         this.root.getChildren().addAll(labelMessageBanner, currentScore, gameInfo, gamePane, userTypeBox, bottomPane);
+//
+//        //Adding audio
+//        Media media = new Media(new File("audio/chippy.mp3").toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setAutoPlay(true);
+//        }
     }
 
 
@@ -218,6 +238,9 @@ public class KeyFrenzyGameController {
         });
     }
 
+    /**
+     * Updates the level banner
+     */
     private void configureLevelBanner(){
         leveLbl = new Label();
         updateLevelLbl(level);
@@ -227,7 +250,7 @@ public class KeyFrenzyGameController {
      * Handle the user input when prompted
      * @param userInput the String input from user
      */
-    private void handleUserInput(String userInput) {
+    public void handleUserInput(String userInput) {
 
         Iterator<Ghost> iterator = ghosts.iterator();
         while (iterator.hasNext()) {
@@ -249,7 +272,10 @@ public class KeyFrenzyGameController {
     }
 
 
-    private void updateLevel() {
+    /**
+     * Updates the level as the game is played
+     */
+    public void updateLevel() {
 
         // change level after score reaches LEVEL_SCORE
         int LEVEL_SCORE = 80;
@@ -268,7 +294,11 @@ public class KeyFrenzyGameController {
         }
     }
 
-    private void updateLevelLbl(int level){
+    /**
+     *
+     * @param level, current main
+     */
+    public void updateLevelLbl(int level){
         leveLbl.setText("Level: " + level);
         leveLbl.setFont(Font.font(18));
         leveLbl.getStyleClass().add("level-label");
@@ -374,9 +404,7 @@ public class KeyFrenzyGameController {
             gamePane.getChildren().add(ghost2.getNode());
 
         });
-
         return ghostsOnScreen;
-
     }
 
     /**
@@ -421,8 +449,7 @@ public class KeyFrenzyGameController {
     /**
      * Updates the health
      */
-
-    private void updateHealthBar() {
+    public void updateHealthBar() {
         double healthPercentage = (double) lives / 3.0; // Assuming 3 lives in total
         healthBar.setProgress(healthPercentage);
 
@@ -435,7 +462,7 @@ public class KeyFrenzyGameController {
     /**
      * Pauses the game
      */
-    // Doesn't work well though
+    // Doesn't work as of right now
     private void pauseGame() {
         if (!gamePaused) {
             gamePaused = true;
@@ -482,7 +509,6 @@ public class KeyFrenzyGameController {
     /**
      * Terminates the game
      */
-
     private void gameOver() {
         // Perform actions on the main thread
         Platform.runLater(() -> {
@@ -500,6 +526,7 @@ public class KeyFrenzyGameController {
 
                 Parent root = loader.load();
                 Stage primaryStage = new Stage();
+
                 // Set up the stage and show it
                 primaryStage.setTitle("Hello FXML!");
                 primaryStage.setScene(new Scene(root));
@@ -514,7 +541,6 @@ public class KeyFrenzyGameController {
                 throw new RuntimeException(e);
             }
         });
-
     }
 
     /**
@@ -525,18 +551,61 @@ public class KeyFrenzyGameController {
         gamePane.getChildren().remove(ghost.getNode());
     }
 
-    /*
-    Getter method
+    /**
+     * @return the root
      */
     public VBox getRoot() {
         return root;
     }
 
+    /**
+     * Sets the game pane
+     * @param gamePane, the current game pane
+     */
     public void setGamePane(GridPane gamePane) {
         this.gamePane = gamePane;
     }
 
+    /**
+     * @return the gamePane
+     */
     public GridPane getGamePane() {
         return this.gamePane;
+    }
+
+    public Label getLeveLbl() {
+        return leveLbl;
+    }
+
+    public TextField getUserTypeBox() {
+        return userTypeBox;
+    }
+
+    public ProgressBar getHealthBar() {
+        return healthBar;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public Label getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

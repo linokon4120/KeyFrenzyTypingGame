@@ -1,3 +1,20 @@
+/* ***************************************
+ * CSCI 205 - Software Engineering and Design
+ * Spring 2024
+ * Instructor: Prof. Lily Romano / Prof. Joshua Stough
+ *
+ * Name: Ellyn Ngo
+ * Section: 02
+ * Date: 4/20/2024
+ * Time: 9:03 PM
+ *
+ * Project: csci205_final_project
+ * Package: org.team11.Ghost;
+ * Class: GhostTest
+ *
+ * Description: A test for the ghost class
+ * **************************************
+ */
 package org.team11.Ghosts;
 
 import org.junit.jupiter.api.AfterEach;

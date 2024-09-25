@@ -1,14 +1,9 @@
 /* ***************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: Ellyn Ngo
- * Section: 02
- * Date: 4/17/2024
- * Time: 2:50 PM
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.TypingMechanism
  * Class: GhostAnimation
  *
@@ -106,4 +101,5 @@ public class GhostAnimation {
     }
 
 }
+
 

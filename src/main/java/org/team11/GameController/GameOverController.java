@@ -1,18 +1,12 @@
 /* ***************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
- *
- * Name: Ellyn Ngo
- * Section: 02
- * Date: 4/16/2024
- * Time: 9:35 PM
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameController
  * Class: GameOverController
  *
- * Description:
+ * Description: This is the controller class for the game over fxml
  *
  * **************************************
  */
@@ -32,19 +26,19 @@ import java.io.IOException;
 
 public class GameOverController {
 
-
+    // The box "Game Over"
     @FXML
     private VBox rootGameOver;
 
-    //Text that corresponds with the action: game over
+    // Text that corresponds with the action: game over
     @FXML
     private Text textGameOver;
 
-    //Play again button
+    // Play again button
     @FXML
     private Button buttonPlayAgain;
 
-    //Quit game button
+    // Quit game button
     @FXML
     private Button buttonQuitGame;
 
@@ -60,7 +54,7 @@ public class GameOverController {
      * The restart button implementation
      */
     @FXML
-    protected void onRestartButtonClick() {
+    public void onRestartButtonClick() {
         try {
             Stage primaryStage = new Stage();
             // Load the FXML file. Obtain the root of the scene graph
@@ -73,7 +67,6 @@ public class GameOverController {
             primaryStage.setScene(new Scene(root));
             primaryStage.sizeToScene();
             primaryStage.show();
-
 
             // Close the current (game over) stage
             Stage currentStage = (Stage) (buttonPlayAgain).getScene().getWindow();
@@ -89,7 +82,7 @@ public class GameOverController {
      * The button that quits the game
      */
     @FXML
-    private void onQuitGameButtonClick() {
+    public void onQuitGameButtonClick() {
         // Close the application
         Platform.exit();
     }
@@ -103,41 +96,5 @@ public class GameOverController {
         assert buttonQuitGame != null : "fx:id=\"buttonQuitGame\" was not injected: check your FXML file 'gameOverView.fxml'.";
         assert rootGameOver != null : "fx:id=\"rootGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
         assert textGameOver != null : "fx:id=\"textGameOver\" was not injected: check your FXML file 'gameOverView.fxml'.";
-    }
-
-//    public void transferData(int score) {
-//        // Set the game to an instance variable
-//        this.dict = dict;
-//
-//        // Get the score from the game
-//        scoreText.setText("Score: " + score);
-//
-//        // Enable the "restart" button after 1 second
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Platform.runLater(() -> buttonPlayAgain.setDisable(false));
-//            }
-//        }, 1000);
-
-//    public void transferData(int score) {
-//
-//        // Get the score from the game
-//        scoreText.setText("Score: " + score);
-//
-//        // Enable the "restart" button after 1 second
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Platform.runLater(() -> buttonPlayAgain.setDisable(false));
-//            }
-//        }, 1000);
-//    }
-
-    /*
-     Getter methods
-     */
-    public VBox getRootGameOver() {
-        return rootGameOver;
     }
 }

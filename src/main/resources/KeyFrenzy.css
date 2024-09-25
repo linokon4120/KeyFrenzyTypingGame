@@ -1,6 +1,6 @@
 .root {
     -fx-spacing: 10;
-    -fx-padding: 10;
+    -fx-padding: 0;
     -fx-alignment: center;
     -fx-pref-height: 600;
     -fx-pref-width: 800;
@@ -23,28 +23,28 @@
 }
 .current-score {
     -fx-font-size: 31;
-    -fx-font-weight: bold;
+    /*-fx-font-weight: bold;*/
     -fx-text-fill: #A3FFD6;
     -fx-font-family: Valorax;
 }
 
 .time-spent {
     -fx-font-size: 13;
-    -fx-font-weight: medium;
+    /*-fx-font-weight: medium;*/
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
 }
 
 .user-nickname {
     -fx-font-size: 15;
-    -fx-font-weight: medium;
+    /*-fx-font-weight: medium;*/
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
 }
 
 .instruct-banner {
     -fx-font-size: 20;
-    -fx-font-weight: medium;
+    /*-fx-font-weight: medium;*/
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
 }
@@ -52,8 +52,8 @@
 .ghost-circle {
     -fx-graphic: url("animation/ghost.gif");
     -fx-font-family: Futura; /* Set font family */
-    -fx-font-size: 12px; /* Set font size */
-    -fx-text-fill: #A3FFD6; /* Set text color */
+    -fx-font-size: 15px; /* Set font size */
+    -fx-text-fill: #fdf0d5; /* Set text color */
 }
 
 /* Style for the ghost labels */
@@ -63,7 +63,7 @@
 
 .remaining-lives {
     -fx-font-size: 13;
-    -fx-font-weight: medium;
+    /*-fx-font-weight: medium;*/
     -fx-text-fill: #ffffff;
     -fx-font-family: Futura;
 }

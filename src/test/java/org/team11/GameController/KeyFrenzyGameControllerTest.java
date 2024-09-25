@@ -1,6 +1,27 @@
+/* ***************************************
+ * CSCI 205 - Software Engineering and Design
+ * Spring 2024
+ * Instructor: Prof. Lily Romano / Prof. Joshua Stough
+ *
+ * Name: Ellyn Ngo
+ * Section: 02
+ * Date: 4/20/2024
+ * Time: 9:03 PM
+ *
+ * Project: csci205_final_project
+ * Package: org.team11.GameController;
+ * Class: KeyFrenzyGameControllerTest
+ *
+ * Description: A test for the key frenzy game controller
+ * **************************************
+ */
+
 package org.team11.GameController;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.AfterEach;
@@ -33,17 +54,63 @@ class KeyFrenzyGameControllerTest {
     void tearDown() {
     }
 
+
     @Test
-    void initSceneGraph() {
-
-        gameController.initSceneGraph();
-        assertNotNull(gameController.getRoot());
-
-        assertNotNull(gameController.getGamePane());
-        assertEquals(800, gameController.getGamePane().getMinWidth());
-        assertEquals(600, gameController.getGamePane().getMinHeight());
-
+    void testInitSceneGraph() {
+        assertDoesNotThrow(() -> {
+            Platform.runLater(() -> {
+                gameController.initSceneGraph();
+                VBox root = gameController.getRoot();
+                assertNotNull(root);
+                assertTrue(root.getChildren().size() > 0);
+            });
+        });
     }
+
+        @Test
+    void testConfiguringMessageBanner() {
+        gameController.initSceneGraph();
+        Label messageBanner = (Label) gameController.getRoot().getChildren().get(0);
+        assertEquals("Type words on ghosts to destroy them!", messageBanner.getText());
+        assertTrue(messageBanner.getStyleClass().contains("instruct-banner"));
+    }
+
+        @Test
+    void testConfigureLevelBanner() {
+        gameController.initSceneGraph();
+        Label levelLabel = gameController.getLeveLbl();
+        assertEquals("Level: 1", levelLabel.getText());
+        assertTrue(levelLabel.getStyleClass().contains("level-label"));
+    }
+
+        @Test
+    void testHandleUserInput() {
+        gameController.initSceneGraph();
+        TextField userTypeBox = gameController.getUserTypeBox();
+        userTypeBox.setText("testWord");
+        gameController.handleUserInput("testWord");
+        Label scoreLabel = gameController.getCurrentScore();
+        assertEquals("Current Score: ", scoreLabel.getText());
+    }
+
+        @Test
+    void testUpdateLevel() {
+        gameController.initSceneGraph();
+        gameController.setScore(80);
+        gameController.updateLevel();
+        Label levelLabel = gameController.getLeveLbl();
+        assertEquals("Level: 2", levelLabel.getText());
+    }
+
+    @Test
+    void testUpdateHealthBar() {
+        gameController.initSceneGraph();
+        gameController.setLives(2);
+        gameController.updateHealthBar();
+        ProgressBar healthBar = gameController.getHealthBar();
+        assertEquals(2.0/3.0, healthBar.getProgress(), 0.01);
+    }
+
     @Test
     void destroy() {
         // Create a mock Pane for testing

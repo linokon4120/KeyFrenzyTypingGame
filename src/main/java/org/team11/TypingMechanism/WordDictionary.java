@@ -1,14 +1,9 @@
 /* *****************************************
- * CSCI 205 - Software Engineering and Design
- * Spring 2024
- * Instructor: Prof. Lily Romano / Prof. Joshua Stough
  *
- * Name: YOUR NAME: Rahul Sibal
- * Section: YOUR SECTION
- * Date: 4/9/24
- * Time: 4:24
- *
- * Project: csci205_final_project
+ * Scrum Master: Ellyn Ngo
+ * Product Owner: Hannah Tran
+ * Developer: Holiness Kerandi, Rahul Sibal
+ * Project: Key Frenzy
  * Package: org.team11.GameView
  * Class: WordDictionary
  *
@@ -30,10 +25,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * A class to read the dictionary input and get the word list based on level
+ */
 public class WordDictionary {
 
     private final Map<Integer, List<String>> wordsByLength = new HashMap<>();
-
     private final Set<String> currentWords;
     private final Random rand;
 
@@ -46,12 +43,9 @@ public class WordDictionary {
         currentWords = new HashSet<>();
     }
 
-
     /**
      * Loads the first 100 lines from the dictionary file
-     * @retuns void
      */
-
     private void loadFileIntoMap(){
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/Dictionary"))) {
             String line;
@@ -65,14 +59,12 @@ public class WordDictionary {
             System.err.println("Error in loading the file");
             e.printStackTrace();
         }
-
     }
 
     /**
      * Get words based on the level and the number of words needed
-     * @param level
+     * @param level to be played
      */
-
     public String getWord(int level){ //assume level keeps increasing everytime getWords is called and only 16 words are returned
 
         Integer key = level + 1; //because the first level starts with two letters
@@ -86,16 +78,13 @@ public class WordDictionary {
         }
         Collections.shuffle(words);
 
-
         String word;
         do {
             word = words.get(rand.nextInt(wordsByLength.size()));
         } while (currentWords.contains(word));
         currentWords.add(word);
         return word;
-
     }
-
-
 }
+
 
