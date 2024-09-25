@@ -1,9 +1,7 @@
-# CSCI 205 - Software Engineering and Design
-Bucknell University
-Lewisburg, PA
-### Course Info
-Instructor: Lily Romano, Joshua Stough
-Semester: Spring 2024
+# Key Frenzy Desktop Game Application
+Start date: April 16, 2024
+Location: Lewisburg, PA
+
 ## Team Information
 >1. Scrum Master: Ellyn Ngo - Sophomore - Business Analytics and Computer Science
 >2. Developer: Rahul - Sophomore - Computer Science Major; Economics Minor
