@@ -10,7 +10,7 @@ Location: Lewisburg, PA
 
 
 ## Project Information
-In this project, we created an arcade game application called KeyFrenzy, with the main objective of helping the user increase typing speed, responsiveness and accuracy in the English language as they proceed within the game. 
+In this project, we created a typing game called KeyFrenzy, with the main objective of helping the user increase typing speed, responsiveness and accuracy in the English language as they proceed within the game. 
 
 The main task of the player is to defend the main objective (main character) from being attacked by another objective (the ghost). To do so, the player must input a string of characters that is of the English language that matches the one prompted on top of the attacking objective, and if the string is inputted before the attacking objective reaches the defended objective, the attacker shall be eliminated. The movement of the attackers is characterised by the x-y axis with the defended objective located at the intersection of both axes. The player would be given a set of chances called “lives” to attempt to defend the main character from being attacked. The specifics of the game is to be determined as it is being developed and tested, including final graphics, character appearances and behaviour, and player-related numerical technicalities.
 
@@ -20,7 +20,7 @@ The game would have multiple levels, with every level going up the complexity of
 *Write a few sentences about your project. This can be done later, as you
 may not quite know all the details yet.*
 
-Welcome to our KeyFrenzy Game. it is a dynamic typing game using Java Fx to improve typing skills and reaction time as well.
+Welcome to our KeyFrenzy Game. it is a dynamic typing game using JavaFX to improve users' typing skills and reaction time.
 * The game's core revolves around a player typing words correctly to "destroy" on-screen ghosts, each labeled with words that appear randomly and increase in difficulty as the player advances through levels. 
 * The gameplay environment is set up using a GridPane within a VBox layout, where animated ghosts traverse the screen, challenging the player to type the associated words before the ghosts reach the center of the screen. 
 * Ghost movements and interactions are managed by an AnimationTimer and PathTransition, ensuring smooth and responsive gameplay. The game's architecture follows the MVC (Model-View-Controller) pattern, with the KeyFrenzyGame Contoller class and ghost animation  class handling the UI components and user interactions, while game logic and state are managed in separate controller and model classes. 
@@ -46,5 +46,5 @@ Welcome to our KeyFrenzy Game. it is a dynamic typing game using Java Fx to impr
 Simply run the GameMain file in the Game Controller package and enjoy the game!
 
 ## Demo video
-Link to Bucknell Media Space:
+Link to Media Space:
 https://mediaspace.bucknell.edu/media/CSCI+Final+Proj+1/1_d1a646dh
